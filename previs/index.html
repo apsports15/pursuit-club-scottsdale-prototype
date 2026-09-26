@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="locked">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -28,147 +28,110 @@
   <button type="button" class="rv__btn" id="rv-next" aria-label="Next beat">›</button>
   <button type="button" class="rv__btn rv__lbl" id="rv-labels" aria-pressed="true">Labels</button>
 </div>
-<p class="desk-note" aria-hidden="true">Footage previs · mobile canvas<br>Desktop adaptation not built yet</p>
+<p class="desk-note" aria-hidden="true">Footage previs · phone canvas<br>Scroll, swipe or ↓ ↑ to step</p>
 <div class="grain" aria-hidden="true"></div>
-<i class="thread" id="thread" aria-hidden="true"></i>
 
 <main>
+<section class="film" id="film" aria-label="Club Scottsdale">
+  <div class="stage" id="stage">
 
-  <!-- 01 ENTER + 02 ARRIVAL -->
-  <section class="reel" id="ra">
-    <div class="stage">
-      <div class="sheen" aria-hidden="true"></div>
-      <div class="m win" id="a26" data-src="v26" data-shot="26" data-scrub></div>
-      <div class="m" id="a12" data-src="v12" data-shot="12"></div>
-      <div class="m" id="a13" data-src="v13" data-shot="13"></div>
-      <div class="scrim scrim--sky" id="a-scrim"></div>
-
-      <div class="intro">
-        <div class="intro__in">
-          <div class="chapter"><i class="chapter__rule"></i><span class="chapter__num">05</span><i class="chapter__rule"></i></div>
-          <p class="micro chapter__name">The Ecosystem</p>
-          <h1 class="display intro__title"><span class="line"><span class="li">The world</span></span><span class="line"><span class="li">around <em>Pursuit</em></span></span></h1>
-        </div>
-      </div>
-      <div class="seam" aria-hidden="true"><i class="seam__draw"></i></div>
-      <div class="cue"><span class="micro">Scroll to enter</span></div>
-
+    <!-- 01 ARRIVAL -->
+    <div class="scene" id="sA">
+      <div class="m win" id="a13" data-src="v13" data-shot="13" data-op="40% 50%"></div>
+      <div class="scrim scrim--foot" id="a-scrim"></div>
+      <i class="seam" id="a-seam" aria-hidden="true"></i>
       <div class="reveal">
-        <p class="micro kicker">Beyond the program.</p>
-        <h2 class="display reveal__title"><span class="line"><span class="li">Club</span></span><span class="line"><span class="li">Scottsdale</span></span></h2>
+        <p class="micro kicker">Beyond the program · Club Scottsdale</p>
+        <h1 class="display reveal__title"><span class="line"><span class="li">The world</span></span><span class="line"><span class="li">around <em>Pursuit</em></span></span></h1>
       </div>
-      <p class="cap" id="a-cap">Arrival</p>
+      <div class="cue" aria-hidden="true"><span class="micro">Scroll</span><i></i></div>
     </div>
-  </section>
-  <div id="ra-spacer" aria-hidden="true"></div>
 
-  <!-- 03 INSIDE THE CLUB -->
-  <section class="reel reel--over" id="rb">
-    <div class="stage">
-      <div class="m" id="b42" data-src="s42" data-shot="42 · still" data-op="60% 50%"></div>
-      <div class="m win px" id="b34" data-src="v34" data-shot="34" data-op="55% 40%"></div>
-      <div class="m win px" id="bp3" data-src="p3" data-shot="P3 · still" data-op="28% 55%"></div>
-      <i class="b-div" id="b-div"></i>
-      <p class="cap" id="b-cap">Inside the club</p>
-      <p class="cap cap--mid b-pcap" id="b-pcap1">The club</p>
-      <p class="cap b-pcap" id="b-pcap2">The lounge</p>
-      <p class="cap" id="b-cap2">The lounge</p>
-    </div>
-  </section>
-
-  <!-- 04 THE COLLECTION -->
-  <section class="reel" id="rc">
-    <div class="stage">
-      <div class="m" id="c27" data-src="v27" data-shot="27–28"></div>
-      <div class="m" id="c31" data-src="v31" data-shot="31 · background"></div>
+    <!-- 02 THE COLLECTION -->
+    <div class="scene" id="sC">
+      <div class="m" id="c27" data-src="v27" data-shot="27 · cropped" data-crop="0 .12 .78 1" data-op="42% 50%"></div>
+      <div class="m" id="c31" data-src="v31" data-shot="31 · cropped" data-crop="0 0 .79 1" data-op="40% 60%"></div>
       <div class="scrim scrim--dim" id="c-dim"></div>
       <div class="ctitle">
-        <p class="micro">04 · Amenities</p>
+        <p class="micro">02 · On the lot</p>
         <h2 class="display">The collection.</h2>
       </div>
-      <figure class="card" data-shot="47"><div class="m px" data-src="v47" data-shot="47"></div><figcaption class="cap card__cap">The detail</figcaption></figure>
-      <figure class="card" data-shot="23"><div class="m px" data-src="v23" data-shot="23"></div><figcaption class="cap card__cap">The simulators</figcaption></figure>
-      <figure class="card" data-shot="15"><div class="m px" data-src="v15" data-shot="15"></div><figcaption class="cap card__cap">The arrival</figcaption></figure>
+      <figure class="card"><div class="m px" data-src="am14" data-shot="Amenities 14" data-op="50% 55%"></div><figcaption class="cap card__cap">The detail</figcaption></figure>
+      <figure class="card"><div class="m px" data-src="am09" data-shot="Amenities 09" data-op="42% 55%"></div><figcaption class="cap card__cap">Under the hex lights</figcaption></figure>
     </div>
-  </section>
 
-  <!-- 05 EXPERIENCES -->
-  <section class="reel" id="rd">
-    <div class="stage">
-      <h2 class="display dline">
-        <span class="line"><span class="li">The world gets</span></span>
-        <span class="line"><span class="li">bigger <em>when</em></span></span>
-        <span class="line"><span class="li"><em>your circle does.</em></span></span>
-      </h2>
-      <div class="zframe" id="dzf"><div class="m" data-src="v32" data-shot="32"></div></div>
-      <div class="m" id="d43" data-src="s43" data-shot="43 · still"></div>
-      <div class="m" id="d48" data-src="v48" data-shot="48"></div>
-      <div class="m" id="d44" data-src="v44" data-shot="44"></div>
-      <div class="m" id="d49" data-src="v49" data-shot="49"></div>
-      <div class="m" id="d45" data-src="v45" data-shot="45"></div>
-      <div class="m" id="d1" data-src="s1" data-shot="1 · still" data-op="45% 50%"></div>
-      <p class="cap" id="d-cap">Experiences</p>
+    <!-- 03 INSIDE THE CLUB -->
+    <div class="scene scene--over" id="sB">
+      <div class="m" id="b02" data-src="am02" data-shot="Amenities 02" data-op="40% 50%"></div>
+      <div class="m win px" id="b05" data-src="am05" data-shot="Amenities 05" data-op="50% 40%"></div>
+      <div class="m win px" id="b12" data-src="am12" data-shot="Amenities 12" data-op="58% 55%"></div>
+      <i class="b-div" id="b-div"></i>
+      <p class="cap" id="b-cap">Inside the club</p>
+      <p class="cap cap--mid b-pcap">The floor</p>
+      <p class="cap b-pcap">The lounge</p>
+      <p class="cap" id="b-cap2">The lounge</p>
     </div>
-  </section>
 
-  <!-- 06 PEOPLE + ACCESS -->
-  <section class="reel" id="re">
-    <div class="stage">
+    <!-- 04 AMENITIES -->
+    <div class="scene" id="sD">
+      <div class="m clip-diag" id="d23" data-src="v23" data-shot="23 · cropped" data-crop="0 0 .85 .86" data-op="40% 45%"></div>
+      <div class="m" id="d13" data-src="am13" data-shot="Amenities 13" data-op="55% 55%"></div>
+      <div class="m" id="d08" data-src="am08" data-shot="Amenities 08" data-op="55% 50%"></div>
+      <div class="m" id="d10" data-src="am10" data-shot="Amenities 10" data-op="40% 50%"></div>
+      <div class="m" id="d15" data-src="am15" data-shot="Amenities 15" data-op="50% 55%"></div>
+      <div class="scrim scrim--foot" id="d-scrim"></div>
+      <p class="micro stop-l" id="d-top">04 · What members do here</p>
+      <ol class="idx" id="d-idx"><li>01</li><li>02</li><li>03</li><li>04</li><li>05</li></ol>
+      <div class="cat dcat"><h3 class="display cword" data-split>Race</h3><p class="cdesc"><span>Sim rigs under the hex lights.</span></p></div>
+      <div class="cat dcat"><h3 class="display cword" data-split>Play</h3><p class="cdesc"><span>A card room off the lounge.</span></p></div>
+      <div class="cat dcat"><h3 class="display cword" data-split>Groom</h3><p class="cdesc"><span>A barber chair on site.</span></p></div>
+      <div class="cat dcat"><h3 class="display cword" data-split>Unwind</h3><p class="cdesc"><span>The terrace at sunset.</span></p></div>
+      <div class="cat dcat"><h3 class="display cword" data-split>Host</h3><p class="cdesc"><span>Catering for events in the club.</span></p></div>
+    </div>
+
+    <!-- 05 PEOPLE + ACCESS -->
+    <div class="scene" id="sE">
       <h2 class="display eline">
         <span class="line"><span class="li">The right room</span></span>
         <span class="line"><span class="li">changes the</span></span>
         <span class="line"><span class="li"><em>conversation.</em></span></span>
       </h2>
-      <div class="m" id="ep1" data-src="p1" data-shot="P1 · still (pinned)" data-op="24% 50%"></div>
+      <div class="m" id="ep1" data-src="p1" data-shot="P1 · still" data-op="24% 50%"></div>
       <div class="scrim scrim--top" id="ep1-scrim"></div>
-      <p class="micro etop" id="ep1-cap">In the room</p>
-      <div class="m win px" id="e37" data-src="v37" data-shot="37"></div>
-      <div class="m win px" id="e40" data-src="v40" data-shot="40"></div>
-      <div class="m win px" id="e11" data-src="v11" data-shot="11"></div>
-      <div class="m win px" id="e5" data-src="v5" data-shot="5"></div>
+      <p class="micro stop-l" id="ep1-cap">In the room</p>
+      <div class="m win px" id="e43" data-src="s43" data-shot="43 · cropped" data-crop="0 0 .69 1" data-op="40% 50%"></div>
+      <div class="m win" id="e37" data-src="v37" data-shot="37 · cropped" data-crop="0 .31 1 1" data-op="67% 50%"></div>
+      <div class="m win px" id="e40" data-src="v40" data-shot="40 · cropped" data-crop="0 0 .69 1" data-op="45% 50%"></div>
+      <p class="cap ecap" id="e43-cap">Events</p>
       <p class="cap ecap" id="e37-cap">Networking</p>
       <p class="cap ecap" id="e40-cap">Mentorship</p>
-      <p class="cap ecap" id="e11-cap">Speakers</p>
-      <p class="cap ecap" id="e5-cap">Community</p>
     </div>
-  </section>
 
-  <!-- 07 THE ECOSYSTEM -->
-  <section class="reel" id="rf">
-    <div class="stage">
+    <!-- 06 THE ECOSYSTEM -->
+    <div class="scene" id="sF">
       <div class="fframe win" id="ff">
-        <div class="m" id="f0" data-src="v54" data-shot="54"></div>
-        <div class="m" id="f1" data-src="v29" data-shot="29" data-op="50% 72%"></div>
-        <div class="m" id="f2a" data-src="v28" data-shot="28"></div>
-        <div class="m" id="f2b" data-src="v47" data-shot="47"></div>
-        <div class="m" id="f2c" data-src="v48" data-shot="48"></div>
-        <div class="m" id="f3" data-src="v25" data-shot="25"></div>
-        <div class="m" id="f4" data-src="v64" data-shot="64" data-op="50% 45%"></div>
+        <div class="m" id="f16" data-src="am16" data-shot="Amenities 16" data-op="50% 55%"></div>
+        <div class="m" id="f03" data-src="am03" data-shot="Amenities 03" data-op="52% 55%"></div>
+        <div class="m" id="f36" data-src="r0136" data-shot="Reel 1:36 · cropped" data-crop="0 0 .70 1" data-op="46% 55%"></div>
       </div>
-      <p class="micro ftop">The Ecosystem</p>
-      <ol class="fidx"><li>01</li><li>02</li><li>03</li><li>04</li><li>05</li></ol>
-      <div class="fcat"><p class="micro fnum">01 / 05</p><h3 class="display fword" data-split>Network</h3><p class="fdesc"><span>Founders.</span> <span>Operators.</span> <span>Mentors.</span> <span>Relationships.</span></p></div>
-      <div class="fcat"><p class="micro fnum">02 / 05</p><h3 class="display fword" data-split>Media</h3><p class="fdesc"><span>Videographers.</span> <span>Content.</span> <span>Brand resources.</span></p></div>
-      <div class="fcat"><p class="micro fnum">03 / 05</p><h3 class="display fword" data-split>Experiences</h3><p class="fdesc"><span>Travel.</span> <span>Events.</span> <span>Cars.</span> <span>Aviation.</span></p></div>
-      <div class="fcat"><p class="micro fnum">04 / 05</p><h3 class="display fword" data-split>Environment</h3><p class="fdesc"><span>A place designed around</span> <span>proximity and ambition.</span></p></div>
-      <div class="fcat"><p class="micro fnum">05 / 05</p><h3 class="display fword" data-split>Opportunity</h3><p class="fdesc"><span>Access to conversations and possibilities</span> <span>outside your immediate circle.</span></p></div>
+      <p class="micro stop-l" id="f-top">The Ecosystem</p>
+      <ol class="idx" id="f-idx"><li>01</li><li>02</li><li>03</li></ol>
+      <div class="cat fcat"><p class="micro cnum">01 / 03</p><h3 class="display cword" data-split>Workspace</h3><p class="cdesc"><span>Desks and meeting space</span> <span>for the work itself.</span></p></div>
+      <div class="cat fcat"><p class="micro cnum">02 / 03</p><h3 class="display cword" data-split>Media</h3><p class="cdesc"><span>A podcast studio for building</span> <span>your voice and your brand.</span></p></div>
+      <div class="cat fcat"><p class="micro cnum">03 / 03</p><h3 class="display cword" data-split>Mentorship</h3><p class="cdesc"><span>Working sessions with operators</span> <span>who have built it.</span></p></div>
     </div>
-  </section>
 
-  <!-- 08 THE POINT -->
-  <section class="reel" id="rg">
-    <div class="stage">
+    <!-- 07 THE POINT -->
+    <div class="scene scene--clear" id="sG">
       <div class="point">
         <p class="display pa"><span class="w">Pursuit</span> <span class="w">builds</span> <span class="w">the</span> <span class="w">skills</span> <span class="w">and</span> <span class="w">capital.</span></p>
         <p class="display pb"><span class="w">The</span> <span class="w">ecosystem</span> <span class="w"><em>expands</em></span> <span class="w">what</span> <span class="w">you</span> <span class="w">can</span> <span class="w">do</span> <span class="w">with</span> <span class="w">them.</span></p>
         <p class="micro coda">Your environment changes what feels possible.</p>
       </div>
     </div>
-  </section>
 
-  <!-- 09 RETURN TO PURSUIT -->
-  <section class="reel" id="rh">
-    <div class="stage">
+    <!-- 08 RETURN TO PURSUIT -->
+    <div class="scene scene--clear" id="sH">
       <div class="phead">
         <div class="chapter"><i class="chapter__rule"></i><span class="micro">The Pursuit Path</span><i class="chapter__rule"></i></div>
         <h2 class="display">Three phases. <em>One Pursuit.</em></h2>
@@ -185,17 +148,20 @@
         <div class="phase ph3"><i class="node"></i><div class="phase__top"><span class="phase__num">03</span><h3 class="phase__name">Own</h3></div><p class="phase__desc">Use skills, capital and relationships to create ownership opportunities.</p></div>
       </div>
     </div>
-  </section>
 
-  <!-- CTA: native scroll -->
-  <section class="cta" id="cta">
-    <div class="cta__in">
-      <i class="cta__line"></i>
-      <h2 class="display cta__title"><span class="line"><span class="li">Your Pursuit</span></span><span class="line"><span class="li">starts here.</span></span></h2>
-      <p class="micro cta__sub">Sell. Build. Own.</p>
-      <button type="button" class="btn-pill" id="apply"><span class="btn-pill__txt">Apply to Pursuit</span><span aria-hidden="true">→</span></button>
+    <!-- CTA -->
+    <div class="scene scene--clear" id="sI">
+      <div class="cta__in">
+        <i class="cta__line"></i>
+        <h2 class="display cta__title"><span class="line"><span class="li">Your Pursuit</span></span><span class="line"><span class="li">starts here.</span></span></h2>
+        <p class="micro cta__sub">Sell. Build. Own.</p>
+        <button type="button" class="btn-pill" id="apply"><span class="btn-pill__txt">Apply to Pursuit</span><span aria-hidden="true">→</span></button>
+      </div>
     </div>
-  </section>
+
+    <i class="thread" id="thread" aria-hidden="true"></i>
+  </div>
+</section>
 </main>
 
 <footer class="foot">
@@ -205,8 +171,6 @@
 </footer>
 
 <script src="vendor/gsap.min.js"></script>
-<script src="vendor/ScrollTrigger.min.js"></script>
-<script src="vendor/lenis.min.js"></script>
 <script src="js/previs.js"></script>
 </body>
 </html>
