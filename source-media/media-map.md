@@ -1,115 +1,111 @@
 # Club Scottsdale master footage — media map
 
-Source: `source-media/club-scottsdale-master.MOV` (immutable, not modified by this map).
+Source: `source-media/club-scottsdale-master.MOV`. Immutable: nothing in this repo
+writes to it. Every production asset is derived directly from it by
+`scripts/build_media.py` (one generation, never from another derivative).
 
-## File properties (verified with ffmpeg/ffprobe)
+SHA-256 `49c643c17cf2e66d1a764283515fc96459076e7101807712d00ef7c5ad29bb53`
+
+## File properties
 
 | | |
 |---|---|
-| Container | QuickTime `.MOV` (mov,mp4,m4a,3gp,3g2,mj2) |
-| Duration | 00:01:30.95 (90.95s) |
-| Video codec | HEVC (Main profile), yuv420p, bt709 |
-| Coded size | 1080×1920 (portrait) — one segment's content is native landscape, see Orientation below |
-| Frame rate | 30 fps (30 tbr) |
-| Video bitrate | ~7.77 Mbps |
-| Audio | AAC-LC, 44.1 kHz, stereo, ~122 kbps |
-| Overall bitrate | ~7.9 Mbps |
-| File size | 89,808,779 bytes (~85.6 MB) |
+| Container | QuickTime `.MOV` |
+| Duration | 00:01:30.95 (90.95 s) |
+| Video | HEVC Main, yuv420p, bt709, 1080×1920, 30 fps, ~7.8 Mbps |
+| Audio | AAC-LC, 44.1 kHz stereo (not used; every clip is muted) |
+| Size | 89,808,779 bytes |
 
-**Provenance note:** the container metadata carries `encoder: Lavf57.71.100`, `te_is_reencode: 1`, and a `DreaminaMetaInfo` tag (Dreamina is a third-party AI video tool). This means the file has passed through at least one re-encode/re-mux step rather than being an untouched camera original — it is not a raw phone/camera file. That said, I cross-checked its visual content frame-by-frame against the previously-analyzed selects reel and amenities recording: the people, cars, spaces and events all match, so the content itself is authentic footage from the same shoot, just re-encoded at some point. Flagging this so it's not assumed to be a byte-for-byte camera original.
+**Provenance.** The container carries `encoder: Lavf57.71.100`, `te_is_reencode: 1` and a
+`DreaminaMetaInfo` tag, so it has been re-encoded at least once and is not a camera
+original. Its content matches the earlier selects reel and amenities recording
+shot for shot, and it is cleaner than both: no Instagram handles, stickers or baked-in
+titles anywhere in the 91 seconds.
 
-**Quality vs. earlier sources:** this file is visibly cleaner than the "selects reel" used for the current previs build — no Instagram handle overlays, no music stickers, no baked-in titles were found in any sampled frame (~30 frames checked across the full duration). It is effectively the same tier of clean source as the amenities recording, but ~10x longer and covering both the cars/arrival content and the event/amenities content in one file.
+**Orientation.** No rotation metadata. Two stretches were shot with the phone sideways
+and need `transpose=2` (90° counter-clockwise), which turns them into true 1920×1080
+landscape: **5.97–9.23 s** and **81.47–83.93 s**. Everything else is upright portrait.
 
-## Orientation
+## Corrected scene map
 
-The container reports no rotation metadata (tkhd matrix is identity on both tracks) and no rotation side-data. Content is portrait (matches the coded 1080×1920) for the entire file **except**:
+Re-watched as moving footage at 2–4 fps (and frame by frame at the edges). The first
+pass was built from single mid-segment stills and got several sequences wrong;
+the biggest correction is the interior flight at 58.4–74.3 s, previously logged
+as a "dinner / mastermind sequence".
 
-- **5.97s–9.23s** (segment 4 below): shot with the phone held sideways (landscape content in the portrait-coded frame). Confirmed fix: `-vf transpose=2` (rotate 90° counter-clockwise) recovers correct upright 1920×1080 landscape framing. Verified by re-encoding a test clip and inspecting the output frame.
+| In–out (s) | What happens | Notes |
+|---|---|---|
+| 0.00–2.93 | Helicopter parked under the lit CLUB SCOTTSDALE sign, dusk. Locked-off. | Still: `helicopter` @ 0.60 |
+| 2.93–5.97 | White Huracán arrives: rolls past the hex-lit facade (2.93), pulls in under the sign (3.70), close along the door (4.47). | Three cuts |
+| 5.97–9.23 | Golden-hour lineup at the building, slow push: white Corvette, R8, orange McLaren. | **Sideways**, rotate. Still: `lineup` @ 6.55 |
+| 9.23–11.47 | Top-down drone over the branded tent and McLarens, rising to reveal the lot. | |
+| 11.47–15.83 | Podcast in the dark studio: two hosts, orange McLaren behind; then a guest in white. | |
+| 15.83–19.10 | Overhead glide down the row: Corvette, R8, McLaren, AMG, McLaren. | |
+| 19.10–20.73 | Overhead: a white 911, centred, hatched bay beside it. | Still: `overhead` @ 19.90 |
+| 20.73–24.30 | Elevated sweep: red Huracán, grey STO, white R8, white G-wagon, lupins in the foreground. | |
+| 24.30–25.50 | White GT3 RS under the sign, daylight. | |
+| 25.50–27.00 | Matte grey Huracán under the hex lights beside the Club Scottsdale neon. | Still: `matte` @ 26.55 |
+| 27.00–29.00 | Session: presenter at a screen, seated room, hex ceiling. | People |
+| 29.00–30.87 | Pickleball on the branded court, daylight. | |
+| 30.87–32.43 | Networking under the hex lights, suits (white suit, centre). | People |
+| 32.43–35.33 | LOUNGE session: speaker teaching a small seated group. | People |
+| 35.33–36.73 | Whiteboard session; a red cap blocks the foreground. | Not used |
+| 36.73–37.77 | Host with a mic in front of the neon. | |
+| 37.80–46.03 | Evening event: the matte Huracán from behind, crowd, greetings, handshakes, a hug, dinner tables laughing. | Many short cuts |
+| 46.03–49.17 | Dinner: speaker on the floor, long tables listening, guests laughing. | People |
+| 49.17–51.67 | The CS / CLUB SCOTTSDALE neon on black. Clean, native video. | Still: `neon` @ 50.58 |
+| 51.67–53.90 | Panel on white sofas, car footage on the screens behind. | People |
+| 53.90–55.67 | Two men in conversation, candid. | People |
+| 55.67–57.00 | Sim racing (F1 rig). | |
+| 57.00–58.37 | DJ in front of the Club CS Scottsdale neon. | |
+| **58.37–74.37** | **Continuous interior FPV flight during an evening event.** Follows guests through a doorway (58.4), glides through the lounge past the white sectionals and the neon (59.4), through a dark door frame (61.9), onto the event floor past the drinks fridge and the crowd in evening wear (62.3), over the matte Huracán (63.5–66.3), banks down the row of white cars under the yellow lifts (66.6–71), and ends low over the green AMG (71–74.3). | **Hero asset.** ~15.9 s |
+| 74.37–76.87 | Gimbal glide into the hex-lit studio lounge: curved white sofa, guests, screens. | |
+| 76.87–78.67 | Young attendees applauding, faces large. | People |
+| 78.67–80.27 | Speaker in navy walks a room of ~100 young attendees with a mic. | People |
+| 80.27–81.47 | Bearded speaker in a cap, mic, close. | |
+| 81.47–83.93 | Guests at the hex wall; sim rig. | **Sideways** |
+| 83.93–90.90 | Amenity edit, ~0.45 s a shot: red Huracán, podcast studio, office, lounge and cars, sim bay, white sectional, barber chair, STO and G-wagon, terrace at sunset, gallery wall, chesterfield lounge, card room, matte Aventador, window lounge with recliners, catering. | Clean to the last frame |
 
-All other sampled segments (~30 timestamps spread across 0–91s, including the aerial/drone lot shots which can look ambiguous at a glance) were confirmed upright without correction. If further segments turn out to need rotation when cutting final clips, verify per-clip rather than assuming — this file mixes orientations exactly like the original selects reel did.
+## Final selects (what the experience uses)
 
-## Extraction confirmed working
+| Asset | Master in–out | Type | Use | Length | Phones |
+|---|---|---|---|---|---|
+| `neon` | 49.25–51.60 | video + still | Identity: glows inside the slit that opens the chapter | 2.4 s | Contained in the slit, never cropped |
+| `arrival` | 2.97–5.94 | video | The entrance: rolls in inside the slit, then opens to full bleed | 3.0 s | Portrait native |
+| `lineup` | 6.02–9.18 | video (rotated) | Scale at the building | 3.2 s | Cinemascope band; desktop full bleed at native 1920×1080 |
+| `aerial` | 9.27–11.44 + 15.92–19.07 | video | The camera rises over the lot | 5.4 s | Portrait native |
+| `flight` | 58.42–74.33 | video | Enter: the continuous flight, uncut | 15.9 s | Portrait native; desktop gets a 4:3 crop |
+| `overhead` | 19.90 | still | Editorial: outside | — | 3:4 frame |
+| `matte` | 26.55 | still | Editorial: inside | — | 4:5 frame |
+| `p-session` | 27.03–28.85 | video | Knowledge | 1.8 s | |
+| `p-lounge` | 32.47–35.27 | video | Knowledge | 2.8 s | |
+| `p-room` | 78.70–80.22 | video | Knowledge | 1.5 s | |
+| `p-applause` | 76.95–78.62 | video | Knowledge, the response | 1.7 s | |
+| `p-network` | 30.92–32.40 | video | Connection | 1.5 s | |
+| `p-dinner` | 46.90–48.40 | video | Connection | 1.5 s | |
+| `p-panel` | 51.72–53.85 | video | Connection | 2.1 s | |
+| `p-candid` | 53.95–55.62 | video | Connection | 1.7 s | |
+| `helicopter` | 0.60 | still | Access: emerges from darkness | — | Full bleed; desktop tall column |
+| `crescendo` | 17 parts, see `scripts/build_media.py` | video | Sim, decks, podcast, court, then 13 rooms cutting 0.42 → 0.30 s, landing on the matte car | 8.6 s | Desktop gets per-shot crops |
 
-- **Full-resolution stills:** `ffmpeg -ss <t> -i club-scottsdale-master.MOV -frames:v 1 -q:v 1 out.png` → clean 1080×1920 PNG stills, no artifacts.
-- **Derived clips:** `ffmpeg -ss <in> -to <out> -i club-scottsdale-master.MOV -c:v libx264 -preset slow -crf 20 -pix_fmt yuv420p -movflags +faststart -c:a aac -b:a 128k clip.mp4` → clean re-encoded H.264 clips, correct duration, playable, audio intact.
-- **Rotation-corrected clips:** same as above with `-vf transpose=2` added for the one landscape segment — verified correct output orientation.
+Not used, deliberately: the whiteboard session (foreground blocked), micro-cuts under
+0.5 s from the event montage, catering (weak last image), the sideways 81–84 s stretch,
+the GT3 RS daylight shot (the helicopter does that job better), the podcast studio glide
+(74–77 s; strong, but a second glide right after the hero flight would dilute it).
 
-## Timestamped segment map
+## Production media
 
-65 segments detected by scene-cut analysis (`ffmpeg select='gt(scene,0.15)'`), each with a first-pass description from a mid-segment still. These are quick-look descriptions for planning — re-check the actual frame before committing to a shot, especially for the short (<0.5s) montage cuts in the 40–49s and 83–90s bands, and cross-reference against the previously catalogued reel shots where noted.
+`public/media/club-scottsdale/`, all generated:
 
-| # | Start–End (s) | Len | Description | Notes |
-|---|---|---|---|---|
-| 0 | 0.00–2.93 | 2.93 | Helicopter parked under the lit "CLUB SCOTTSDALE" sign, dusk. | Matches old reel shot 1. |
-| 1 | 2.93–3.70 | 0.77 | White Huracán arriving at the building, dusk, signage visible. | |
-| 2 | 3.70–4.47 | 0.77 | White Huracán, closer angle, same arrival. | |
-| 3 | 4.47–5.97 | 1.50 | White Huracán low tracking shot, glass facade with hex-light reflections. | |
-| 4 | 5.97–9.23 | 3.27 | Car-stacker/lift system, palm trees, building plaque "14982". | **Landscape** — needs `transpose=2`. |
-| 5 | 9.23–11.47 | 2.23 | Aerial/rooftop parking, hex-marked spots, orange + green cars from above. | |
-| 6 | 11.47–15.83 | 4.37 | Two men in a studio/podcast setting, one presenting to the other, screens behind. | |
-| 7 | 15.83–19.10 | 3.27 | Top-down drone over the lot: Porsche, black car, rooftop edge. | |
-| 8 | 19.27–19.53 | 0.27 | Building exterior / palm trees, quick cut. | |
-| 9 | 19.53–20.73 | 1.20 | Building entrance, daytime, glass facade, "CLUB SCOTTSDALE" sign. | |
-| 10 | 20.77–21.37 | 0.60 | Aerial lot, people walking among rows of cars (red, orange). | |
-| 11 | 21.40–24.30 | 2.90 | Top-down drone: white R8, Corvette, McLaren, palm trees. | Confirmed upright; initial spot-check reading was wrong. |
-| 12 | 24.30–25.50 | 1.20 | Building entrance signage, ground level. | |
-| 13 | 25.50–27.00 | 1.50 | Matte gray/black Lamborghini under hex lights, interior. | |
-| 14 | 27.00–29.00 | 2.00 | Speaker presenting to a seated crowd, screen behind. | |
-| 15 | 29.00–30.87 | 1.87 | Pickleball court exterior, "CS" branding on the fence. | |
-| 16 | 30.87–32.43 | 1.57 | Men networking under hex lights, business-casual. | |
-| 17 | 32.43–35.33 | 2.90 | "LOUNGE" sign visible, speaker addressing a small seated group. | Same setup used for previs shot 40. |
-| 18 | 35.33–36.73 | 1.40 | Speaker at a whiteboard/flip chart, hex ceiling. | |
-| 19 | 36.73–37.77 | 1.03 | Mixed group mingling under hex lights. | |
-| 20 | 37.80–38.53 | 0.73 | Men networking, event attire. | |
-| 21 | 38.57–39.70 | 1.13 | Group of ~6 networking under hex lights. | |
-| 22 | 39.70–40.07 | 0.37 | Two men in close conversation. | |
-| 23 | 40.07–40.87 | 0.80 | Larger crowd mingling, women in event dresses. | |
-| 24 | 40.87–41.23 | 0.37 | Crowd continues, different angle. | |
-| 25 | 41.23–41.63 | 0.40 | Group chatting, casual polos. | |
-| 26 | 41.63–42.43 | 0.80 | Two men greeting. | |
-| 27 | 42.43–43.23 | 0.80 | Crowd milling under hex lights. | |
-| 28 | 43.23–43.63 | 0.40 | Group in green polos talking, quick cut. | |
-| 29 | 43.63–44.00 | 0.37 | Same group, continuing. | |
-| 30 | 44.23–44.57 | 0.33 | Networking, short montage cut. | |
-| 31 | 44.57–45.27 | 0.70 | Pickup truck close-up in a garage bay. | |
-| 32 | 45.27–46.03 | 0.77 | Crowd scene, event tables, candid. | |
-| 33 | 46.03–46.87 | 0.83 | Dinner/seated crowd, long table. | |
-| 34 | 46.87–47.67 | 0.80 | Seated crowd, speaker visible in background. | |
-| 35 | 47.67–48.43 | 0.77 | Audience clapping/reacting. | |
-| 36 | 48.43–49.17 | 0.73 | Man in a red cap in the crowd. | |
-| 37 | 49.17–51.67 | 2.50 | "CS" neon logo on a black wall — clean, no overlay. | Candidate replacement for the old still-only logo-wall shot; this one is native video. |
-| 38 | 51.67–53.90 | 2.23 | Dinner/reception, monitors showing event graphics, MC talking. | |
-| 39 | 53.90–55.67 | 1.77 | People networking, seated area. | |
-| 40 | 55.67–57.00 | 1.33 | Racing sim rig, DJ booth, "Club CS Scottsdale" neon visible. | |
-| 41 | 57.00–58.37 | 1.37 | Lounge, white sectional sofas, guests mingling. | |
-| 42 | 58.37–61.90 | 3.53 | Aerial/wide of the car collection + lounge area. | Good hero candidate for a "collection" chapter. |
-| 43 | 61.90–74.37 | 12.47 | Long dinner/mastermind sequence: seated crowd, speaker addressing the room. | Longest segment — worth sub-dividing into multiple cuts on a closer pass. |
-| 44 | 74.40–76.87 | 2.47 | DJ booth / lounge continues. | |
-| 45 | 76.90–78.67 | 1.77 | Reception area, more seating, guests arriving. | |
-| 46 | 78.67–80.27 | 1.60 | Audience seated, two screens with car content behind the speaker. | |
-| 47 | 80.27–81.47 | 1.20 | Camera operator filming a seated interview — behind-the-scenes/content shot. | Good "Media" amenity candidate. |
-| 48 | 81.47–82.67 | 1.20 | Two men talking, one in a white shirt. | |
-| 49 | 82.67–83.93 | 1.27 | Same pair, continuing. | |
-| 50 | 83.93–84.33 | 0.40 | DJ performing on turntables, "Club CS Scottsdale" neon sign. | Strong events/nightlife shot. |
-| 51 | 84.33–84.80 | 0.47 | Reception/lounge, guests walking past. | |
-| 52 | 84.80–85.23 | 0.43 | Hex-ceiling wide shot, monitor with car content, lounge crowd. | Good "Media" amenity candidate, cleaner than the mastermind-session clip used in the current previs Ecosystem chapter. |
-| 53 | 85.23–85.70 | 0.47 | Audience clapping. | |
-| 54 | 85.70–86.20 | 0.50 | Man presenting, crowd clapping. | |
-| 55 | 86.20–86.70 | 0.50 | Bearded man speaking, close on the mic. | Candid speaker portrait. |
-| 56 | 86.70–87.17 | 0.47 | Racing simulator, VR/sim rig with monitors above. | |
-| 57 | 87.17–87.63 | 0.47 | Red Huracán under hex lights. | |
-| 58 | 87.63–88.07 | 0.43 | Home-office desk setup: monitor, chair, flag, hex lights. | Matches the "Workspace" amenity still used in the current previs (am16). |
-| 59 | 88.07–88.50 | 0.43 | White sectional sofas, media screen, neon "Scottsdale" sign. | |
-| 60 | 88.50–89.00 | 0.50 | Racing simulators row, barber-chair cover partially visible. | |
-| 61 | 89.00–89.47 | 0.47 | Card/poker table, green felt, dark room. | Matches the "Play" amenity still used in the current previs (am13). |
-| 62 | 89.47–89.90 | 0.43 | Matte gray/black Aventador-style car, garage bay. | |
-| 63 | 89.90–90.37 | 0.47 | Rooftop terrace at sunset, lounge seating, city view. | Matches the "Unwind" amenity still used in the current previs (am10). |
-| 64 | 90.37–90.90 | 0.53 | Framed car photos on a black wall. | Matches the gallery-wall amenity still (am12). |
+| Variant | Size | Codecs | Who gets it |
+|---|---|---|---|
+| `p1080` | 1080×1920 | HEVC (`hvc1`) + H.264 | Phones and portrait tablets |
+| `p720` | 720×1280 | H.264 | Save-Data, 2G/3G, small screens |
+| `w1080` | 1080×810, per-shot crop | HEVC + H.264 | Landscape screens, for full-bleed clips |
+| `l1920` / `l960` | 1920×1080 / 960×540 | HEVC + H.264 / H.264 | The rotated lineup |
+| stills | 1080 + 720 (1920 + 960 landscape) | AVIF + WebP | Everyone, via `<picture>` |
+| posters | first frame of each variant | WebP | Everyone |
 
-## Next steps (not yet done)
-
-This map is inspection-only, per instructions — no previs files were changed. Before using this footage in the build:
-
-1. Re-review each candidate segment at its native frame rate (some of the <0.5s cuts in the 20–49s and 50–90s bands are quick montage cuts inside longer camera takes — the scene-cut detector may have split a single pan/whip into several "segments" that are really one shot).
-2. Decide which segments replace/supplement the clips currently used in `previs/media/` (several strong candidates are noted above, e.g. #37, #47, #52, #55 for cleaner alternatives to existing previs shots).
-3. Re-run the same rotation spot-check on any segment before cutting it, since orientation is per-clip, not global.
+Safari and iOS pick HEVC (roughly half the size of H.264 at the same quality);
+everything else plays H.264. All clips are muted, have a 1 s GOP and faststart, and
+are loaded only when their chapter is within 1.5 screens.
