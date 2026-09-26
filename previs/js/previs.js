@@ -624,6 +624,7 @@
   /* ------------------------------------------------------------------ boot */
 
   if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  root.classList.add('locked');
   window.scrollTo(0, 0);
   renderMedia();
   splitChars();
