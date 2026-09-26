@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Club Scottsdale Prototype</title>
+<meta name="description" content="Pursuit · 05 / The Ecosystem. Scroll-driven interactive prototype for the Club Scottsdale section.">
+<meta name="theme-color" content="#090909">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600&display=swap">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body data-mode="cinematic" data-layout="landscape">
+
+<a class="skip" href="#cta">Skip to the end</a>
+
+<!-- Replica of the live Pursuit header, for context. Not linked. -->
+<header class="site-head">
+  <div class="site-head__in">
+    <div class="brand" aria-label="Pursuit">
+      <span class="brand__word">PURSUIT</span>
+      <span class="brand__sub">SALES &amp; MARKETING</span>
+    </div>
+    <div class="site-head__right">
+      <span class="head-apply">APPLY <span aria-hidden="true">↗</span></span>
+      <span class="burger" aria-hidden="true"><i></i><i></i><i></i></span>
+    </div>
+  </div>
+</header>
+
+<!-- Developer-only control. Will not ship. -->
+<div class="dev" role="toolbar" aria-label="Prototype controls">
+  <span class="dev__label">Transition mode</span>
+  <button type="button" class="dev__btn" data-set-mode="cinematic" aria-pressed="true"><span class="dev__long">Cinematic</span><span class="dev__short">Cin</span></button>
+  <button type="button" class="dev__btn" data-set-mode="editorial" aria-pressed="false"><span class="dev__long">Editorial</span><span class="dev__short">Edi</span></button>
+  <button type="button" class="dev__btn" data-set-mode="aggressive" aria-pressed="false"><span class="dev__long">Aggressive</span><span class="dev__short">Agg</span></button>
+  <span class="dev__sep" aria-hidden="true"></span>
+  <button type="button" class="dev__btn dev__tog" data-toggle="hud" aria-pressed="true">HUD</button>
+  <button type="button" class="dev__btn dev__tog" data-toggle="labels" aria-pressed="true">Labels</button>
+</div>
+
+<div class="hud" aria-hidden="true">
+  <div class="hud__mode"></div>
+  <div class="hud__scene"></div>
+  <div class="hud__beat"></div>
+  <div class="hud__keys">1 2 3 mode · , . step · H hud · L labels</div>
+</div>
+<div class="progress" aria-hidden="true"><i></i></div>
+<div class="grain" aria-hidden="true"></div>
+
+<main id="film">
+
+  <!-- ================================================================
+       REEL 1 · 01 ENTER → 02 REVEAL → 03 first wipe
+       ================================================================ -->
+  <section class="reel r1" id="r1" aria-label="Enter Club Scottsdale">
+    <div class="stage">
+      <div class="sheen" aria-hidden="true"></div>
+      <div class="media is-window" id="r1-arrival" data-media="arrival"></div>
+      <div class="media is-window" id="r1-car" data-media="supercar"></div>
+      <div class="scrim scrim--center" id="r1-scrim"></div>
+      <i class="wipe-edge" id="r1-edge" aria-hidden="true"></i>
+
+      <div class="r1-intro">
+        <div class="r1-intro__in">
+          <div class="chapter" aria-hidden="true"><i class="chapter__rule"></i><span class="chapter__num">05</span><i class="chapter__rule"></i></div>
+          <p class="micro chapter__name">The Ecosystem</p>
+          <h1 class="display r1-intro__title">
+            <span class="line"><span class="line-inner">The world</span></span>
+            <span class="line"><span class="line-inner">around <em>Pursuit</em></span></span>
+          </h1>
+        </div>
+      </div>
+
+      <div class="seam" aria-hidden="true"><i class="seam__draw"></i></div>
+      <div class="cue"><div class="cue__in"><span class="micro">Scroll to enter</span></div></div>
+
+      <div class="r1-reveal">
+        <p class="micro r1-reveal__kicker">Beyond the program.</p>
+        <h2 class="display r1-reveal__title">
+          <span class="line"><span class="line-inner">Club</span></span>
+          <span class="line"><span class="line-inner">Scottsdale</span></span>
+        </h2>
+      </div>
+
+      <p class="caption" id="cap-car">After dark</p>
+    </div>
+  </section>
+  <div class="r1-spacer" id="r1-spacer" aria-hidden="true"></div>
+
+  <!-- ================================================================
+       REEL 2 · 03 split → single → pinned (overheard) → black cut
+       Slides over reel 1 like a turned page.
+       ================================================================ -->
+  <section class="reel r2" id="r2" aria-label="Inside the club">
+    <div class="stage">
+      <div class="media is-window" id="r2-a" data-media="interior"></div>
+      <div class="media is-window" id="r2-b" data-media="dinner"></div>
+      <i class="r2-divider" aria-hidden="true"></i>
+      <p class="caption r2-cap" id="r2-cap-a">Inside the club</p>
+      <p class="caption r2-cap" id="r2-cap-b">At the table</p>
+
+      <div class="scrim scrim--full" id="r2-scrim"></div>
+      <p class="micro r2-overheard">Overheard at the table</p>
+      <blockquote class="quote q1">“So what are you building?”</blockquote>
+      <blockquote class="quote q2">“What would you do with your first hundred thousand?”</blockquote>
+      <blockquote class="quote q3"><span>“Call him tomorrow. Tell him I sent you.”</span></blockquote>
+
+      <div class="blackcut">
+        <i class="blackcut__rule" aria-hidden="true"></i>
+        <h2 class="display">
+          <span class="line"><span class="line-inner">Access changes</span></span>
+          <span class="line"><span class="line-inner">the game.</span></span>
+        </h2>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================
+       REEL 3 · 03 stacked editorial frames (native scroll)
+       ================================================================ -->
+  <section class="r3" id="r3" aria-label="Media and content">
+    <div class="r3__sticky">
+      <div class="r3__title">
+        <p class="micro">Videographers · Photographers · Brand</p>
+        <h2 class="display">
+          <span class="line"><span class="line-inner">Your story,</span></span>
+          <span class="line"><span class="line-inner"><em>properly told.</em></span></span>
+        </h2>
+      </div>
+    </div>
+    <figure class="sframe"><div class="media" data-media="content"></div><figcaption class="caption">On set</figcaption></figure>
+    <figure class="sframe"><div class="media" data-media="photo"></div><figcaption class="caption">Portrait session</figcaption></figure>
+    <figure class="sframe"><div class="media" data-media="detail"></div><figcaption class="caption">The edit</figcaption></figure>
+  </section>
+
+  <!-- ================================================================
+       REEL 4 · 03 horizontal → zoom through
+               04 the ecosystem, decoded
+               05 the point
+               06 return to the Pursuit path
+       One continuous pinned stage so the closing line can become the path.
+       ================================================================ -->
+  <section class="reel r4" id="r4" aria-label="Experiences, the ecosystem and the Pursuit path">
+    <div class="stage">
+
+      <div class="track" id="r4-track">
+        <div class="hcard">
+          <p class="micro">Experiences</p>
+          <h2 class="display">
+            <span class="line">The world gets</span>
+            <span class="line">bigger <em>when your</em></span>
+            <span class="line"><em>circle does.</em></span>
+          </h2>
+        </div>
+        <figure class="hframe hf-jet"><div class="media" data-media="jet"></div><figcaption class="caption">Wheels up</figcaption></figure>
+        <figure class="hframe hf-travel"><div class="media" data-media="travel"></div><figcaption class="caption">Elsewhere</figcaption></figure>
+        <figure class="hframe hf-drive"><div class="media" data-media="drive"></div><figcaption class="caption">The drive out</figcaption></figure>
+        <figure class="hframe hf-az"><div class="media" data-media="scottsdale"></div><figcaption class="caption">Scottsdale, AZ</figcaption></figure>
+        <figure class="hframe hframe--target"><div class="media" data-media="event"></div><figcaption class="caption">The room</figcaption></figure>
+      </div>
+
+      <div class="catframe is-window" id="r4-cat">
+        <div class="media" data-media="event" data-layer="event"></div>
+        <div class="media" data-media="network" data-layer="c0"></div>
+        <div class="media" data-media="media2" data-layer="c1"></div>
+        <div class="media" data-media="exp1" data-layer="c2a"></div>
+        <div class="media" data-media="exp2" data-layer="c2b"></div>
+        <div class="media" data-media="exp3" data-layer="c2c"></div>
+        <div class="media" data-media="environment" data-layer="c3"></div>
+        <div class="media" data-media="conversation" data-layer="c4"></div>
+      </div>
+      <div class="scrim scrim--cat" id="r4-scrim"></div>
+      <p class="caption" id="cap-room">The room</p>
+
+      <nav class="cat-index" aria-label="The ecosystem">
+        <ol>
+          <li><span>01</span><b>Network</b></li>
+          <li><span>02</span><b>Media</b></li>
+          <li><span>03</span><b>Experiences</b></li>
+          <li><span>04</span><b>Environment</b></li>
+          <li><span>05</span><b>Opportunity</b></li>
+        </ol>
+      </nav>
+
+      <div class="cats">
+        <div class="cat">
+          <div class="cat__head"><p class="micro cat__num">01 / 05</p><h3 class="display cat__word" data-split>Network</h3></div>
+          <p class="cat__desc"><span>Founders.</span> <span>Operators.</span> <span>Mentors.</span> <span>Relationships.</span></p>
+        </div>
+        <div class="cat">
+          <div class="cat__head"><p class="micro cat__num">02 / 05</p><h3 class="display cat__word" data-split>Media</h3></div>
+          <p class="cat__desc"><span>Videographers.</span> <span>Content.</span> <span>Brand resources.</span></p>
+        </div>
+        <div class="cat">
+          <div class="cat__head"><p class="micro cat__num">03 / 05</p><h3 class="display cat__word" data-split>Experiences</h3></div>
+          <p class="cat__desc"><span>Travel.</span> <span>Events.</span> <span>Cars.</span> <span>Aviation.</span></p>
+        </div>
+        <div class="cat">
+          <div class="cat__head"><p class="micro cat__num">04 / 05</p><h3 class="display cat__word" data-split>Environment</h3></div>
+          <p class="cat__desc"><span>A place designed around</span> <span>proximity and ambition.</span></p>
+        </div>
+        <div class="cat">
+          <div class="cat__head"><p class="micro cat__num">05 / 05</p><h3 class="display cat__word" data-split>Opportunity</h3></div>
+          <p class="cat__desc"><span>Access to people, relationships</span> <span>and possibilities outside</span> <span>your immediate circle.</span></p>
+        </div>
+      </div>
+
+      <i class="thread" id="thread" aria-hidden="true"></i>
+
+      <div class="point">
+        <p class="display point__line point__a">
+          <span class="w">Pursuit</span> <span class="w">builds</span> <span class="w">the</span> <span class="w">skills</span> <span class="w">and</span> <span class="w">capital.</span>
+        </p>
+        <p class="display point__line point__b">
+          <span class="w">The</span> <span class="w">ecosystem</span> <span class="w"><em>expands</em></span> <span class="w">what</span> <span class="w">you</span> <span class="w">can</span> <span class="w">do</span> <span class="w">with</span> <span class="w">them.</span>
+        </p>
+        <p class="micro point__coda">Your environment changes what feels possible.</p>
+      </div>
+
+      <div class="path">
+        <div class="path__head">
+          <div class="chapter"><i class="chapter__rule"></i><span class="micro">The Pursuit Path</span><i class="chapter__rule"></i></div>
+          <h2 class="display">Three phases. <em>One Pursuit.</em></h2>
+        </div>
+        <div class="path__track">
+          <i class="path__vline" aria-hidden="true"></i>
+          <div class="phase ph1">
+            <i class="phase__node" aria-hidden="true"></i>
+            <div class="phase__top"><span class="phase__num">01</span><h3 class="phase__name">Sell</h3></div>
+            <p class="phase__desc">Build skills + capital.</p>
+          </div>
+          <div class="phase ph2">
+            <i class="phase__node" aria-hidden="true"></i>
+            <div class="phase__top"><span class="phase__num">02</span><h3 class="phase__name">Build</h3></div>
+            <p class="phase__desc">Build leadership + operating ability.</p>
+          </div>
+          <div class="phase ph3">
+            <i class="phase__node" aria-hidden="true"></i>
+            <div class="phase__top"><span class="phase__num">03</span><h3 class="phase__name">Own</h3></div>
+            <p class="phase__desc">Use skills, capital and relationships to create ownership opportunities.</p>
+          </div>
+        </div>
+        <div class="eco" aria-label="The ecosystem surrounds every phase">
+          <i class="eco__edge eco__edge--t"></i><i class="eco__edge eco__edge--r"></i>
+          <i class="eco__edge eco__edge--b"></i><i class="eco__edge eco__edge--l"></i>
+          <span class="micro eco__label">The Ecosystem</span>
+          <span class="micro eco__sub">Club Scottsdale · around every phase</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================================================================
+       07 · CTA (native scroll: the site resumes)
+       ================================================================ -->
+  <section class="cta" id="cta" aria-label="Apply to Pursuit">
+    <div class="sheen" aria-hidden="true"></div>
+    <div class="cta__in">
+      <i class="cta__line" aria-hidden="true"></i>
+      <h2 class="display cta__title">
+        <span class="line"><span class="line-inner">Your Pursuit</span></span>
+        <span class="line"><span class="line-inner">starts here.</span></span>
+      </h2>
+      <p class="micro cta__sub">Sell. Build. Own.</p>
+      <button type="button" class="btn-pill" id="apply"><span class="btn-pill__txt">Apply to Pursuit</span><span class="btn-pill__arrow" aria-hidden="true">→</span></button>
+      <p class="micro cta__url">apply.thepursuitpath.com</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <span class="brand__word">PURSUIT</span>
+  <span class="micro">05 / The Ecosystem · interactive prototype</span>
+  <button type="button" class="micro foot__replay" id="replay">Replay from the start ↺</button>
+</footer>
+
+<noscript><style>body:not(.is-ready) .r1-intro__in, body:not(.is-ready) .cue__in, body:not(.is-ready) .seam__draw { opacity: 1 !important; }</style></noscript>
+
+<script src="vendor/gsap.min.js"></script>
+<script src="vendor/ScrollTrigger.min.js"></script>
+<script src="vendor/lenis.min.js"></script>
+<script src="js/media.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
