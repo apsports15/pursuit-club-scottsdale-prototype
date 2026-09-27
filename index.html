@@ -4,15 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Club Scottsdale · Pursuit</title>
-<meta name="description" content="Pursuit · 05 / The ecosystem. Club Scottsdale, one of the environments around the Pursuit path.">
-<meta name="theme-color" content="#070707">
+<meta name="description" content="Club Scottsdale, one of the environments around Pursuit: a short film.">
+<meta name="theme-color" content="#000000">
 <link rel="preload" href="assets/fonts/instrument-serif-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/fonts/outfit-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/club.css">
 </head>
 <body>
 
-<a class="skip" href="#after">Skip the Club Scottsdale film</a>
+<a class="skip" href="#cta" id="skip-link">Skip the Club Scottsdale film</a>
 
 <!-- Replica of the live Pursuit header, for context. Not linked. -->
 <header class="site-head">
@@ -23,174 +22,129 @@
 </header>
 
 <main>
-
-  <!-- Stand-in for the Pursuit section before this one -->
-  <section class="site-sec site-sec--prev" aria-label="The program">
-    <div class="site-sec__in">
-      <p class="micro">04 — The program</p>
-      <h2 class="display site-sec__title">Skills compound.<br>So do the rooms<br>you <em>learn them in.</em></h2>
-      <p class="site-sec__body">Every phase of Pursuit develops the person first.</p>
-    </div>
-    <i class="site-line" aria-hidden="true"></i>
-  </section>
-
   <!-- ==================================================================
-       CLUB SCOTTSDALE
-       Chapters pin with position: sticky and scroll natively. Scroll decides
-       which beat is active; each beat plays in real time. Beats are measured
-       in vh from the moment the chapter pins (negative = before it pins).
+       CLUB SCOTTSDALE, a guided film
+       One stage. The first scroll starts it; from there one clock plays
+       every clip, still, title and transition in order. The timeline at
+       the bottom seeks, pauses and skips. At the end the page scrolls again.
        ================================================================== -->
-  <div class="cs" id="club-scottsdale">
+  <section class="film" id="club-scottsdale" aria-label="Club Scottsdale, a short film">
 
-    <!-- 01 · Threshold, arrival, reveal -->
-    <section class="ch ch--arrive" id="ch-arrive" data-beats="-30,40,100,158" aria-label="Arrival at Club Scottsdale">
-      <div class="stage">
-        <div class="m" id="a-aerial" data-clip="aerial" data-wide data-op="50% 50%" data-op-wide="50% 50%"></div>
-        <div class="m" id="a-lineup" data-clip="lineup" data-landscape data-op="50% 55%"></div>
-        <div class="m win" id="a-arrival" data-clip="arrival" data-wide data-op="36% 50%" data-op-wide="44% 50%"></div>
-        <div class="m win" id="a-neon" data-clip="neon" data-op="50% 45%"></div>
-        <i class="seam" id="a-seam" aria-hidden="true"></i>
-        <div class="a-intro">
-          <p class="micro a-eyebrow"><span class="a-num">05</span><i aria-hidden="true"></i><span>The ecosystem around Pursuit</span></p>
-        </div>
-        <p class="cap a-cap" id="a-cap"><span class="a-cap__in">Club Scottsdale<span>Scottsdale, Arizona</span></span></p>
+    <!-- Arrival: the neon splits open onto the drone over the lot -->
+    <div class="m" id="s-aerial" data-clip="aerial" data-wide data-op="50% 50%" data-op-wide="50% 50%"></div>
+    <div class="m" id="s-neon" data-clip="neon" data-op="50% 50%" data-op-wide="50% 29%"></div>
+    <div class="split" id="s-split" aria-hidden="true">
+      <div class="split__half" id="s-half-l"><div class="split__img" data-still="neon" data-op="50% 50%" data-op-wide="50% 29%"></div></div>
+      <div class="split__half" id="s-half-r"><div class="split__img" data-still="neon" data-op="50% 50%" data-op-wide="50% 29%"></div></div>
+      <i class="split__seam" id="s-seam"></i>
+    </div>
+    <p class="cap s-cap" id="s-cap"><span class="s-cap__in">Club Scottsdale<span>Scottsdale, Arizona</span></span></p>
+
+    <!-- Step inside: the door, then the continuous flight -->
+    <div class="panel" id="s-door">
+      <div class="m win" id="s-flight" data-clip="flight" data-wide data-op="50% 50%" data-op-wide="50% 52%"></div>
+      <p class="micro s-door-label" id="s-label">Step inside</p>
+      <div class="rooms" id="s-rooms" aria-hidden="true">
+        <ol class="rooms__list" id="s-room-list"></ol>
+        <p class="display rooms__now" id="s-now"></p>
       </div>
-    </section>
+    </div>
 
-    <!-- 02 · Enter: the continuous FPV flight -->
-    <section class="ch ch--flight ch--over" id="ch-flight" data-beats="-70,10,300" aria-label="A continuous flight through Club Scottsdale during an evening event: through the door, the lounge, the event floor and the collection">
-      <div class="stage">
-        <div class="m win" id="f-flight" data-clip="flight" data-wide data-op="50% 50%" data-op-wide="50% 52%"></div>
-        <p class="micro f-door-label" id="f-label">Step inside</p>
-        <div class="rooms" id="f-rooms" aria-hidden="true">
-          <ol class="rooms__list">
-            <li data-at="0"><span>01</span>Entrance</li>
-            <li data-at="1.05"><span>02</span>The lounge</li>
-            <li data-at="3.75"><span>03</span>The floor</li>
-            <li data-at="8.15"><span>04</span>The collection</li>
-          </ol>
-          <p class="display rooms__now" id="f-now"></p>
-          <i class="rooms__bar"><b id="f-bar"></b></i>
+    <!-- Outside, then who's inside -->
+    <div class="panel win" id="s-over">
+      <div class="still" data-still="overhead" data-op="50% 58%" data-alt="A white sports car photographed from directly above, parked in a hatched bay"></div>
+      <div class="scrim scrim--foot"></div>
+      <h2 class="display s-over-line" id="s-over-line"><span class="line"><span class="li">The value</span></span><span class="line"><span class="li">isn't what's</span></span><span class="line"><span class="li">parked <em>outside.</em></span></span></h2>
+    </div>
+    <div class="panel panel--clear" id="s-pivot">
+      <h2 class="display pivot"><span class="line"><span class="li">It's who's</span></span><span class="line"><span class="li"><em>inside.</em></span></span></h2>
+    </div>
+
+    <!-- In the room, around the table. Phones: one frame, the clips follow each other
+         as page wipes (data-seq order). Desktop: three columns, each wiping through its own clips. -->
+    <div class="panel panel--clear" id="s-people">
+      <div class="grp">
+        <div class="col">
+          <div class="m win" data-clip="p-session" data-seq="1" data-op="50% 45%"></div>
+          <div class="m win" data-clip="p-network" data-seq="5" data-op="60% 45%"></div>
+          <div class="m win" data-clip="p-candid" data-seq="8" data-op="62% 45%"></div>
+        </div>
+        <div class="col">
+          <div class="m win" data-clip="p-lounge" data-seq="2" data-op="46% 40%"></div>
+          <div class="m win" data-clip="p-dinner" data-seq="6" data-op="50% 55%"></div>
+        </div>
+        <div class="col">
+          <div class="m win" data-clip="p-room" data-seq="3" data-op="50% 50%"></div>
+          <div class="m win" data-clip="p-applause" data-seq="4" data-op="45% 50%"></div>
+          <div class="m win" data-clip="p-panel" data-seq="7" data-op="50% 55%"></div>
         </div>
       </div>
-    </section>
-
-    <!-- 03 · Breathe: editorial stills (native scroll) -->
-    <section class="spread" id="ch-spread" aria-label="Outside and inside">
-      <figure class="st st--over reveal">
-        <div class="st__frame"><div class="st__img" data-still="overhead" data-alt="A white sports car photographed from directly above, parked in a hatched bay"></div></div>
-        <figcaption class="cap st__cap">Outside</figcaption>
-      </figure>
-      <h2 class="display spread__line reveal">
-        <span class="line"><span class="li">The value</span></span>
-        <span class="line"><span class="li">isn't what's</span></span>
-        <span class="line"><span class="li">parked <em>outside.</em></span></span>
-      </h2>
-      <figure class="st st--matte reveal">
-        <div class="st__frame"><div class="st__img" data-still="matte" data-alt="A matte grey Lamborghini under hexagonal ceiling lights beside the Club Scottsdale neon"></div></div>
-        <figcaption class="cap st__cap">Inside</figcaption>
-      </figure>
-    </section>
-
-    <!-- 04 · Pivot and people -->
-    <section class="ch ch--people" id="ch-people" data-beats="-25,48,178,300" aria-label="The people inside: sessions, mentorship, dinners and conversations">
-      <div class="stage">
-        <h2 class="display pivot" id="p-pivot">
-          <span class="line"><span class="li">It's who's</span></span>
-          <span class="line"><span class="li"><em>inside.</em></span></span>
-        </h2>
-
-        <div class="grp" id="p-know">
-          <div class="col"><div class="m" data-clip="p-session" data-op="50% 45%"></div></div>
-          <div class="col"><div class="m" data-clip="p-lounge" data-op="46% 40%"></div></div>
-          <div class="col"><div class="m" data-clip="p-room" data-op="50% 50%"></div><div class="m" data-clip="p-applause" data-op="45% 50%"></div></div>
-        </div>
-        <div class="grp" id="p-conn">
-          <div class="col"><div class="m" data-clip="p-network" data-op="60% 45%"></div></div>
-          <div class="col"><div class="m" data-clip="p-dinner" data-op="50% 55%"></div><div class="m" data-clip="p-panel" data-op="50% 55%"></div></div>
-          <div class="col"><div class="m" data-clip="p-candid" data-op="62% 45%"></div></div>
-        </div>
-        <div class="scrim scrim--people" id="p-scrim"></div>
-
-        <div class="p-head" id="p-head-know">
-          <p class="micro">In the room</p>
-          <h3 class="display"><span class="line"><span class="li">Proximity is</span></span><span class="line"><span class="li">the <em>curriculum.</em></span></span></h3>
-        </div>
-        <div class="p-head" id="p-head-conn">
-          <p class="micro">Around the table</p>
-          <h3 class="display"><span class="line"><span class="li">The right room</span></span><span class="line"><span class="li">changes the</span></span><span class="line"><span class="li"><em>conversation.</em></span></span></h3>
-        </div>
-        <i class="blackout" id="p-black"></i>
+      <div class="scrim scrim--people" id="p-scrim"></div>
+      <div class="p-head" id="p-head-know">
+        <p class="micro">In the room</p>
+        <h3 class="display"><span class="line"><span class="li">Proximity is</span></span><span class="line"><span class="li">the <em>curriculum.</em></span></span></h3>
       </div>
-    </section>
-
-    <!-- 05 · Access, then the crescendo (one stage, so the cut between them is a hard cut) -->
-    <section class="ch ch--access" id="ch-access" data-beats="-35,28,92,186" aria-label="A helicopter beneath the Club Scottsdale sign at dusk, then room after room: racing simulators, the decks, the studio, the court, the terrace, the card room, the gallery, the garage">
-      <div class="stage">
-        <figure class="acc__img" id="c-img"><div class="st__img" data-still="helicopter" data-alt="A helicopter parked beneath the illuminated Club Scottsdale sign at dusk"></div></figure>
-        <div class="scrim scrim--foot" id="c-scrim"></div>
-        <div class="acc__txt" id="c-txt">
-          <p class="micro">Scottsdale, dusk</p>
-          <h2 class="display"><span class="line"><span class="li">Access changes</span></span><span class="line"><span class="li"><em>perspective.</em></span></span></h2>
-        </div>
-
-        <div class="m" id="r-reel" data-clip="crescendo" data-wide data-op="50% 55%" data-op-wide="50% 50%"></div>
-        <div class="scrim scrim--foot" id="r-scrim"></div>
-        <p class="display r-line" id="r-line">More than <em>one room.</em></p>
-        <p class="r-count" id="r-count" aria-hidden="true"><b id="r-num">01</b><span id="r-total"></span></p>
-        <i class="blackout" id="r-black"></i>
+      <div class="p-head" id="p-head-conn">
+        <p class="micro">Around the table</p>
+        <h3 class="display"><span class="line"><span class="li">The right room</span></span><span class="line"><span class="li">changes the</span></span><span class="line"><span class="li"><em>conversation.</em></span></span></h3>
       </div>
-    </section>
+    </div>
 
-    <!-- 07 · Meaning, then back to the Pursuit path -->
-    <section class="ch ch--meaning ch--over" id="ch-meaning" data-beats="-35,58,126,190" aria-label="Meaning">
-      <div class="stage">
-        <div class="mean">
-          <p class="display mean__a"><span class="line"><span class="li">This isn't the</span></span><span class="line"><span class="li">destination.</span></span></p>
-          <p class="display mean__b"><span class="line"><span class="li">It's part of the</span></span><span class="line"><span class="li"><em>environment.</em></span></span></p>
-        </div>
-        <i class="thread" id="m-thread" aria-hidden="true"></i>
-        <div class="path">
-          <div class="path__head">
-            <p class="micro">The Pursuit path</p>
-          </div>
-          <div class="path__track">
-            <i class="path__rail" aria-hidden="true"></i>
-            <div class="phase"><i class="phase__node" aria-hidden="true"></i><span class="phase__num">01</span><h3 class="phase__name">Sell</h3><p class="phase__desc">Skills and capital.</p></div>
-            <div class="phase"><i class="phase__node" aria-hidden="true"></i><span class="phase__num">02</span><h3 class="phase__name">Build</h3><p class="phase__desc">Leadership and operating ability.</p></div>
-            <div class="phase"><i class="phase__node" aria-hidden="true"></i><span class="phase__num">03</span><h3 class="phase__name">Own</h3><p class="phase__desc">Ownership, built on both.</p></div>
-          </div>
-          <div class="env" aria-hidden="true">
-            <i class="env__e env__t"></i><i class="env__e env__r"></i><i class="env__e env__b"></i><i class="env__e env__l"></i>
-            <span class="micro env__label">The environment around the path</span>
-            <span class="micro env__sub">Rooms like Club Scottsdale, at every phase</span>
-          </div>
-        </div>
-        <p class="display coda" id="m-coda">Your environment changes <em>what feels possible.</em></p>
+    <!-- Access: the helicopter, then a hard cut into the amenities -->
+    <div class="panel" id="s-heli">
+      <figure class="heli__img"><div class="still" data-still="helicopter" data-op="50% 58%" data-alt="A helicopter parked beneath the illuminated Club Scottsdale sign at dusk"></div></figure>
+      <div class="scrim scrim--foot" id="h-scrim"></div>
+      <div class="heli__txt" id="h-txt">
+        <p class="micro">Scottsdale, dusk</p>
+        <h2 class="display"><span class="line"><span class="li">Access changes</span></span><span class="line"><span class="li"><em>perspective.</em></span></span></h2>
       </div>
-    </section>
+    </div>
+    <div class="panel" id="s-reel">
+      <div class="m" id="r-reel" data-clip="crescendo" data-wide data-op="50% 55%" data-op-wide="50% 50%"></div>
+      <div class="scrim scrim--foot"></div>
+      <p class="display r-line">More than <em>one room.</em></p>
+      <p class="r-count" aria-hidden="true"><b id="r-num">01</b><span id="r-total"></span></p>
+    </div>
 
-  </div>
+    <!-- The point, then Pursuit -->
+    <div class="panel" id="s-point">
+      <p class="display point point--a"><span class="line"><span class="li">This isn't the</span></span><span class="line"><span class="li">destination.</span></span></p>
+      <p class="display point point--b"><span class="line"><span class="li">It's part of the</span></span><span class="line"><span class="li"><em>environment.</em></span></span></p>
+      <div class="cta" id="cta" tabindex="-1">
+        <p class="micro cta__path"><span>Sell</span><i aria-hidden="true"></i><span>Build</span><i aria-hidden="true"></i><span>Own</span></p>
+        <h2 class="display cta__title"><span class="line"><span class="li">Your Pursuit</span></span><span class="line"><span class="li"><em>starts here.</em></span></span></h2>
+        <a class="cta__btn" href="#apply">Apply to Pursuit <span aria-hidden="true">→</span></a>
+        <button type="button" class="cta__replay" id="replay">Watch again</button>
+      </div>
+    </div>
 
-  <!-- Stand-in for the Pursuit section after this one -->
-  <section class="site-sec site-sec--next" id="after" aria-label="Apply">
-    <div class="site-sec__in">
-      <p class="micro">06 — Apply</p>
-      <h2 class="display site-sec__title">Your Pursuit<br><em>starts here.</em></h2>
-      <p class="site-sec__body">Sell. Build. Own.</p>
-      <p class="site-sec__link"><span>Apply to Pursuit</span> <span aria-hidden="true">→</span></p>
+    <!-- Opening screen -->
+    <div class="gate" id="s-gate">
+      <div class="gate__in">
+        <p class="micro gate__eyebrow">Club Scottsdale</p>
+        <h1 class="display gate__title"><span class="line"><span class="li">Enter the</span></span><span class="line"><span class="li"><em>ecosystem</em></span></span></h1>
+      </div>
+      <button type="button" class="gate__cue" id="gate-cue"><span>Scroll to enter</span><i aria-hidden="true"></i></button>
+    </div>
+
+    <!-- Film controls -->
+    <div class="ctl" id="ctl">
+      <button type="button" class="ctl__btn ctl__play" id="ctl-play" aria-label="Pause"><i aria-hidden="true"></i></button>
+      <div class="ctl__track" id="ctl-track" role="slider" tabindex="0" aria-label="Film position" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <span class="micro ctl__chap" id="ctl-chap"></span>
+        <i class="ctl__rail"><b class="ctl__fill" id="ctl-fill"></b></i>
+        <span class="ctl__ticks" id="ctl-ticks" aria-hidden="true"></span>
+        <i class="ctl__knob" id="ctl-knob" aria-hidden="true"></i>
+      </div>
+      <button type="button" class="ctl__btn ctl__skip" id="ctl-skip" aria-label="Skip to the end"><span>Skip</span><i aria-hidden="true"></i></button>
     </div>
   </section>
-
 </main>
 
-<footer class="foot">
+<footer class="foot" id="apply">
   <span class="brand__word">PURSUIT</span>
   <span class="micro">05 / The ecosystem · Club Scottsdale prototype</span>
 </footer>
-
-<button type="button" class="motion" id="motion" aria-pressed="true"><i aria-hidden="true"></i><span>Motion</span></button>
-<div class="grain" aria-hidden="true"></div>
 
 <script src="public/media/club-scottsdale/manifest.js"></script>
 <script src="vendor/gsap.min.js"></script>

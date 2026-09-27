@@ -1,59 +1,64 @@
 # Club Scottsdale · Pursuit 05 / The ecosystem
 
-The Club Scottsdale chapter of the Pursuit site, built around the real footage.
-It is the one place where the site turns into a film: the page goes dark, you arrive,
-you fly through the Club, you meet the people inside, and you come back out on the
-Pursuit path understanding why the environment matters.
+The Club Scottsdale chapter of the Pursuit site, built around the real footage, as one
+guided film. The first scroll starts it; it then plays every clip, still, title and
+transition in order by itself, and ends on the Pursuit application.
 
 Club Scottsdale is presented as one of the environments around Pursuit, not as
 something Pursuit owns.
 
 ## Run it
 
-Serve the repo root and open it (video needs HTTP, not `file://`):
+Serve the repo root over HTTP with byte-range support (Safari will not play video
+without it), then open it:
 
 ```
-python3 -m http.server 8000     # then http://localhost:8000
+npx serve .                     # or any static server that supports Range requests
 ```
 
-Best on a phone. Desktop is designed, not scaled. `?debug` shows the chapter and beat
-state; `window.ClubScottsdale` in the console has helpers (`chapters()`,
-`scrollToBeat(id, i)`, `state()`).
+Designed first at 390 × 844. Desktop is designed, not scaled. `?debug` shows the film
+clock and the clip carrying it; `window.ClubScottsdale` in the console has helpers
+(`state()`, `chapters()`, `clips()`, `seek(t)`, `pause()`, `resume()`, `skip()`).
 
 ## The film
 
-| | Chapter | Footage | What happens | Pace |
-|---|---|---|---|---|
-| — | Pursuit, section 04 (stand-in) | — | The site as it normally looks; its hairline runs down into the next section | — |
-| 01 | Threshold | CS neon | The page goes dark. The hairline draws down, splits into a slit, and the neon glows inside it. *05 · The ecosystem around Pursuit* | slow |
-| | Arrival | White Huracán | The car rolls in inside the slit; the slit opens until the site is the footage. The header steps away. | slow |
-| | Reveal | Lineup, aerial | Desktop: the lineup rises in full bleed at native 1920×1080. Phone: it opens as a cinemascope band. Then the camera rises over the lot. | build |
-| 02 | Enter | FPV flight, 15.9 s, uncut | A black curtain with a lit doorway slides up over the aerial. The doorway is a still of guests walking through; it becomes motion as the door opens to full bleed. Room names follow the camera (Entrance, The lounge, The floor, The collection), keyed to the video's own time. Scrolling ahead gives the flight throttle (up to 2×) instead of seeking. It closes to a letterbox, then black. | immersion |
-| 03 | Breathe | Overhead + matte stills | Native scroll. An editorial spread, outside against inside. *The value isn't what's parked outside.* | breathing room |
-| 04 | People | 8 moments | Black: *It's who's inside.* Then *Proximity is the curriculum.* (session, lounge, the room, applause) and *The right room changes the conversation.* (networking, dinner, panel, candid). Phone: one frame, a flowing run of page wipes. Desktop: triptychs of native vertical columns. | human energy |
-| 05 | Access | Helicopter still | Emerges from the dark. *Access changes perspective.* | breathe |
-| | Crescendo | 17 cuts, 8.6 s | Hard cut in. Sim, decks, podcast, court, then the rooms, cutting faster (0.42 → 0.30 s). One persistent line, *More than one room.*, and a counter synced to the cuts. When the clip ends it cuts to black on its own. | accelerate, then stop |
-| 06 | Meaning | — | *This isn't the destination.* / *It's part of the environment.* | silence |
-| | Return | — | The line becomes the Pursuit path: Sell, Build, Own (vertical on phones, horizontal on desktop). A frame draws around it: *The environment around the path* / *Rooms like Club Scottsdale, at every phase*. *Your environment changes what feels possible.* The header returns. | resolve |
-| — | Pursuit, section 06 (stand-in) | — | The site resumes. | — |
+About 62 s on phones, 54 s on desktop (the people run as three columns at once there).
 
-## How it moves
+| | Chapter | Footage | What happens |
+|---|---|---|---|
+| — | Opening | — | Solid #000. *Club Scottsdale / Enter the ecosystem / Scroll to enter.* The first scroll, swipe, tap or key starts the film. |
+| 01 | Arrival | CS neon, drone | The neon fills the screen and pushes in slowly. The sign splits open down the middle of the CS, on the clip's own last frame. Behind it, the tent's CS logo sits where the neon's was; it dissolves in and the drone pulls back over the lot and the collection (the film's one zoom-out). *Club Scottsdale · Scottsdale, Arizona.* |
+| 02 | Step inside | FPV flight, 18 s | A black curtain with a lit doorway rises over the drone. *Step inside.* The door opens to full screen as the flight starts. The white lounge is held in slow motion (0.45×, motion-interpolated) so it can be taken in; then the event floor and the collection. Room names follow the camera. |
+| 03 | Who's inside | 911 overhead still | The still wipes up over the end of the flight, full screen. *The value isn't what's parked outside.* It fades as *It's who's inside.* rises. |
+| 04 | In the room | 4 clips | *Proximity is the curriculum.* Phone: one frame, each clip wiping up over the last just before it ends. Desktop: three columns. |
+| 05 | Around the table | 4 clips | *The right room changes the conversation.* Same run, continuing. |
+| 06 | Access | Helicopter still, 17 amenity cuts | The helicopter crossfades in over the last people clip. *Access changes perspective.* Hard cut into the amenities, cutting faster and faster, with *More than one room.* and a counter synced to the cuts. |
+| 07 | The point | — | Hard cut to black: *This isn't the destination.* / *It's part of the environment.* Then *Sell · Build · Own / Your Pursuit starts here. / Apply to Pursuit.* The header returns and the page scrolls again. |
 
-- **Native scroll, no hijacking.** No scroll lock, no wheel interception, no smooth-scroll
-  library. Chapters are `position: sticky` stages.
-- **Scroll decides where, time decides how.** Each chapter has one paused GSAP timeline
-  whose beats sit at scroll positions (`data-beats`, in vh from the moment the stage
-  pins). Crossing a beat plays that beat's sequence forward in real time; it is never
-  scrubbed. A 5 vh hysteresis either side means a wobble cannot re-trigger anything.
-  Scrolling back past a beat rewinds it quickly (a deliberate reverse). If you are
-  several beats ahead, it plays through them faster rather than skipping.
-- **Clips play once.** They start on their beat, hold their last frame, and are never
-  restarted by scroll. They pause when their chapter leaves the screen and resume
-  (not restart) when it returns.
-- **Page turns are physical.** Where one chapter slides over another it is a native
-  scroll overlap, so it can't glitch.
-- **One hard cut, one black stop.** The helicopter-to-crescendo cut and the crescendo's
-  stop happen inside one stage, so they are true cuts.
+## How it plays
+
+- **One clock.** A paused GSAP timeline holds every transition. Each frame it is set to
+  the film time, and every clip is slaved to the same time. While a clip carries the
+  picture, the clock follows that clip, so a clip that is still buffering holds the film
+  rather than drifting out of sync. The film is a pure function of its time, so seeking
+  either way is just setting the time: nothing restarts, loops or replays a first frame.
+- **Scroll lock.** From the opening screen until the end, the page does not scroll
+  (overflow hidden, plus wheel, touch and scroll keys stopped). It is released when the
+  film ends, when Skip is pressed, or if anything throws. Seeking back after the end
+  locks it again.
+- **Controls.** A discreet bar along the bottom: pause/resume, a timeline with a tick
+  for each chapter (tap or drag to seek, arrow keys ±5 s, Page keys by chapter, Home/End),
+  the chapter name, and Skip. Tapping the picture or pressing Space also pauses. While
+  paused, a scroll resumes. The film pauses itself when the tab is hidden and resumes
+  when it returns.
+- **Preloading.** Each clip loads about 11 s before it plays (the first three during the
+  opening screen) and gives its buffers back 15 s after. Posters are first frames; the
+  split uses a still of the neon's exact last frame, decoded in advance.
+- **When a clip fails.** A clip that errors is skipped at once; one that has not started
+  2.5 s after it should (or stalls for 5 s mid-play) is skipped. The film moves on to
+  wherever the next beat begins. A watchdog moves the film on if the clock ever stops
+  for 8 s. If autoplay is refused (iOS Low Power Mode), the film pauses and the next tap
+  plays it.
 
 ## Media pipeline
 
@@ -61,42 +66,37 @@ The master (`source-media/club-scottsdale-master.MOV`) is never written to. Ever
 the page uses comes from one script, one generation from the master:
 
 ```
-python3 scripts/build_media.py          # builds anything missing
+python3 scripts/build_media.py          # builds anything missing, removes anything no longer used
 python3 scripts/build_media.py --force  # rebuilds everything
 ```
 
 It writes source-quality PNG stills to `source-media/stills/` and production media to
-`public/media/club-scottsdale/` (clips, posters, AVIF/WebP stills, `manifest.js`).
-In/out points, crops and still times all live at the top of the script; trims are
-frame-exact so the crescendo counter stays in sync. See `source-media/media-map.md`
-for the full, corrected scene map and the selects.
+`public/media/club-scottsdale/` (clips, posters, AVIF/WebP stills, `manifest.js`). In/out
+points, crops, speed, grade and still times all live at the top of the script; trims are
+frame-exact so the amenity counter and the room names stay in sync. Slow motion goes
+through a lossless intermediate in `build/cache/` (not committed). See
+`source-media/media-map.md` for the scene map and the selects.
 
 | | |
 |---|---|
 | Codecs | HEVC (`hvc1`) for Safari/iOS, H.264 for everything else; muted, 1 s GOP, faststart |
-| Sizes | 1080×1920 portrait; 720×1280 for Save-Data, 2G/3G and small screens; 1080×810 per-shot crops for landscape screens; the rotated lineup at 1920×1080 |
-| Loading | Posters are WebP; clips load only when their chapter is within 1.5 screens |
-| Weight | HEVC 1080 set about 10 MB for the whole chapter, fetched progressively |
+| Sizes | 1080×1920 portrait; 720×1280 for Save-Data, 2G/3G and small screens; 1080×810 per-shot crops for landscape screens |
+| Weight | HEVC set about 13 MB for the whole film (H.264 1080 about 20 MB), fetched as it plays |
 
 ## Accessibility and performance
 
-- `prefers-reduced-motion`: clips don't autoplay (posters stand in), transforms are
-  removed, transitions shorten to fades.
-- A small **Motion** control (bottom right, visible inside the chapter) pauses and
-  resumes all footage at any time.
-- Autoplay blocked (e.g. iOS Low Power Mode): the posters are the first frames, so the
-  film still reads.
-- Every chapter has a text description; the stills have alt text; a skip link jumps past
-  the film.
-- Only transforms, opacity and clip-path are animated. Only the chapter on screen
-  decodes video.
+- `prefers-reduced-motion`: no zooms or push-ins; the split becomes a fade.
+- Every stage has a text alternative; the stills have alt text; a skip link jumps to
+  the application.
+- Only transforms, opacity and clip-path are animated. Only clips near the playhead
+  hold decoded video.
 
 ## Files
 
 ```
-index.html                     markup: every chapter, plus stand-ins for sections 04 and 06
-css/club.css                   tokens, type, chapter layouts (html.wide = landscape ≥ 900px)
-js/club.js                     chapter engine, beats, media loading, flight and crescendo sync
+index.html                     the film stage: every layer, the controls, the CTA
+css/club.css                   tokens, type, layouts (html.wide = landscape ≥ 900px)
+js/club.js                     film clock, timeline, clip sync, controls, scroll lock
 vendor/gsap.min.js             GSAP 3 (the only library)
 assets/fonts/                  Instrument Serif, Outfit
 scripts/build_media.py         master → production media
@@ -106,10 +106,10 @@ public/media/club-scottsdale/  generated production media
 
 ## Notes
 
-- The header and the sections either side are stand-ins so the entrance and exit can be
-  judged in context. Their copy is placeholder.
-- Room names in the flight describe what the camera passes through; the crescendo shows
-  a counter rather than room names, so nothing is claimed that the footage doesn't show.
-- Desktop full-bleed moments crop vertical footage (1080 px wide) to landscape, so they
-  are softer than the native 1920×1080 lineup. Grain and motion carry it, but a true
-  landscape shoot of the flight would sharpen the desktop version further.
+- The header and the Apply button are stand-ins so the entrance and exit can be judged in
+  context; the button's link is a placeholder.
+- The tent logo is about 97 px wide in the source frame against about 760 px for the
+  neon's CS, so the opening is a positional match with a dissolve rather than a size
+  match (a size match would need an ~8× blow-up).
+- Desktop full-screen clips crop vertical footage (1080 px wide) to landscape, so they are
+  softer than on a phone.

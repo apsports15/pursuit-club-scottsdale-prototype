@@ -37,14 +37,14 @@ as a "dinner / mastermind sequence".
 |---|---|---|
 | 0.00–2.93 | Helicopter parked under the lit CLUB SCOTTSDALE sign, dusk. Locked-off. | Still: `helicopter` @ 0.60 |
 | 2.93–5.97 | White Huracán arrives: rolls past the hex-lit facade (2.93), pulls in under the sign (3.70), close along the door (4.47). | Three cuts |
-| 5.97–9.23 | Golden-hour lineup at the building, slow push: white Corvette, R8, orange McLaren. | **Sideways**, rotate. Still: `lineup` @ 6.55 |
+| 5.97–9.23 | Golden-hour lineup at the building, slow push: white Corvette, R8, orange McLaren. | **Sideways**, rotate. Not used in the film |
 | 9.23–11.47 | Top-down drone over the branded tent and McLarens, rising to reveal the lot. | |
 | 11.47–15.83 | Podcast in the dark studio: two hosts, orange McLaren behind; then a guest in white. | |
 | 15.83–19.10 | Overhead glide down the row: Corvette, R8, McLaren, AMG, McLaren. | |
 | 19.10–20.73 | Overhead: a white 911, centred, hatched bay beside it. | Still: `overhead` @ 19.90 |
 | 20.73–24.30 | Elevated sweep: red Huracán, grey STO, white R8, white G-wagon, lupins in the foreground. | |
 | 24.30–25.50 | White GT3 RS under the sign, daylight. | |
-| 25.50–27.00 | Matte grey Huracán under the hex lights beside the Club Scottsdale neon. | Still: `matte` @ 26.55 |
+| 25.50–27.00 | Matte grey Huracán under the hex lights beside the Club Scottsdale neon. | Not used in the film |
 | 27.00–29.00 | Session: presenter at a screen, seated room, hex ceiling. | People |
 | 29.00–30.87 | Pickleball on the branded court, daylight. | |
 | 30.87–32.43 | Networking under the hex lights, suits (white suit, centre). | People |
@@ -53,7 +53,7 @@ as a "dinner / mastermind sequence".
 | 36.73–37.77 | Host with a mic in front of the neon. | |
 | 37.80–46.03 | Evening event: the matte Huracán from behind, crowd, greetings, handshakes, a hug, dinner tables laughing. | Many short cuts |
 | 46.03–49.17 | Dinner: speaker on the floor, long tables listening, guests laughing. | People |
-| 49.17–51.67 | The CS / CLUB SCOTTSDALE neon on black. Clean, native video. | Still: `neon` @ 50.58 |
+| 49.17–51.67 | The CS / CLUB SCOTTSDALE neon on black. Clean, native video. | Still: `neon` @ 51.583 (graded) |
 | 51.67–53.90 | Panel on white sofas, car footage on the screens behind. | People |
 | 53.90–55.67 | Two men in conversation, candid. | People |
 | 55.67–57.00 | Sim racing (F1 rig). | |
@@ -66,46 +66,51 @@ as a "dinner / mastermind sequence".
 | 81.47–83.93 | Guests at the hex wall; sim rig. | **Sideways** |
 | 83.93–90.90 | Amenity edit, ~0.45 s a shot: red Huracán, podcast studio, office, lounge and cars, sim bay, white sectional, barber chair, STO and G-wagon, terrace at sunset, gallery wall, chesterfield lounge, card room, matte Aventador, window lounge with recliners, catering. | Clean to the last frame |
 
-## Final selects (what the experience uses)
+## Final selects (what the film uses)
 
-| Asset | Master in–out | Type | Use | Length | Phones |
-|---|---|---|---|---|---|
-| `neon` | 49.25–51.60 | video + still | Identity: glows inside the slit that opens the chapter | 2.4 s | Contained in the slit, never cropped |
-| `arrival` | 2.97–5.94 | video | The entrance: rolls in inside the slit, then opens to full bleed | 3.0 s | Portrait native |
-| `lineup` | 6.02–9.18 | video (rotated) | Scale at the building | 3.2 s | Cinemascope band; desktop full bleed at native 1920×1080 |
-| `aerial` | 9.27–11.44 + 15.92–19.07 | video | The camera rises over the lot | 5.4 s | Portrait native |
-| `flight` | 58.42–74.33 | video | Enter: the continuous flight, uncut | 15.9 s | Portrait native; desktop gets a 4:3 crop |
-| `overhead` | 19.90 | still | Editorial: outside | — | 3:4 frame |
-| `matte` | 26.55 | still | Editorial: inside | — | 4:5 frame |
-| `p-session` | 27.03–28.85 | video | Knowledge | 1.8 s | |
-| `p-lounge` | 32.47–35.27 | video | Knowledge | 2.8 s | |
-| `p-room` | 78.70–80.22 | video | Knowledge | 1.5 s | |
-| `p-applause` | 76.95–78.62 | video | Knowledge, the response | 1.7 s | |
-| `p-network` | 30.92–32.40 | video | Connection | 1.5 s | |
-| `p-dinner` | 46.90–48.40 | video | Connection | 1.5 s | |
-| `p-panel` | 51.72–53.85 | video | Connection | 2.1 s | |
-| `p-candid` | 53.95–55.62 | video | Connection | 1.7 s | |
-| `helicopter` | 0.60 | still | Access: emerges from darkness | — | Full bleed; desktop tall column |
-| `crescendo` | 17 parts, see `scripts/build_media.py` | video | Sim, decks, podcast, court, then 13 rooms cutting 0.42 → 0.30 s, landing on the matte car | 8.6 s | Desktop gets per-shot crops |
+The chapter is a single guided film (see `README.md`). In running order:
 
-Not used, deliberately: the whiteboard session (foreground blocked), micro-cuts under
-0.5 s from the event montage, catering (weak last image), the sideways 81–84 s stretch,
-the GT3 RS daylight shot (the helicopter does that job better), the podcast studio glide
-(74–77 s; strong, but a second glide right after the hero flight would dilute it).
+| Asset | Master in–out | Type | Use | Length |
+|---|---|---|---|---|
+| `neon` | 49.25–51.60 | video | Opens the film, filling the screen. Graded so its black is true #000 (`colorlevels`, black point ~RGB 4,5,8 → 0). | 2.4 s |
+| `neon` still | 51.583 (the clip's exact last frame, same grade) | still | The sign splits open on this frame, in two halves | — |
+| `aerial` | 9.27–11.44 + 15.92–19.07 | video | Revealed behind the split: starts on the tent's CS logo, which the page places where the neon's CS was, then pulls back over the lot and the collection. Landscape crop centred at y .32 so the tent is in frame. | 5.3 s |
+| `flight` | 58.42–59.85, **59.85–61.62 at 0.45×**, 61.62–74.33 | video | Step inside: the continuous flight. The white lounge is motion-interpolated to 0.45× so it holds for ~4 s; the whip into it and everything after run at speed. Room marks: Entrance 0.00, The lounge 0.98, The floor 6.00, The collection 10.35 s (output time). | 18.1 s |
+| `overhead` | 19.90 | still | Who's inside: the 911 from above, full screen | — |
+| `p-session` … `p-candid` | as before (27.03–28.85, 32.47–35.27, 78.70–80.22, 76.95–78.62, 30.92–32.40, 46.90–48.40, 51.72–53.85, 53.95–55.62) | video | In the room, around the table | 1.5–2.8 s each |
+| `helicopter` | 0.60 | still | Access | — |
+| `crescendo` | 17 parts, see `scripts/build_media.py` | video | The amenities, cutting 0.42 → 0.30 s, landing on the matte car | 8.5 s |
+
+**Dropped for the film:** the white Huracán arrival (2.93–5.97) and the sideways lineup
+(5.97–9.23, the horizontal Corvette shot), the `matte` and `lineup` stills. Old shot
+labels: 15 (white car overhead / door pass) is not used; 23 (sim racing) opens the
+amenities; 47 is not used.
+
+**The tent match.** The CS logo on the tent is about 97 px wide in the 1080 px source
+frame (at 710, 438 in the first aerial frame); the neon's CS is about 760 px. A size
+match would need an ~8× blow-up of the source, which the footage can't support
+sharply. The page does a positional match instead: the tent logo starts exactly where
+the neon's CS was, at about 2.4× (1.8× on desktop), dissolving in behind the split,
+then the drone pulls back to 1×.
+
+Also not used, deliberately: the whiteboard session (foreground blocked), micro-cuts
+under 0.5 s from the event montage, catering (weak last image), the sideways 81–84 s
+stretch, the GT3 RS daylight shot, the podcast studio glide (74–77 s; a second glide
+right after the flight would dilute it).
 
 ## Production media
 
-`public/media/club-scottsdale/`, all generated:
+`public/media/club-scottsdale/`, all generated by `scripts/build_media.py`:
 
 | Variant | Size | Codecs | Who gets it |
 |---|---|---|---|
 | `p1080` | 1080×1920 | HEVC (`hvc1`) + H.264 | Phones and portrait tablets |
 | `p720` | 720×1280 | H.264 | Save-Data, 2G/3G, small screens |
-| `w1080` | 1080×810, per-shot crop | HEVC + H.264 | Landscape screens, for full-bleed clips |
-| `l1920` / `l960` | 1920×1080 / 960×540 | HEVC + H.264 / H.264 | The rotated lineup |
-| stills | 1080 + 720 (1920 + 960 landscape) | AVIF + WebP | Everyone, via `<picture>` |
+| `w1080` | 1080×810, per-shot crop | HEVC + H.264 | Landscape screens, for the full-bleed clips (aerial, flight, crescendo) |
+| stills | 1080 + 720 | AVIF + WebP | Everyone, via `<picture>` |
 | posters | first frame of each variant | WebP | Everyone |
 
 Safari and iOS pick HEVC (roughly half the size of H.264 at the same quality);
-everything else plays H.264. All clips are muted, have a 1 s GOP and faststart, and
-are loaded only when their chapter is within 1.5 screens.
+everything else plays H.264. All clips are muted, have a 1 s GOP and faststart. The
+film loads each clip about 11 s before it plays and releases it 15 s after. The whole
+HEVC set is about 13 MB (H.264 1080: about 20 MB).
