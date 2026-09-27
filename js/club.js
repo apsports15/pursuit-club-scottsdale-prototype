@@ -9,8 +9,8 @@
    out of sync; a clip that fails is skipped. The film is a pure function of
    its time, so seeking in either direction is just setting the time.
 
-   Arrival      neon → the sign splits → tent logo → the drone pulls back
-   Step inside  the door → the continuous flight (the lounge held in slow motion)
+   Arrival      neon → the sign splits → tent logo → the drone rises slowly and pulls back
+   Step inside  the flight wipes in, already moving: lounge, floor, collection, inner room
    Who's inside the 911 from above → It's who's inside.
    In the room / Around the table   people, as page wipes (phone) or columns (desktop)
    Access       the helicopter → hard cut into the amenities
@@ -86,6 +86,7 @@
       v._name = name;
       v._kind = kind;
       v.addEventListener('error', () => { v._failed = true; });
+      v.addEventListener('playing', () => { v._ok = true; });
       el._v = v;
     });
     $$('[data-still]', stage).forEach((el) => {
@@ -125,6 +126,18 @@
     if (p && p.catch) p.catch((err) => { if (err && err.name === 'NotAllowedError') onBlocked(); });
   }
 
+  // iOS Low Power Mode (and some in-app browsers) refuse to start a video the page plays
+  // by itself. A video that has been told to play inside a real tap, touch or key press
+  // is allowed from then on, so every interaction unlocks every clip that is not yet
+  // known to play: play() and, unless it should be running, pause() straight away.
+  function unlockMedia() {
+    $$('video', stage).forEach((v) => {
+      if (v._ok || v.ended || !v.paused) return;
+      try { const p = v.play(); if (p && p.catch) p.catch(() => {}); } catch (e) { /* ignore */ }
+      v.pause();
+    });
+  }
+
   function splitChars(el, txt) {
     el.setAttribute('aria-label', txt);
     el.innerHTML = Array.from(txt).map((c) => `<span class="c" aria-hidden="true">${c === ' ' ? '&nbsp;' : c}</span>`).join('');
@@ -143,14 +156,6 @@
   function dims(v) {
     const s = variantFor(v._name, v._kind);
     return [s.v.w, s.v.h];
-  }
-
-  // A portrait opening in the middle of the stage, as clip insets in %.
-  function doorInsets(W, H, hFrac, maxW, yShift) {
-    const dh = H * hFrac;
-    const dw = Math.min(W * maxW, dh * 0.5);
-    const top = (H - dh) / 2 + H * yShift;
-    return [(top / H) * 100, ((W - dw) / 2 / W) * 100, ((H - top - dh) / H) * 100, ((W - dw) / 2 / W) * 100];
   }
 
   /* ------------------------------------------------------------------ film state */
@@ -190,22 +195,22 @@
     marks = {};
 
     // Everything starts hidden except the gate and, beneath it, the neon.
-    gsap.set(['#s-aerial', '#s-split', '#s-cap', '#s-door', '#s-over', '#s-pivot', '#s-people', '#s-heli', '#s-reel', '#s-point', '.cta', '.p-head', '#p-scrim', '#s-rooms', '#s-label', '#h-scrim', '#h-txt .micro'], { autoAlpha: 0 });
+    gsap.set(['#s-aerial', '#s-split', '#s-cap', '#s-inside', '#s-over', '#s-pivot', '#s-people', '#s-heli', '#s-reel', '#s-point', '.cta', '.p-head', '#p-scrim', '#s-rooms', '#h-scrim', '#h-txt .micro'], { autoAlpha: 0 });
     gsap.set('#s-neon', { autoAlpha: 1 });
     gsap.set('#s-gate', { autoAlpha: 1 });
     gsap.set(['.gate__in', '.gate__cue'], { autoAlpha: 1, y: 0 });
-    gsap.set(['#s-over-line .li', '.pivot .li', '.p-head .li', '#h-txt .li', '.point .li', '.cta__title .li'], { yPercent: 112 });
+    gsap.set(['#s-step .li', '#s-over-line .li', '.pivot .li', '.p-head .li', '#h-txt .li', '.point .li', '.cta__title .li'], { yPercent: 112 });
 
     /* ---------------- Arrival: the neon, the split, the drone */
     chapter('Arrival', 0);
     const nv = $('#s-neon')._v;
     const nmap = coverMap(W, H, 1080, 1920, opOf($('#s-neon')));
     // The sign fills the screen: by the end of its slow push-in the lettering (the widest
-    // part, ~800 source px) spans 94% of a phone's width; on landscape screens the whole
+    // part, ~800 source px) spans 90% of a phone's width; on landscape screens the whole
     // sign fits the height. The clip's black is graded to #000, so when the frame is
     // smaller than the screen its edges disappear into the page.
     const [bx, by] = nmap.at(550, 900);                   // centre of the whole sign
-    const fEnd = clamp(Math.min((0.94 * W) / (800 * nmap.s), (0.8 * H) / (700 * nmap.s)), 0.5, 1.35);
+    const fEnd = clamp(Math.min((0.9 * W) / (800 * nmap.s), (0.8 * H) / (700 * nmap.s)), 0.5, 1.35);
     const fill = K ? fEnd / 1.05 : fEnd;
     const dy = H / 2 - by;
     // The clip and the still are laid out at their full frame (not cropped to the screen),
@@ -258,30 +263,27 @@
     const Z = K ? clamp(Math.max(WIDE ? 1.8 : 2.4, need * 1.03), 1, 4) : 1;
     gsap.set('#s-aerial .f', { transformOrigin: `${Pt[0]}px ${Pt[1]}px` });
     FT('#s-aerial', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.6, ease: 'none' }, O);
-    addClip($('#s-aerial'), O, true);
-    FT('#s-aerial .f', { x: K ? Pn[0] - Pt[0] : 0, y: K ? Pn[1] - Pt[1] : 0, scale: Z }, { x: 0, y: 0, scale: 1, duration: 3.7, ease: 'power2.inOut' }, O + 0.12);
-    FT('#s-cap', { autoAlpha: 0, y: 8 * K }, { autoAlpha: 1, y: 0, duration: 0.8, ease: 'power2.out' }, O + 2.5);
+    const ae = addClip($('#s-aerial'), O, true);
+    // The pull-back spans the whole slow rise off the tent (the clip's first 4.4 s).
+    FT('#s-aerial .f', { x: K ? Pn[0] - Pt[0] : 0, y: K ? Pn[1] - Pt[1] : 0, scale: Z }, { x: 0, y: 0, scale: 1, duration: 4.4, ease: 'power2.inOut' }, O + 0.12);
+    FT('#s-cap', { autoAlpha: 0, y: 8 * K }, { autoAlpha: 1, y: 0, duration: 0.8, ease: 'power2.out' }, O + 4.7);
 
-    /* ---------------- Step inside: the door, then the flight */
-    const D0 = O + 4.45;
-    chapter('Step inside', D0);
-    const door = doorInsets(W, H, 0.6, WIDE ? 0.2 : 0.42, 0.03);
-    gsap.set('#s-door', { yPercent: 100 });
-    gsap.set('#s-flight', win(door));
-    S('#s-door', { autoAlpha: 1 }, D0);
-    FT('#s-door', { yPercent: 100 }, { yPercent: 0, duration: 1.25, ease: 'power3.inOut' }, D0);
-    tl.to('#s-cap', { autoAlpha: 0, duration: 0.4, ease: 'none' }, D0);
-    FT('#s-flight .f', { scale: 1 + 0.1 * K }, { scale: 1 + 0.03 * K, duration: 2.8, ease: 'power1.out' }, D0);
-    FT('#s-label', { autoAlpha: 0, y: 8 * K }, { autoAlpha: 1, y: 0, duration: 0.8, ease: 'power2.out' }, D0 + 0.9);
-    S('#s-aerial', { autoAlpha: 0 }, D0 + 1.3);
-
-    const F0 = D0 + 2.75;
+    /* ---------------- Step inside: the flight wipes up over the drone, already moving */
+    // Same page turn as the other chapters: full screen, never cropped, no hold.
+    const F0 = ae.end - 0.95;
+    chapter('Step inside', F0);
+    tl.to('#s-cap', { autoAlpha: 0, duration: 0.4, ease: 'none' }, F0 - 0.2);
+    S('#s-inside', { autoAlpha: 1 }, F0);
+    FT('#s-inside', { '--t': '100%' }, { '--t': '0%', duration: 0.95, ease: 'power3.inOut' }, F0);
+    FT('#s-flight .f', { yPercent: 10 * K }, { yPercent: 0, duration: 0.95, ease: 'power3.inOut' }, F0);
     const fl = addClip($('#s-flight'), F0, true);
-    tl.to('#s-label', { autoAlpha: 0, duration: 0.4, ease: 'none' }, F0);
-    tl.to('#s-flight', Object.assign(win([0, 0, 0, 0]), { duration: 1.7, ease: 'power3.inOut' }), F0 + 0.1);
-    tl.to('#s-flight .f', { scale: 1, duration: 1.8, ease: 'power2.out' }, F0 + 0.1);
-    FT('#s-rooms', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.6, ease: 'none' }, F0 + 1.4);
+    S('#s-aerial', { autoAlpha: 0 }, F0 + 1.0);
+    lift('#s-step .li', F0 + 0.3, { d: 0.9, st: 0.1 });
+    drop('#s-step .li', F0 + 1.35);
+    // Room names take over from the title as the camera reaches the lounge.
+    FT('#s-rooms', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.4, ease: 'none' }, F0 + 1.4);
     marks.flight = fl;
+    marks.roomsFrom = 1.45;
 
     /* ---------------- Who's inside: the 911 from above, then the pivot */
     const O1 = fl.end - 0.95;
@@ -291,7 +293,7 @@
     FT('#s-over', { '--t': '100%' }, { '--t': '0%', duration: 0.95, ease: 'power3.inOut' }, O1);
     FT('#s-over .still .f', { yPercent: 10 * K }, { yPercent: 0, duration: 0.95, ease: 'power3.inOut' }, O1);
     FT('#s-over .still .f', { scale: 1 + 0.02 * K }, { scale: 1 + 0.08 * K, duration: 4.6, ease: 'none' }, O1);
-    S('#s-door', { autoAlpha: 0 }, O1 + 1.0);
+    S('#s-inside', { autoAlpha: 0 }, O1 + 1.0);
     lift('#s-over-line .li', O1 + 0.75, { st: 0.1 });
 
     const P0 = O1 + 3.55;
@@ -422,7 +424,7 @@
     const fl = marks.flight;
     const ft = T - fl.start;
     let i = -1;
-    if (T >= fl.start - 0.01 && T < fl.end) for (let k = 0; k < ROOMS.length; k++) if (ft >= ROOMS[k].at) i = k;
+    if (T >= fl.start - 0.01 && T < fl.end) for (let k = 0; k < ROOMS.length; k++) if (ft >= Math.max(ROOMS[k].at, marks.roomsFrom)) i = k;
     if (i !== roomIdx) {
       roomIdx = i;
       ROOMS.forEach((r, k) => { r.li.classList.toggle('is-on', k === i); r.li.classList.toggle('is-near', k === i + 1); });
@@ -482,11 +484,17 @@
   }
 
   let blocked = false;
+  let resumedAt = 0;
   function onBlocked() {
-    // Autoplay refused (e.g. iOS Low Power Mode): hold the film until a tap, which may play.
+    // Still refused (a phone that needs a tap for each start): hold the film on its
+    // current frame and show "Tap to play". The tap unlocks and resumes it.
     if (blocked) return;
     blocked = true;
+    // Refused on the very first clip: finish clearing the opening title so the button
+    // sits over the neon, not over the words.
+    if (T < 1.15) { T = 1.15; render(false); }
     if (state === 'playing') pause(false);
+    setClasses();
   }
 
   function advance(dt) {
@@ -573,6 +581,7 @@
     body.classList.toggle('is-started', state !== 'gate');
     body.classList.toggle('is-paused', state === 'paused');
     body.classList.toggle('is-ended', state === 'ended');
+    body.classList.toggle('is-blocked', blocked && state === 'paused');
     const btn = $('#ctl-play');
     const paused = state === 'paused' || state === 'ended';
     btn.setAttribute('aria-label', paused ? 'Play' : 'Pause');
@@ -642,7 +651,7 @@
   /* ------------------------------------------------------------------ input */
 
   const SCROLL_KEYS = new Set([' ', 'Spacebar', 'PageDown', 'PageUp', 'ArrowDown', 'ArrowUp', 'Home', 'End']);
-  const inCtl = (el) => el && el.closest && el.closest('.ctl, .cta, .skip');
+  const inCtl = (el) => el && el.closest && el.closest('.ctl, .cta, .skip, .tap');
 
   function onWheel(e) {
     if (!locked) return;
@@ -685,9 +694,18 @@
     addEventListener('keydown', onKey);
     addEventListener('scroll', onScroll, { passive: true });
 
+    // Every real interaction unlocks the clips (see unlockMedia). The touch that ends a
+    // swipe also resumes a film that the phone refused to start.
+    const unlockOn = (e) => {
+      unlockMedia();
+      if (e.type === 'touchend' && blocked && state === 'paused') { resume(); resumedAt = performance.now(); }
+    };
+    ['touchend', 'click', 'keydown', 'pointerup'].forEach((t) => addEventListener(t, unlockOn, { capture: true, passive: true }));
+    $('#tap-play').addEventListener('click', () => { if (state === 'paused') resume(); });
+
     // A tap on the picture: starts the film, then pauses and resumes it.
     stage.addEventListener('click', (e) => {
-      if (inCtl(e.target)) return;
+      if (inCtl(e.target) || performance.now() - resumedAt < 600) return;
       if (state === 'gate') start();
       else if (state === 'playing' || state === 'paused') toggle();
     });

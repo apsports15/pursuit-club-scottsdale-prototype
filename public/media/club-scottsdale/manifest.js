@@ -45,38 +45,38 @@ window.CS_MEDIA = {
    }
   },
   "aerial": {
-   "frames": 160,
-   "duration": 5.333,
+   "frames": 226,
+   "duration": 7.533,
    "variants": {
     "p1080.hevc": {
      "src": "aerial.p1080.hevc.mp4",
      "w": 1080,
      "h": 1920,
-     "kb": 1671
+     "kb": 1922
     },
     "p1080": {
      "src": "aerial.p1080.mp4",
      "w": 1080,
      "h": 1920,
-     "kb": 3706
+     "kb": 4211
     },
     "p720": {
      "src": "aerial.p720.mp4",
      "w": 720,
      "h": 1280,
-     "kb": 1589
+     "kb": 1810
     },
     "w1080.hevc": {
      "src": "aerial.w1080.hevc.mp4",
      "w": 1080,
      "h": 810,
-     "kb": 764
+     "kb": 939
     },
     "w1080": {
      "src": "aerial.w1080.mp4",
      "w": 1080,
      "h": 810,
-     "kb": 1596
+     "kb": 1969
     }
    },
    "posters": {
@@ -102,38 +102,38 @@ window.CS_MEDIA = {
    }
   },
   "flight": {
-   "frames": 542,
-   "duration": 18.067,
+   "frames": 552,
+   "duration": 18.4,
    "variants": {
     "p1080.hevc": {
      "src": "flight.p1080.hevc.mp4",
      "w": 1080,
      "h": 1920,
-     "kb": 3706
+     "kb": 4133
     },
     "p1080": {
      "src": "flight.p1080.mp4",
      "w": 1080,
      "h": 1920,
-     "kb": 8165
+     "kb": 8886
     },
     "p720": {
      "src": "flight.p720.mp4",
      "w": 720,
      "h": 1280,
-     "kb": 3488
+     "kb": 3815
     },
     "w1080.hevc": {
      "src": "flight.w1080.hevc.mp4",
      "w": 1080,
      "h": 810,
-     "kb": 2092
+     "kb": 2317
     },
     "w1080": {
      "src": "flight.w1080.mp4",
      "w": 1080,
      "h": 810,
-     "kb": 4048
+     "kb": 4411
     }
    },
    "posters": {
@@ -147,20 +147,20 @@ window.CS_MEDIA = {
    },
    "marks": [
     {
-     "t": 0.0,
-     "label": "Entrance"
-    },
-    {
      "t": 0.98,
      "label": "The lounge"
     },
     {
-     "t": 5.997,
+     "t": 3.83,
      "label": "The floor"
     },
     {
-     "t": 10.347,
+     "t": 8.18,
      "label": "The collection"
+    },
+    {
+     "t": 15.933,
+     "label": "The inner room"
     }
    ]
   },

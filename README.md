@@ -27,8 +27,8 @@ About 62 s on phones, 54 s on desktop (the people run as three columns at once t
 | | Chapter | Footage | What happens |
 |---|---|---|---|
 | — | Opening | — | Solid #000. *Club Scottsdale / Enter the ecosystem / Scroll to enter.* The first scroll, swipe, tap or key starts the film. |
-| 01 | Arrival | CS neon, drone | The neon fills the screen and pushes in slowly. The sign splits open down the middle of the CS, on the clip's own last frame. Behind it, the tent's CS logo sits where the neon's was; it dissolves in and the drone pulls back over the lot and the collection (the film's one zoom-out). *Club Scottsdale · Scottsdale, Arizona.* |
-| 02 | Step inside | FPV flight, 18 s | A black curtain with a lit doorway rises over the drone. *Step inside.* The door opens to full screen as the flight starts. The white lounge is held in slow motion (0.45×, motion-interpolated) so it can be taken in; then the event floor and the collection. Room names follow the camera. |
+| 01 | Arrival | CS neon, drone | The neon fills the screen and pushes in slowly. The sign splits open down the middle of the CS, on the clip's own last frame. Behind it, the tent's CS logo sits where the neon's was; it dissolves in, and the drone rises slowly off the tent (the whole rise at half speed, motion-interpolated) while the frame pulls back to reveal the cars (the film's one zoom-out). Then the glide down the row of cars at speed. *Club Scottsdale · Scottsdale, Arizona.* |
+| 02 | Step inside | FPV flight, 18.4 s | The flight wipes up over the drone, full screen and already moving: the same page turn as the other chapters. *Step inside.* over the doorway, then the room names follow the camera at normal speed: the lounge, the floor, the collection, and the inner room with the round white sofa. |
 | 03 | Who's inside | 911 overhead still | The still wipes up over the end of the flight, full screen. *The value isn't what's parked outside.* It fades as *It's who's inside.* rises. |
 | 04 | In the room | 4 clips | *Proximity is the curriculum.* Phone: one frame, each clip wiping up over the last just before it ends. Desktop: three columns. |
 | 05 | Around the table | 4 clips | *The right room changes the conversation.* Same run, continuing. |
@@ -54,11 +54,19 @@ About 62 s on phones, 54 s on desktop (the people run as three columns at once t
 - **Preloading.** Each clip loads about 11 s before it plays (the first three during the
   opening screen) and gives its buffers back 15 s after. Posters are first frames; the
   split uses a still of the neon's exact last frame, decoded in advance.
+- **Low Power Mode.** iOS in Low Power Mode (and some in-app browsers) will not start a
+  video the page plays by itself, only one started from a touch. Every touch, tap and key
+  press therefore "unlocks" every clip (play, then pause at once), so the swipe that
+  starts the film is enough for the whole film. If a phone still refuses, the film holds
+  on the current frame with a *Tap to play* button; one tap unlocks everything and it runs
+  to the end.
+- **Fits the screen.** The page is one screen tall: `html`, `body` and the film fill the
+  viewport inside the safe-area padding the artifact viewer puts on `:root` in the phone
+  app, so the controls and the bottom lines are never below the fold.
 - **When a clip fails.** A clip that errors is skipped at once; one that has not started
   2.5 s after it should (or stalls for 5 s mid-play) is skipped. The film moves on to
   wherever the next beat begins. A watchdog moves the film on if the clock ever stops
-  for 8 s. If autoplay is refused (iOS Low Power Mode), the film pauses and the next tap
-  plays it.
+  for 8 s.
 
 ## Media pipeline
 
@@ -74,14 +82,14 @@ It writes source-quality PNG stills to `source-media/stills/` and production med
 `public/media/club-scottsdale/` (clips, posters, AVIF/WebP stills, `manifest.js`). In/out
 points, crops, speed, grade and still times all live at the top of the script; trims are
 frame-exact so the amenity counter and the room names stay in sync. Slow motion goes
-through a lossless intermediate in `build/cache/` (not committed). See
+through a lossless intermediate in `build/cache/` (not committed): the drone's rise off the tent plays at half speed. See
 `source-media/media-map.md` for the scene map and the selects.
 
 | | |
 |---|---|
 | Codecs | HEVC (`hvc1`) for Safari/iOS, H.264 for everything else; muted, 1 s GOP, faststart |
 | Sizes | 1080×1920 portrait; 720×1280 for Save-Data, 2G/3G and small screens; 1080×810 per-shot crops for landscape screens |
-| Weight | HEVC set about 13 MB for the whole film (H.264 1080 about 20 MB), fetched as it plays |
+| Weight | HEVC set about 14 MB for the whole film (H.264 1080 about 21 MB), fetched as it plays |
 
 ## Accessibility and performance
 

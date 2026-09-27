@@ -40,10 +40,11 @@
     </div>
     <p class="cap s-cap" id="s-cap"><span class="s-cap__in">Club Scottsdale<span>Scottsdale, Arizona</span></span></p>
 
-    <!-- Step inside: the door, then the continuous flight -->
-    <div class="panel" id="s-door">
-      <div class="m win" id="s-flight" data-clip="flight" data-wide data-op="50% 50%" data-op-wide="50% 52%"></div>
-      <p class="micro s-door-label" id="s-label">Step inside</p>
+    <!-- Step inside: the flight wipes up over the drone, already moving -->
+    <div class="panel win" id="s-inside">
+      <div class="m" id="s-flight" data-clip="flight" data-wide data-op="50% 50%" data-op-wide="50% 52%"></div>
+      <div class="scrim scrim--foot scrim--soft"></div>
+      <h2 class="display s-step" id="s-step"><span class="line"><span class="li">Step</span></span><span class="line"><span class="li"><em>inside.</em></span></span></h2>
       <div class="rooms" id="s-rooms" aria-hidden="true">
         <ol class="rooms__list" id="s-room-list"></ol>
         <p class="display rooms__now" id="s-now"></p>
@@ -117,6 +118,9 @@
         <button type="button" class="cta__replay" id="replay">Watch again</button>
       </div>
     </div>
+
+    <!-- Shown only if the phone refuses to start video by itself (e.g. iOS Low Power Mode) -->
+    <button type="button" class="tap" id="tap-play"><i aria-hidden="true"></i><span>Tap to play</span></button>
 
     <!-- Opening screen -->
     <div class="gate" id="s-gate">

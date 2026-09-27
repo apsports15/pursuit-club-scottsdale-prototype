@@ -23,13 +23,15 @@
   --serif: "Pursuit Serif", "Instrument Serif", "Times New Roman", serif;
   --sans: "Pursuit Sans", "Outfit", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --ease: cubic-bezier(0.2, 0.7, 0.1, 1);
-  --sab: env(safe-area-inset-bottom, 0px);
   --t: 0%; --r: 0%; --b: 0%; --l: 0%;
 }
 
 *, *::before, *::after { box-sizing: border-box; }
-html { background: var(--black); -webkit-text-size-adjust: 100%; overflow-x: clip; }
+/* The page is one screen tall: html, body and the film fill the viewport inside the
+   safe-area padding the artifact viewer puts on :root, so nothing sits below the fold. */
+html { height: 100%; background: var(--black); -webkit-text-size-adjust: 100%; overflow-x: clip; }
 body {
+  height: 100%;
   margin: 0;
   background: var(--black);
   color: var(--pearl);
@@ -103,21 +105,23 @@ body.is-playing .site-head { opacity: 0; transform: translateY(-12px); }
 
 .foot {
   display: flex; flex-wrap: wrap; gap: 12px 28px; justify-content: space-between; align-items: center;
-  padding: 28px max(22px, 7vw) calc(28px + var(--sab));
+  padding: 28px max(22px, 7vw);
   border-top: 1px solid var(--hair);
   background: var(--ob);
 }
 .foot .brand__word { font-size: 17px; }
 
 /* ---------------------------------------------------------------- the stage */
+main { height: 100%; }
 .film {
   position: relative;
-  height: 100vh; height: 100svh;
+  height: 100%;
+  min-height: 420px;
   overflow: hidden;
   background: var(--black);
   container-type: size;
   --g: max(20px, 6cqw);
-  --lift: calc(92px + var(--sab));   /* bottom type sits above the controls */
+  --lift: 96px;   /* bottom type sits above the controls */
   -webkit-user-select: none; user-select: none;
   -webkit-tap-highlight-color: transparent;
 }
@@ -149,7 +153,7 @@ body.is-playing .site-head { opacity: 0; transform: translateY(-12px); }
 .gate__eyebrow { color: var(--pearl-2); }
 .gate__title { font-size: clamp(50px, 15.5cqw, 150px); }
 .gate__cue {
-  position: absolute; left: 50%; bottom: calc(30px + var(--sab)); transform: translateX(-50%);
+  position: absolute; left: 50%; bottom: 30px; transform: translateX(-50%);
   display: grid; justify-items: center; gap: 14px; padding: 10px 16px;
   font: 500 10px/1 var(--sans); letter-spacing: 0.32em; text-transform: uppercase; color: var(--pearl-2);
   white-space: nowrap;
@@ -174,7 +178,9 @@ body.is-playing .site-head { opacity: 0; transform: translateY(-12px); }
 .s-cap__in span { color: var(--pearl-2); }
 
 /* ---------------------------------------------------------------- step inside */
-.s-door-label { position: absolute; left: 0; right: 0; top: 13%; text-align: center; color: var(--pearl); }
+.scrim--soft { opacity: 0.7; }
+.s-step { position: absolute; left: var(--g); right: var(--g); bottom: var(--lift); font-size: clamp(44px, 13.5cqw, 150px); text-shadow: 0 2px 30px rgba(0, 0, 0, 0.35); }
+html.wide .s-step { font-size: clamp(56px, 6.4cqw, 150px); }
 .rooms { position: absolute; left: var(--g); right: var(--g); bottom: var(--lift); pointer-events: none; }
 .rooms__list {
   display: flex; gap: 18px; margin: 0 0 14px; padding: 0; list-style: none;
@@ -258,11 +264,12 @@ html.wide .cta__title { font-size: clamp(60px, 7.4cqw, 140px); }
 .ctl {
   position: absolute; z-index: 45; left: 0; right: 0; bottom: 0;
   display: grid; grid-template-columns: 44px 1fr auto; align-items: center; gap: 4px;
-  padding: 0 8px calc(10px + var(--sab));
+  padding: 0 8px 10px;
   opacity: 0; visibility: hidden;
   transition: opacity 0.6s var(--ease), visibility 0.6s;
 }
-body.is-started .ctl { opacity: 0.62; visibility: visible; }
+.ctl::before { content: ""; position: absolute; z-index: -1; left: 0; right: 0; top: -28px; bottom: 0; background: linear-gradient(transparent, rgba(0, 0, 0, 0.5)); pointer-events: none; }
+body.is-started .ctl { opacity: 0.8; visibility: visible; }
 body.is-started .ctl:hover, body.is-started .ctl:focus-within, body.is-paused .ctl, body.is-scrubbing .ctl { opacity: 1; }
 .ctl__btn { height: 44px; display: flex; align-items: center; justify-content: center; color: var(--pearl); }
 .ctl__play i { position: relative; width: 10px; height: 12px; }
@@ -282,8 +289,20 @@ body.is-ended .ctl__skip { visibility: hidden; }
 .ctl__ticks i { position: absolute; top: calc(62% - 3px); width: 1px; height: 7px; background: rgba(236, 233, 227, 0.45); }
 .ctl__knob { position: absolute; top: calc(62% - 4.5px); left: 0; width: 9px; height: 9px; margin-left: -4.5px; border-radius: 50%; background: var(--pearl); transform: scale(0); transition: transform 0.25s var(--ease); }
 body.is-paused .ctl__knob, body.is-scrubbing .ctl__knob, .ctl__track:hover .ctl__knob, .ctl__track:focus-visible .ctl__knob { transform: scale(1); }
-.ctl__chap { position: absolute; left: 0; top: calc(62% - 21px); font-size: 8.5px; letter-spacing: 0.26em; color: var(--pearl-2); white-space: nowrap; pointer-events: none; }
+.ctl__chap { position: absolute; left: 0; top: calc(62% - 21px); font-size: 9px; letter-spacing: 0.26em; color: var(--pearl-2); white-space: nowrap; pointer-events: none; }
 html.wide .ctl { left: 50%; right: auto; width: min(760px, 62vw); transform: translateX(-50%); padding-bottom: 18px; }
+
+/* "Tap to play": only when the phone refused to start video by itself */
+.tap {
+  position: absolute; z-index: 44; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  display: none; align-items: center; gap: 14px; padding: 16px 24px;
+  border: 1px solid rgba(236, 233, 227, 0.55); background: rgba(0, 0, 0, 0.55);
+  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  font: 500 11px/1 var(--sans); letter-spacing: 0.28em; text-transform: uppercase; color: var(--pearl);
+}
+.tap i { width: 0; height: 0; border-style: solid; border-width: 6px 0 6px 10px; border-color: transparent transparent transparent currentColor; }
+body.is-blocked .tap { display: inline-flex; }
+.tap:focus-visible { outline: 1px solid var(--pearl); outline-offset: 3px; }
 
 /* review overlay (?debug) */
 .dbg { position: fixed; z-index: 99; left: 8px; top: 8px; padding: 6px 8px; background: rgba(0, 0, 0, 0.7); font: 11px/1.4 ui-monospace, Menlo, monospace; color: #E9D9A8; pointer-events: none; white-space: pre; }
@@ -297,6 +316,8 @@ html.wide .ctl { left: 50%; right: auto; width: min(760px, 62vw); transform: tra
   .film { --g: max(20px, 6vw); }
   .gate__title { font-size: clamp(50px, 15.5vw, 150px); }
   .rooms__now { font-size: clamp(34px, 11.5vw, 110px); }
+  .s-step { font-size: clamp(44px, 13.5vw, 150px); }
+  html.wide .s-step { font-size: clamp(56px, 6.4vw, 150px); }
   .s-over-line { font-size: clamp(44px, 13.5vw, 150px); }
   .pivot { font-size: clamp(52px, 17vw, 190px); }
   .p-head .display, .heli__txt .display { font-size: clamp(42px, 13vw, 132px); }

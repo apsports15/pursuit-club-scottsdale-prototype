@@ -59,7 +59,7 @@ as a "dinner / mastermind sequence".
 | 55.67–57.00 | Sim racing (F1 rig). | |
 | 57.00–58.37 | DJ in front of the Club CS Scottsdale neon. | |
 | **58.37–74.37** | **Continuous interior FPV flight during an evening event.** Follows guests through a doorway (58.4), glides through the lounge past the white sectionals and the neon (59.4), through a dark door frame (61.9), onto the event floor past the drinks fridge and the crowd in evening wear (62.3), over the matte Huracán (63.5–66.3), banks down the row of white cars under the yellow lifts (66.6–71), and ends low over the green AMG (71–74.3). | **Hero asset.** ~15.9 s |
-| 74.37–76.87 | Gimbal glide into the hex-lit studio lounge: curved white sofa, guests, screens. | |
+| 74.37–76.87 | Glide down a corridor into the hex-lit room with the round white sofa: guests seated, screens. | Ends the flight in the film |
 | 76.87–78.67 | Young attendees applauding, faces large. | People |
 | 78.67–80.27 | Speaker in navy walks a room of ~100 young attendees with a mic. | People |
 | 80.27–81.47 | Bearded speaker in a cap, mic, close. | |
@@ -74,8 +74,8 @@ The chapter is a single guided film (see `README.md`). In running order:
 |---|---|---|---|---|
 | `neon` | 49.25–51.60 | video | Opens the film, filling the screen. Graded so its black is true #000 (`colorlevels`, black point ~RGB 4,5,8 → 0). | 2.4 s |
 | `neon` still | 51.583 (the clip's exact last frame, same grade) | still | The sign splits open on this frame, in two halves | — |
-| `aerial` | 9.27–11.44 + 15.92–19.07 | video | Revealed behind the split: starts on the tent's CS logo, which the page places where the neon's CS was, then pulls back over the lot and the collection. Landscape crop centred at y .32 so the tent is in frame. | 5.3 s |
-| `flight` | 58.42–59.85, **59.85–61.62 at 0.45×**, 61.62–74.33 | video | Step inside: the continuous flight. The white lounge is motion-interpolated to 0.45× so it holds for ~4 s; the whip into it and everything after run at speed. Room marks: Entrance 0.00, The lounge 0.98, The floor 6.00, The collection 10.35 s (output time). | 18.1 s |
+| `aerial` | **9.25–11.44 at 0.5×** + 15.92–19.07 | video | Revealed behind the split: starts on the tent's CS logo, which the page places where the neon's CS was. The whole rise off the tent is motion-interpolated to half speed (4.4 s) while the page pulls back; the glide over the cars runs at speed. Landscape crop centred at y .32 so the tent is in frame. | 7.5 s |
+| `flight` | 58.42–74.35 + 74.37–76.83 | video | Step inside: the flight at normal speed, doorway to the collection, then on through the source's own cut (74.367) into the room with the round white sofa, up to the cut to the applause (76.867). The last room's landscape crop sits lower (y .62) so the sofa and the people stay in frame. Room marks: The lounge 0.98, The floor 3.83, The collection 8.18, The inner room 15.93 s (output time). | 18.4 s |
 | `overhead` | 19.90 | still | Who's inside: the 911 from above, full screen | — |
 | `p-session` … `p-candid` | as before (27.03–28.85, 32.47–35.27, 78.70–80.22, 76.95–78.62, 30.92–32.40, 46.90–48.40, 51.72–53.85, 53.95–55.62) | video | In the room, around the table | 1.5–2.8 s each |
 | `helicopter` | 0.60 | still | Access | — |
@@ -95,8 +95,7 @@ then the drone pulls back to 1×.
 
 Also not used, deliberately: the whiteboard session (foreground blocked), micro-cuts
 under 0.5 s from the event montage, catering (weak last image), the sideways 81–84 s
-stretch, the GT3 RS daylight shot, the podcast studio glide (74–77 s; a second glide
-right after the flight would dilute it).
+stretch, the GT3 RS daylight shot.
 
 ## Production media
 

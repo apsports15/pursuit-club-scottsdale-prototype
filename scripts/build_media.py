@@ -57,16 +57,18 @@ CLIPS = {
     # logo is the centre of the CS mark (source px).
     'neon': {'parts': [P(49.25, 51.60)], 'kinds': ['portrait'], 'grade': NEON_GRADE,
              'points': {'logo': (550, 702)}},
-    # aerial: the drone rises off the tent's CS logo, then glides over the collection.
-    # tent_logo is where that logo sits in the first frame (source px); the page
-    # matches it to the neon sign.
-    'aerial': {'parts': [P(9.27, 11.44, 0.32), P(15.92, 19.07, 0.5)], 'kinds': ['portrait', 'wide'],
+    # aerial: the drone rises slowly off the tent's CS logo (the whole rise, at half
+    # speed), then glides over the collection at speed. tent_logo is where that logo
+    # sits in the first frame (source px); the page matches it to the neon sign.
+    'aerial': {'parts': [P(9.25, 11.44, 0.32, speed=0.5), P(15.92, 19.07, 0.5)], 'kinds': ['portrait', 'wide'],
                'points': {'tent_logo': (710, 438)}},
-    # the continuous FPV flight: doorway, the white lounge (held in slow motion),
-    # the event floor, the collection
-    'flight': {'parts': [P(58.42, 59.85, 0.52), P(59.85, 61.62, 0.52, speed=0.45), P(61.62, 74.33, 0.52)],
+    # the FPV flight, uncut and at speed: doorway, the lounge, the event floor, the
+    # collection, and on (the source's own cut at 74.367) into the room with the round
+    # white sofa, up to the cut to the applause at 76.867. The last room gets its own
+    # landscape crop, lower, so the sofa and the people in it stay in frame.
+    'flight': {'parts': [P(58.42, 74.35, 0.52), P(74.37, 76.83, 0.62)],
                'kinds': ['portrait', 'wide'],
-               'marks': [('Entrance', 58.42), ('The lounge', 59.40), ('The floor', 62.25), ('The collection', 66.60)]},
+               'marks': [('The lounge', 59.40), ('The floor', 62.25), ('The collection', 66.60), ('The inner room', 74.37)]},
     # people: in the room
     'p-session': {'parts': [P(27.03, 28.85)], 'kinds': ['portrait']},
     'p-lounge': {'parts': [P(32.47, 35.27)], 'kinds': ['portrait']},
