@@ -113,3 +113,15 @@ Safari and iOS pick HEVC (roughly half the size of H.264 at the same quality);
 everything else plays H.264. All clips are muted, have a 1 s GOP and faststart. The
 film loads each clip about 11 s before it plays and releases it 15 s after. The whole
 HEVC set is about 13 MB (H.264 1080: about 20 MB).
+
+## Supplied people media (identified by the client)
+
+| Asset | Source | Use |
+|---|---|---|
+| `p-session` | master 27.03–28.97 at 0.45× | Jeremy Miner (sales trainer, founder of 7th Level) presenting; "5 Stages NEPQ" on his screen. Learn chapter. |
+| `p-kyler` | `source-media/people/kyler-murray.mov` (720×1280, 4 s, ~24 fps; from main as `ea52999be3e640139aaafb4414a5f859.mov`), 0.02–4.00 at 0.8× | Kyler Murray (NFL quarterback) at Club Scottsdale: one slow pan along a group under the hex ceiling, the whole clip. Upscaled to 1080, so softer than the master. |
+| `lanctot` still | `source-media/people/lanctot-menery.jpg` (1320×1621; from main as `IMG_2399.jpg`) | Michael Lanctot and Bob Menery in conversation on the lounge sofas. Shown whole across a phone's width so both stay in frame. |
+| `room` still | `source-media/value/club-scottsdale-room.webp` | The session under the hex lights; carries "Who you learn from matters." |
+
+Retired with this revision: `p-lounge`, `p-room` (other presenters; the Learn chapter
+centres on Jeremy Miner), the 17-shot amenity edit (now nine shots in three groups).

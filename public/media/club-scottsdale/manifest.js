@@ -116,97 +116,37 @@ window.CS_MEDIA = {
     },
     {
      "t": 15.933,
-     "label": "The inner room"
+     "label": "The meeting space"
     }
    ]
   },
   "p-session": {
-   "frames": 93,
-   "duration": 3.1,
+   "frames": 129,
+   "duration": 4.3,
    "variants": {
     "p1080.hevc": {
      "src": "p-session.p1080.hevc.mp4",
      "w": 1080,
      "h": 1920,
-     "kb": 272
+     "kb": 349
     },
     "p1080": {
      "src": "p-session.p1080.mp4",
      "w": 1080,
      "h": 1920,
-     "kb": 680
+     "kb": 885
     },
     "p720": {
      "src": "p-session.p720.mp4",
      "w": 720,
      "h": 1280,
-     "kb": 279
+     "kb": 368
     }
    },
    "posters": {
     "portrait": [
      "p-session.portrait.1080.webp",
      "p-session.portrait.720.webp"
-    ]
-   }
-  },
-  "p-lounge": {
-   "frames": 84,
-   "duration": 2.8,
-   "variants": {
-    "p1080.hevc": {
-     "src": "p-lounge.p1080.hevc.mp4",
-     "w": 1080,
-     "h": 1920,
-     "kb": 221
-    },
-    "p1080": {
-     "src": "p-lounge.p1080.mp4",
-     "w": 1080,
-     "h": 1920,
-     "kb": 617
-    },
-    "p720": {
-     "src": "p-lounge.p720.mp4",
-     "w": 720,
-     "h": 1280,
-     "kb": 237
-    }
-   },
-   "posters": {
-    "portrait": [
-     "p-lounge.portrait.1080.webp",
-     "p-lounge.portrait.720.webp"
-    ]
-   }
-  },
-  "p-room": {
-   "frames": 46,
-   "duration": 1.533,
-   "variants": {
-    "p1080.hevc": {
-     "src": "p-room.p1080.hevc.mp4",
-     "w": 1080,
-     "h": 1920,
-     "kb": 369
-    },
-    "p1080": {
-     "src": "p-room.p1080.mp4",
-     "w": 1080,
-     "h": 1920,
-     "kb": 792
-    },
-    "p720": {
-     "src": "p-room.p720.mp4",
-     "w": 720,
-     "h": 1280,
-     "kb": 344
-    }
-   },
-   "posters": {
-    "portrait": [
-     "p-room.portrait.1080.webp",
-     "p-room.portrait.720.webp"
     ]
    }
   },
@@ -240,33 +180,33 @@ window.CS_MEDIA = {
     ]
    }
   },
-  "p-network": {
-   "frames": 44,
-   "duration": 1.467,
+  "p-panel": {
+   "frames": 64,
+   "duration": 2.133,
    "variants": {
     "p1080.hevc": {
-     "src": "p-network.p1080.hevc.mp4",
+     "src": "p-panel.p1080.hevc.mp4",
      "w": 1080,
      "h": 1920,
-     "kb": 321
+     "kb": 437
     },
     "p1080": {
-     "src": "p-network.p1080.mp4",
+     "src": "p-panel.p1080.mp4",
      "w": 1080,
      "h": 1920,
-     "kb": 686
+     "kb": 909
     },
     "p720": {
-     "src": "p-network.p720.mp4",
+     "src": "p-panel.p720.mp4",
      "w": 720,
      "h": 1280,
-     "kb": 300
+     "kb": 388
     }
    },
    "posters": {
     "portrait": [
-     "p-network.portrait.1080.webp",
-     "p-network.portrait.720.webp"
+     "p-panel.portrait.1080.webp",
+     "p-panel.portrait.720.webp"
     ]
    }
   },
@@ -300,33 +240,63 @@ window.CS_MEDIA = {
     ]
    }
   },
-  "p-panel": {
-   "frames": 64,
-   "duration": 2.133,
+  "p-kyler": {
+   "frames": 149,
+   "duration": 4.967,
    "variants": {
     "p1080.hevc": {
-     "src": "p-panel.p1080.hevc.mp4",
+     "src": "p-kyler.p1080.hevc.mp4",
      "w": 1080,
      "h": 1920,
-     "kb": 437
+     "kb": 448
     },
     "p1080": {
-     "src": "p-panel.p1080.mp4",
+     "src": "p-kyler.p1080.mp4",
      "w": 1080,
      "h": 1920,
-     "kb": 909
+     "kb": 1139
     },
     "p720": {
-     "src": "p-panel.p720.mp4",
+     "src": "p-kyler.p720.mp4",
      "w": 720,
      "h": 1280,
-     "kb": 388
+     "kb": 502
     }
    },
    "posters": {
     "portrait": [
-     "p-panel.portrait.1080.webp",
-     "p-panel.portrait.720.webp"
+     "p-kyler.portrait.1080.webp",
+     "p-kyler.portrait.720.webp"
+    ]
+   }
+  },
+  "p-network": {
+   "frames": 44,
+   "duration": 1.467,
+   "variants": {
+    "p1080.hevc": {
+     "src": "p-network.p1080.hevc.mp4",
+     "w": 1080,
+     "h": 1920,
+     "kb": 321
+    },
+    "p1080": {
+     "src": "p-network.p1080.mp4",
+     "w": 1080,
+     "h": 1920,
+     "kb": 686
+    },
+    "p720": {
+     "src": "p-network.p720.mp4",
+     "w": 720,
+     "h": 1280,
+     "kb": 300
+    }
+   },
+   "posters": {
+    "portrait": [
+     "p-network.portrait.1080.webp",
+     "p-network.portrait.720.webp"
     ]
    }
   },
@@ -361,38 +331,38 @@ window.CS_MEDIA = {
    }
   },
   "crescendo": {
-   "frames": 256,
-   "duration": 8.533,
+   "frames": 246,
+   "duration": 8.2,
    "variants": {
     "p1080.hevc": {
      "src": "crescendo.p1080.hevc.mp4",
      "w": 1080,
      "h": 1920,
-     "kb": 1332
+     "kb": 1023
     },
     "p1080": {
      "src": "crescendo.p1080.mp4",
      "w": 1080,
      "h": 1920,
-     "kb": 2990
+     "kb": 2461
     },
     "p720": {
      "src": "crescendo.p720.mp4",
      "w": 720,
      "h": 1280,
-     "kb": 1320
+     "kb": 1048
     },
     "w1080.hevc": {
      "src": "crescendo.w1080.hevc.mp4",
      "w": 1080,
      "h": 810,
-     "kb": 708
+     "kb": 553
     },
     "w1080": {
      "src": "crescendo.w1080.mp4",
      "w": 1080,
      "h": 810,
-     "kb": 1513
+     "kb": 1276
     }
    },
    "posters": {
@@ -407,71 +377,39 @@ window.CS_MEDIA = {
    "cuts": [
     {
      "t": 0.0,
-     "label": "sim racing"
+     "label": "connect"
     },
     {
-     "t": 1.233,
-     "label": "DJ at the neon"
+     "t": 1.267,
+     "label": "connect"
     },
     {
-     "t": 2.5,
-     "label": "podcast recording"
+     "t": 2.033,
+     "label": "connect"
     },
     {
-     "t": 3.3,
-     "label": "pickleball court"
+     "t": 2.7,
+     "label": "create"
     },
     {
-     "t": 4.033,
-     "label": "podcast studio"
+     "t": 3.9,
+     "label": "create"
     },
     {
-     "t": 4.467,
-     "label": "sim bay"
-    },
-    {
-     "t": 4.867,
-     "label": "barber chair"
-    },
-    {
-     "t": 5.233,
-     "label": "card room"
-    },
-    {
-     "t": 5.6,
-     "label": "terrace at sunset"
+     "t": 4.733,
+     "label": "unwind"
     },
     {
      "t": 5.967,
-     "label": "gallery wall"
+     "label": "unwind"
     },
     {
-     "t": 6.3,
-     "label": "chesterfield lounge"
+     "t": 6.7,
+     "label": "unwind"
     },
     {
-     "t": 6.633,
-     "label": "lounge and cars"
-    },
-    {
-     "t": 6.967,
-     "label": "window lounge, recliners"
-    },
-    {
-     "t": 7.267,
-     "label": "white sectional"
-    },
-    {
-     "t": 7.567,
-     "label": "white car, yellow SUV"
-    },
-    {
-     "t": 7.867,
-     "label": "red car, hex lights"
-    },
-    {
-     "t": 8.167,
-     "label": "matte car, hex reflections"
+     "t": 7.467,
+     "label": "unwind"
     }
    ]
   }
@@ -498,6 +436,17 @@ window.CS_MEDIA = {
     "still-room.720.webp"
    ],
    "master_time": 28.4
+  },
+  "lanctot": {
+   "w": 1320,
+   "h": 1621,
+   "files": [
+    "still-lanctot.1080.avif",
+    "still-lanctot.1080.webp",
+    "still-lanctot.720.avif",
+    "still-lanctot.720.webp"
+   ],
+   "master_time": 0.0
   }
  },
  "cover": {

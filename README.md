@@ -22,18 +22,35 @@ clock and the clip carrying it; `window.ClubScottsdale` in the console has helpe
 
 ## The film
 
-About 60 s on phones, 54 s on desktop (the people run as two columns at once there).
+About 67 s on every screen. The story: enter the place, explore it, learn from
+experience, see the relationships and perspectives, discover the amenities, understand
+the connection to Pursuit, apply. People are named from the client's identification.
 
-| | Chapter | Footage | What happens |
+| | Chapter | Media | On screen |
 |---|---|---|---|
-| — | Cover | Aerial sunset still | An editorial cover: the still fills the screen (phones get a composed portrait of it), barely drifting. *Club Scottsdale / Enter the ecosystem / Scroll.* The first scroll, swipe, tap or key starts the film. |
-| 01 | Arrival | Drone | The type fades, the photograph darkens and settles, a 250 ms black beat, then a hard cut to the real footage: the drone starts high over the lot and descends (its rise off the tent, reversed, quickening from 0.4× to 0.75× near the cars so it never settles), drifting toward the McLaren's left side, then sweeps right into the flyover down the row of cars (its whole run, at 0.75×) in one blended move. *Club Scottsdale · Scottsdale, Arizona.* |
-| 02 | Step inside | FPV flight, 18.4 s | Over the last of the glide the exterior dims and *Step inside.* arrives; the interior then wipes up slowly, already moving, and the title leaves once we are through the door. Room names follow the camera at normal speed: the lounge, the floor, the collection, the inner room. |
-| 03 | The value | A session under the hex lights (still) | The still wipes up over the end of the flight. *The value is who you're around.* The first people clip then turns the page over it. |
-| 04 | In the room | 4 clips | *Proximity is the curriculum.* The first clip (the session) is slowed to 0.6× to establish the room; the rest build pace. Phone: one frame, each clip wiping up over the last just before it ends. Desktop: two columns. |
-| 05 | Around the table | 4 clips | *The right room changes the conversation.* Same run, continuing. |
-| 06 | Access | Helicopter still, 17 amenity cuts | The helicopter crossfades in over the last people clip. *Access changes perspective.* Hard cut into the amenities, cutting faster and faster, with *More than one room.* and a counter synced to the cuts. |
-| 07 | The point | — | Hard cut to black: *This isn't the destination.* / *It's part of the environment.* Then *Sell · Build · Own / Your Pursuit starts here. / Apply to Pursuit.* The header returns and the page scrolls again. |
+| 1 | Enter | Cover still, drone | *Enter the ecosystem.* / CLUB SCOTTSDALE · SCOTTSDALE, ARIZONA / *Scroll once to begin.* / *A one-minute look inside.* The first scroll, tap or key starts the film; the cover cuts to black and the drone descends and flies over the cars. |
+| 2 | Step inside | FPV flight | *Step inside.* over the threshold, then one room label at a time: THE LOUNGE, THE FLOOR, THE COLLECTION, THE MEETING SPACE. |
+| 3 | Learn | Session photo, Jeremy Miner clip, audience | *Who you learn from matters.* (over the photo) · **Jeremy Miner** / Sales trainer · Founder, 7th Level (over his clip, ~3.3 s) · the audience. |
+| 4 | Connect | Table, dinner, room, Lanctot & Menery photo, Kyler Murray clip, conversation | *Build relationships beyond the workday.* · **Michael Lanctot & Bob Menery** / AT CLUB SCOTTSDALE (photo, ~3.6 s) · **Kyler Murray** / NFL quarterback / AT CLUB SCOTTSDALE (clip, ~3.4 s). |
+| 5 | Beyond the workday | Helicopter still, 9 amenity shots | The helicopter, wordless. Then *Space to connect, create, and unwind.* with a small label naming each group as it plays: CONNECT (DJ, card room, lounge), CREATE (podcast), UNWIND (sim racing, pickleball, barber, terrace). |
+| 6 | Pursuit | — | *Club Scottsdale is one part of the Pursuit ecosystem.* Then *Build your next chapter with Pursuit.* / **Apply to Pursuit** / Watch again. The film controls retire. |
+
+## Typography
+
+| Role | Face | Phone | Desktop |
+|---|---|---|---|
+| Opening and closing line | Instrument Serif 400, sentence case | 38–64 px | 44–76 px |
+| Narrative statement | Outfit 500, sentence case, two lines at most | 32–42 px, line height 1.12 | 38–60 px |
+| Name | Outfit 500 | 24–30 px | 30–42 px |
+| Role | Outfit 400 | 15 px | 17 px |
+| Label (room, group, context, identity) | Outfit 500, uppercase, 0.13–0.14 em tracking | 11.5–12.5 px | same |
+| Controls | Outfit 500, 0.14 em tracking | 10.5–11 px | same |
+
+Every phrase enters and leaves whole: a fade with a few pixels of settle. A new phrase
+arrives only after the previous one has fully gone (audited every 50 ms: no two ever
+overlap). Phones show clips full screen and photographs across the top at a width that
+keeps everyone in frame, with the words beneath; desktop shows each person moment in a
+portrait panel with the words beside it.
 
 ## How it plays
 
@@ -48,7 +65,7 @@ About 60 s on phones, 54 s on desktop (the people run as two columns at once the
   locks it again.
 - **Controls.** A discreet bar along the bottom: pause/resume, a timeline with a tick
   for each chapter (tap or drag to seek, arrow keys ±5 s, Page keys by chapter, Home/End),
-  the chapter name, and Skip, which moves one chapter on (through a brief dip to black) and from the last chapter finishes the film. Tapping the picture or pressing Space also pauses. While
+  the chapter name, and Skip, which moves one chapter on (through a brief dip to black) and from the last chapter finishes the film. The controls retire when the film ends; Watch again brings them back. Tapping the picture or pressing Space also pauses. While
   paused, a scroll resumes. The film pauses itself when the tab is hidden and resumes
   when it returns.
 - **Preloading.** Each clip loads about 11 s before it plays (the first three during the

@@ -40,12 +40,16 @@ SRC_W, SRC_H = 1080, 1920
 FPS = 30
 
 
-def P(t_in, t_out, y=0.5, speed=1.0, label=None, reverse=False):
+def P(t_in, t_out, y=0.5, speed=1.0, label=None, reverse=False, src=None):
     """One part of a clip. Times are seconds in the master, trimmed a frame or two
     inside every cut. y is the vertical centre (0-1) of the 1080x810 crop used on
     landscape screens. speed < 1 is motion-interpolated slow motion; reverse plays
     the part backwards."""
-    return {'in': t_in, 'out': t_out, 'y': y, 'speed': speed, 'label': label, 'reverse': reverse}
+    return {'in': t_in, 'out': t_out, 'y': y, 'speed': speed, 'label': label, 'reverse': reverse, 'src': src}
+
+
+# Supplied footage (not from the master), identified by the client.
+KYLER = ROOT / 'source-media' / 'people' / 'kyler-murray.mov'      # 720x1280, 4 s, ~24 fps
 
 
 CLIPS = {
@@ -68,40 +72,33 @@ CLIPS = {
     # landscape crop, lower, so the sofa and the people in it stay in frame.
     'flight': {'parts': [P(58.42, 74.35, 0.52), P(74.37, 76.83, 0.62)],
                'kinds': ['portrait', 'wide'],
-               'marks': [('The lounge', 59.40), ('The floor', 62.25), ('The collection', 66.60), ('The inner room', 74.37)]},
-    # people: in the room
-    # the establishing shot of the people chapter: given room to breathe (0.6x)
-    'p-session': {'parts': [P(27.03, 28.90, speed=0.6)], 'kinds': ['portrait']},
-    'p-lounge': {'parts': [P(32.47, 35.27)], 'kinds': ['portrait']},
-    'p-room': {'parts': [P(78.70, 80.22)], 'kinds': ['portrait']},
+               'marks': [('The lounge', 59.40), ('The floor', 62.25), ('The collection', 66.60), ('The meeting space', 74.37)]},
+    # people. Learn: Jeremy Miner presenting (the whole shot, at 0.45x so his name can be
+    # read), then the audience. Connect: the table, the dinner, a supplied clip of Kyler
+    # Murray, the room, a candid conversation.
+    'p-session': {'parts': [P(27.03, 28.97, speed=0.45)], 'kinds': ['portrait']},
     'p-applause': {'parts': [P(76.95, 78.62)], 'kinds': ['portrait']},
-    # people: around the table
-    'p-network': {'parts': [P(30.92, 32.40)], 'kinds': ['portrait']},
-    'p-dinner': {'parts': [P(46.90, 48.40)], 'kinds': ['portrait']},
     'p-panel': {'parts': [P(51.72, 53.85)], 'kinds': ['portrait']},
+    'p-dinner': {'parts': [P(46.90, 48.40)], 'kinds': ['portrait']},
+    'p-kyler': {'parts': [P(0.02, 4.00, speed=0.8, src=KYLER)], 'kinds': ['portrait']},
+    'p-network': {'parts': [P(30.92, 32.40)], 'kinds': ['portrait']},
     'p-candid': {'parts': [P(53.95, 55.62)], 'kinds': ['portrait']},
-    # amenities: a lead-in of activity, then the rooms, cutting faster and faster
+    # amenities, in three groups the page names as they play: connect (social spaces),
+    # create (the podcast studio), unwind (the real amenities). Fewer, longer shots than
+    # the old edit; the shortest are slowed so each one can be recognised.
     'crescendo': {
         'kinds': ['portrait', 'wide'],
         'cuts': True,
         'parts': [
-            P(55.72, 56.95, 0.52, label='sim racing'),
-            P(57.04, 58.30, 0.38, label='DJ at the neon'),
-            P(12.05, 12.85, 0.62, label='podcast recording'),
-            P(29.05, 29.80, 0.62, label='pickleball court'),
-            P(84.37, 84.79, 0.58, label='podcast studio'),
-            P(85.74, 86.14, 0.60, label='sim bay'),
-            P(86.74, 87.12, 0.50, label='barber chair'),
-            P(89.04, 89.42, 0.62, label='card room'),
-            P(87.67, 88.04, 0.40, label='terrace at sunset'),
-            P(88.10, 88.44, 0.42, label='gallery wall'),
-            P(88.54, 88.87, 0.62, label='chesterfield lounge'),
-            P(85.27, 85.59, 0.50, label='lounge and cars'),
-            P(89.94, 90.24, 0.60, label='window lounge, recliners'),
-            P(86.24, 86.54, 0.56, label='white sectional'),
-            P(87.21, 87.51, 0.62, label='white car, yellow SUV'),
-            P(83.97, 84.27, 0.56, label='red car, hex lights'),
-            P(89.51, 89.88, 0.60, label='matte car, hex reflections'),
+            P(57.04, 58.30, 0.38, label='connect'),                 # DJ at the neon
+            P(89.04, 89.42, 0.62, speed=0.5, label='connect'),      # card room
+            P(88.54, 88.87, 0.62, speed=0.5, label='connect'),      # chesterfield lounge
+            P(11.90, 13.10, 0.62, label='create'),                  # podcast recording
+            P(84.37, 84.79, 0.58, speed=0.5, label='create'),       # podcast studio
+            P(55.72, 56.95, 0.52, label='unwind'),                  # sim racing
+            P(29.05, 29.80, 0.62, label='unwind'),                  # pickleball court
+            P(86.74, 87.12, 0.50, speed=0.5, label='unwind'),       # barber chair
+            P(87.67, 88.04, 0.40, speed=0.5, label='unwind'),       # terrace at sunset
         ],
     },
 }
@@ -113,6 +110,8 @@ STILLS = [
     # the value moment: a supplied photograph of a session under the hex lights, when it
     # is in source-media/value/; until then the same room from the master
     {'name': 'room', 'at': 28.40, 'file': ROOT / 'source-media' / 'value' / 'club-scottsdale-room.webp'},
+    # supplied photo: Michael Lanctot and Bob Menery at Club Scottsdale
+    {'name': 'lanctot', 'at': 0, 'file': ROOT / 'source-media' / 'people' / 'lanctot-menery.jpg'},
 ]
 
 # The editorial cover: a supplied aerial sunset still of the building (not from the
@@ -184,18 +183,23 @@ def slow_source(p):
     at the start of a reversed part."""
     CACHE.mkdir(parents=True, exist_ok=True)
     rev = '-rev' if p['reverse'] else ''
-    path = CACHE / f"slow-{p['in']:.2f}-{p['out']:.2f}-{p['speed']:.2f}{rev}.mkv"
+    src = p['src'] or MASTER
+    tag = '' if src == MASTER else f'{src.stem}-'
+    path = CACHE / f"slow-{tag}{p['in']:.2f}-{p['out']:.2f}-{p['speed']:.2f}{rev}.mkv"
     if not path.exists():
         rate = Fraction(FPS) / Fraction(str(p['speed']))
-        vf = f"trim=end_frame={round((p['out'] - p['in']) * FPS)},setpts=PTS-STARTPTS"
+        if src == MASTER:
+            vf = f"trim=end_frame={round((p['out'] - p['in']) * FPS)},setpts=PTS-STARTPTS"
+        else:   # other frame rates and full-range phone video: trim by time, bring to tv range
+            vf = f"trim=duration={p['out'] - p['in']:.3f},setpts=PTS-STARTPTS,scale=in_range=pc:out_range=tv,format=yuv420p"
         if p['reverse']:
             vf += ',reverse'
         if p['speed'] != 1.0:
             vf += (f',minterpolate=fps={rate.numerator}/{rate.denominator}:mi_mode=mci:mc_mode=aobmc:'
                    f"me_mode=bidir:vsbmc=1,setpts=PTS/{p['speed']},fps={FPS}")
         print(f'  intermediate {p["in"]}-{p["out"]} at {p["speed"]}x{" reversed" if rev else ""} (slow)')
-        run(['-ss', f"{p['in']:.3f}", '-t', f"{p['out'] - p['in'] + 0.2:.3f}", '-i', str(MASTER),
-             '-vf', vf, '-c:v', 'libx264', '-qp', '0', '-preset', 'ultrafast', str(path)])
+        run(['-ss', f"{p['in']:.3f}", '-t', f"{p['out'] - p['in'] + 0.2:.3f}", '-i', str(src),
+             '-vf', vf, '-an', '-c:v', 'libx264', '-qp', '0', '-preset', 'ultrafast', str(path)])
     return path
 
 
@@ -207,7 +211,7 @@ def encode(name, spec, kind, suffix, size, codec):
     grade = spec.get('grade', 'null')
     args, chains = [], []
     for i, p in enumerate(parts):
-        if p['speed'] != 1.0 or p['reverse']:
+        if p['speed'] != 1.0 or p['reverse'] or p['src']:
             args += ['-i', str(slow_source(p))]
         else:
             args += ['-ss', f"{p['in']:.3f}", '-t', f"{p['out'] - p['in'] + 0.2:.3f}", '-i', str(MASTER)]
@@ -326,7 +330,8 @@ def build_stills():
         supplied = spec.get('file')
         if supplied and supplied.exists():
             written.add(src.resolve())
-            Image.open(supplied).convert('RGB').save(src)
+            from PIL import ImageOps
+            ImageOps.exif_transpose(Image.open(supplied)).convert('RGB').save(src)
         elif fresh(src):
             vf = f"select=eq(n\\,{n}),{spec.get('grade', 'null')},{YUV_TO_RGB}"
             run(['-ss', f'{t:.3f}', '-i', str(MASTER), '-vf', vf, '-frames:v', '1', '-fps_mode', 'passthrough', str(src)])

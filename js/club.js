@@ -141,12 +141,6 @@
     });
   }
 
-  function splitChars(el, txt) {
-    el.setAttribute('aria-label', txt);
-    el.innerHTML = Array.from(txt).map((c) => `<span class="c" aria-hidden="true">${c === ' ' ? '&nbsp;' : c}</span>`).join('');
-    return $$('.c', el);
-  }
-
   /* ------------------------------------------------------------------ geometry */
 
   /* ------------------------------------------------------------------ film state */
@@ -174,20 +168,12 @@
   const S = (target, vars, at) => tl.set(target, Object.assign({ immediateRender: false }, vars), at);
   const FT = (target, from, to, at) => tl.fromTo(target, from, Object.assign({ immediateRender: false }, to), at);
 
-  // Text moves in one way only: a line rises a few pixels as it fades in, and rises a few
-  // more as it fades out. Nothing is masked (no clipped glyphs), and every change of text
-  // waits for the previous text to be fully gone: both return the time they finish.
-  const GAP = 0.15;
-  const lift = (sel, at, o = {}) => {
-    const n = $$(sel, stage).length, d = o.d || 0.9, st = o.st || 0.08;
-    FT(sel, { autoAlpha: 0, y: 16 * K }, { autoAlpha: 1, y: 0, duration: d, stagger: st, ease: 'power3.out' }, at);
-    return at + d + st * (n - 1);
-  };
-  const drop = (sel, at, o = {}) => {
-    const n = $$(sel, stage).length, d = o.d || 0.45, st = o.st || 0.03;
-    tl.to(sel, { autoAlpha: 0, y: -10 * K, duration: d, stagger: st, ease: 'power2.in' }, at);
-    return at + d + st * (n - 1);
-  };
+  // Text moves one way only: a whole phrase fades in while settling a few pixels, and
+  // fades out while rising a few more. Every change of text waits for the previous text
+  // to be fully gone; both helpers return the time they finish.
+  const GAP = 0.2;
+  const sayIn = (sel, at, d = 0.8) => { S(sel, { autoAlpha: 0 }, at); FT(sel, { autoAlpha: 0, y: 10 * K }, { autoAlpha: 1, y: 0, duration: d, ease: 'power2.out' }, at); return at + d; };
+  const sayOut = (sel, at, d = 0.5) => { tl.to(sel, { autoAlpha: 0, y: -8 * K, duration: d, ease: 'power2.in' }, at); return at + d; };
 
   /* ------------------------------------------------------------------ the film */
 
@@ -196,19 +182,20 @@
     clips = [];
     marks = {};
 
+    $('#s-rooms').innerHTML = MEDIA.clips.flight.marks.map((mk) => `<p class="label">${mk.label}</p>`).join('');
+
     // Everything starts hidden except the cover.
-    gsap.set(['#s-aerial', '#s-cap', '#s-inside', '#s-over', '#s-people', '#s-heli', '#s-reel', '#s-point', '.cta', '.p-head', '#p-scrim', '#s-rooms', '#h-scrim', '#h-txt .micro', '#s-step'], { autoAlpha: 0 });
+    const TEXT = ['#s-step', '.rooms .label', '#q-learn', '#q-connect', '.name', '.group', '#r-say', '#pt-line', '.cta__title', '.cta__btn', '.cta__replay'];
+    gsap.set(['#s-aerial', '#s-inside', '#s-seq', '#q-scrim', '#s-heli', '#s-reel', '#s-point', '.cta'].concat(TEXT), { autoAlpha: 0 });
     gsap.set('#s-gate', { autoAlpha: 1 });
     gsap.set('.gate__in', { autoAlpha: 1, y: 0 });
     gsap.set(['#s-cover-dark', '#s-dim'], { opacity: 0 });
     gsap.set('#s-cover', { scale: 1 });
-    gsap.set(['#s-step .li', '#s-over-line .li', '.p-head .li', '.p-head .micro', '#h-txt .li', '.point .li', '.cta__title .li'], { autoAlpha: 0, y: 16 * K });
 
-    /* ---------------- Arrival: the cover, a cut to black, then the drone */
+    /* ---------------- 1 · Enter: the cover, a cut to black, then the drone */
     // Stillness, anticipation, cut, motion. The type fades, the photograph darkens and
     // settles a touch closer, a short black beat, then a hard cut into real footage.
-    // The cover is a different day from the footage; the cut makes that plain.
-    chapter('Arrival', 0);
+    chapter('Enter', 0);
     tl.to('.gate__in', { autoAlpha: 0, y: -8 * K, duration: 0.7, ease: 'power2.out' }, 0.001);
     tl.to('#s-cover', { scale: 1 + 0.02 * K, duration: 1.15, ease: 'power1.in' }, 0.001);
     tl.to('#s-cover-dark', { opacity: 1, duration: 0.95, ease: 'power2.in' }, 0.15);
@@ -216,140 +203,125 @@
     S('#s-gate', { autoAlpha: 0 }, O);
     S('#s-aerial', { autoAlpha: 1 }, O);
     const ae = addClip($('#s-aerial'), O, true);
-    // The drone descends, sweeps right and flies over the cars as one move (the blend is
-    // in the clip itself). The caption sits over the descent and clears before the glide.
     const glide = (MEDIA.clips.aerial.cuts || [{ t: 0 }, { t: ae.dur * 0.55 }])[1].t;
-    FT('#s-cap', { autoAlpha: 0, y: 8 * K }, { autoAlpha: 1, y: 0, duration: 0.8, ease: 'power2.out' }, O + 1.4);
-    tl.to('#s-cap', { autoAlpha: 0, y: -8 * K, duration: 0.45, ease: 'power2.in' }, O + glide - 0.2);
 
-    /* ---------------- Step inside: approach, threshold, then the interior */
-    // Outside, approach, anticipation, inside. Over the last of the glide the exterior
-    // dims a little and the title arrives; the interior then wipes up, already moving,
-    // and the title leaves once we are through the door.
-    const A0 = Math.max(O + glide + 0.5, ae.end - 2.5);
+    /* ---------------- 2 · Step inside: approach, threshold, the interior */
+    const A0 = Math.max(O + glide + 0.8, ae.end - 2.5);
     chapter('Step inside', A0);
     FT('#s-dim', { opacity: 0 }, { opacity: 0.45, duration: 1.8, ease: 'power1.inOut' }, A0);
-    S('#s-step', { autoAlpha: 1 }, A0 + 0.3);
-    lift('#s-step .li', A0 + 0.3, { st: 0.1 });
+    sayIn('#s-step', A0 + 0.3);
     const F0 = ae.end - 0.9;
     S('#s-inside', { autoAlpha: 1 }, F0);
     FT('#s-inside', { '--t': '100%' }, { '--t': '0%', duration: 1.3, ease: 'power3.inOut' }, F0);
     FT('#s-flight .f', { yPercent: 10 * K }, { yPercent: 0, duration: 1.3, ease: 'power3.inOut' }, F0);
     const fl = addClip($('#s-flight'), F0, true);
     S('#s-aerial', { autoAlpha: 0 }, F0 + 1.35);
-    const stepGone = drop('#s-step .li', F0 + 1.55);
-    S('#s-step', { autoAlpha: 0 }, stepGone);
-    // Room names take over only once the title has gone.
-    FT('#s-rooms', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.4, ease: 'none' }, stepGone + GAP);
+    const stepGone = sayOut('#s-step', F0 + 1.6);
+    // One room label at a time, in sequence: each arrives at its room (or once the one
+    // before has fully gone), holds at least 1.8 s, and leaves before the next arrives.
+    const O1 = fl.end - 0.95;                            // the page turns into Learn here
+    const labels = $$('.rooms .label');
+    const marksF = MEDIA.clips.flight.marks;
+    let free = stepGone + GAP;
+    marksF.forEach((mk, k) => {
+      const inAt = Math.max(F0 + mk.t, free);
+      const last = k + 1 === marksF.length;
+      const nextMark = last ? O1 + 0.5 : F0 + marksF[k + 1].t;
+      // the last room's label may ride the page turn out (it sits under the turning page)
+      const outAt = Math.min(Math.max(nextMark - 0.3, inAt + 1.8), last ? O1 + 0.2 : O1 - 0.6);
+      if (outAt - inAt < 1.2) return;                     // too brief to read: leave it out
+      sayIn(labels[k], inAt, 0.6);
+      free = sayOut(labels[k], outAt, 0.45) + GAP;
+    });
     marks.flight = fl;
-    marks.roomsFrom = stepGone + GAP - F0;
 
-    /* ---------------- The value: who you're around */
-    const O1 = fl.end - 0.95;
-    chapter('The value', O1);
-    tl.to('#s-rooms', { autoAlpha: 0, duration: 0.35, ease: 'none' }, O1 - 0.35);
-    S('#s-over', { autoAlpha: 1 }, O1);
-    FT('#s-over', { '--t': '100%' }, { '--t': '0%', duration: 0.95, ease: 'power3.inOut' }, O1);
-    FT('#s-over .still .f', { yPercent: 10 * K }, { yPercent: 0, duration: 0.95, ease: 'power3.inOut' }, O1);
-    FT('#s-over .still .f', { scale: 1 + 0.02 * K }, { scale: 1 + 0.08 * K, duration: 5.2, ease: 'none' }, O1);
-    S('#s-inside', { autoAlpha: 0 }, O1 + 1.0);
-    lift('#s-over-line .li', O1 + 0.9);
-
-    /* ---------------- In the room, around the table */
-    // The line leaves, then the first clip turns the page over the still.
-    const K0 = O1 + 4.3;
-    const valueGone = drop('#s-over-line .li', K0 - 0.6);
-    chapter('In the room', K0);
-    S('#s-people', { autoAlpha: 1 }, K0);
-
-    const wipe = (m, at) => {
-      FT(m, { '--t': '100%' }, { '--t': '0%', duration: 0.7, ease: 'power3.inOut' }, at);
-      FT(m.firstElementChild, { yPercent: 12 * K }, { yPercent: 0, duration: 0.7, ease: 'power3.inOut' }, at);
+    /* ---------------- 3 · Learn, 4 · Connect: page turns through people */
+    const turn = (el, at) => {
+      S(el, { autoAlpha: 1 }, at);
+      FT(el, { '--t': '100%' }, { '--t': '0%', duration: 0.8, ease: 'power3.inOut' }, at);
+      FT(el.firstElementChild, { yPercent: 10 * K }, { yPercent: 0, duration: 0.8, ease: 'power3.inOut' }, at);
     };
-    const all = $$('#s-people .m').sort((a, b) => a.dataset.seq - b.dataset.seq);
-    all.forEach((m) => gsap.set(m, win([100, 0, 0, 0])));
-    const run0 = Math.max(K0, valueGone + GAP);
-    S('#s-over', { autoAlpha: 0 }, run0 + 0.75);
-    let peopleEnd, swapAt;
-    if (!WIDE) {
-      // One frame. Each clip wipes up over the last one 0.35 s before it ends. The first
-      // (the establishing shot) is the longest; the rest build pace.
-      let at = run0;
-      all.forEach((m, j) => {
-        m.style.zIndex = j + 1;
-        wipe(m, at);
-        addClip(m, at, true);
-        if (m.dataset.clip === 'p-network') swapAt = at;
-        peopleEnd = at + D(m.dataset.clip);
-        at = peopleEnd - 0.35;
-      });
-    } else {
-      // Two columns, each wiping through its own four clips. The chapter ends before
-      // the first column runs out, so no column ever holds a frozen frame.
-      const ends = [];
-      $$('#s-people .col').forEach((col, k) => {
-        let at = run0 + k * 0.16;
-        $$('.m', col).forEach((m, j) => {
-          m.style.zIndex = j + 1;
-          wipe(m, at);
-          addClip(m, at, false);
-          if (k === 0 && j === 1) swapAt = at;
-          at += D(m.dataset.clip) - 0.35;
-        });
-        ends.push(at + 0.35);
-      });
-      peopleEnd = Math.min.apply(null, ends);
-    }
-    FT('#p-scrim', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.8, ease: 'none' }, run0 + 0.4);
-    const headIn = (h, at) => {
-      S(h, { autoAlpha: 1 }, at);
-      return lift(h + ' .micro, ' + h + ' .li', at);
+    $$('#s-seq .item').forEach((el, j) => { el.style.zIndex = j + 1; gsap.set(el, Object.assign(win([100, 0, 0, 0]), { autoAlpha: 0 })); });
+    S('#s-seq', { autoAlpha: 1 }, O1);
+    FT('#q-scrim', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.8, ease: 'none' }, O1 + 0.4);
+    // Each item: a clip plays through; a photograph holds. The next turns 0.35 s before
+    // a clip ends, so nothing is ever held on a frozen frame.
+    let at = O1;
+    let prev = null;
+    const place = (id, hold) => {
+      const el = $('#' + id);
+      turn(el, at);
+      if (prev) S(prev, { autoAlpha: 0 }, at + 0.85);    // gone once covered (panels differ in width on desktop)
+      prev = el;
+      const start = at;
+      if (el._v) { const c = addClip(el, at, true); at = c.end - 0.35; return { start, end: c.end }; }
+      at += hold; return { start, end: at + 0.8 };
     };
-    const headOut = (h, at) => {
-      const end = drop(h + ' .micro, ' + h + ' .li', at);
-      S(h, { autoAlpha: 0 }, end);
-      return end;
-    };
-    const knowIn = headIn('#p-head-know', run0 + (WIDE ? 0.7 : 1.1));
-    // Desktop runs both columns at once, so the chapter is shorter: space the titles evenly.
-    if (WIDE) swapAt = run0 + 0.7 + (peopleEnd - 1.0 - run0 - 0.7) / 2;
-    swapAt = Math.max(swapAt, knowIn + 0.8);
-    chapter('Around the table', swapAt);
-    const knowGone = headOut('#p-head-know', swapAt - 0.35);
-    headIn('#p-head-conn', knowGone + GAP);
+    chapter('Learn', O1);
+    const room = place('i-room', 4.4);
+    sayIn('#q-learn', room.start + 1.0);
+    const learnGone = sayOut('#q-learn', room.start + 3.9);
+    at = Math.max(at, learnGone + 0.05);
+    S('#s-inside', { autoAlpha: 0 }, O1 + 1.1);
+    const jer = place('i-jeremy');
+    sayIn('#n-jeremy', Math.max(jer.start + 0.15, learnGone + GAP), 0.6);
+    sayOut('#n-jeremy', jer.end - 0.6);
+    place('i-applause');
 
-    /* ---------------- Access: the helicopter, then the amenities */
-    const H0 = peopleEnd - 1.0;
-    chapter('Access', H0);
+    chapter('Connect', at);
+    const panel = place('i-panel');
+    place('i-dinner');
+    const net = place('i-network');
+    sayIn('#q-connect', panel.start + 0.6);
+    const connGone = sayOut('#q-connect', net.end - 0.6);
+    at = Math.max(at, connGone + 0.05);
+    const lm = place('i-lanctot', 4.6);
+    sayIn('#n-lanctot', Math.max(lm.start + 0.6, connGone + GAP));
+    const lmGone = sayOut('#n-lanctot', lm.start + 4.5);
+    at = Math.max(at, lmGone - 0.3);
+    const ky = place('i-kyler');
+    sayIn('#n-kyler', Math.max(ky.start + 0.5, lmGone + GAP));
+    const kyGone = sayOut('#n-kyler', ky.end - 0.7);
+    const cand = place('i-candid');
+
+    /* ---------------- 5 · Beyond the workday: the helicopter, no words, then the amenities */
+    const H0 = cand.end - 1.0;
+    chapter('Beyond the workday', H0);
     FT('#s-heli', { autoAlpha: 0 }, { autoAlpha: 1, duration: 1.0, ease: 'power1.inOut' }, H0);
-    FT('#s-heli .still .f', { scale: 1 + 0.08 * K }, { scale: 1, duration: 4.2, ease: 'power2.out' }, H0);
-    const connGone = headOut('#p-head-conn', H0 - 0.2);
-    S('#s-people', { autoAlpha: 0 }, H0 + 1.05);
-    FT('#h-scrim', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.8, ease: 'none' }, H0 + 0.9);
-    lift('#h-txt .micro, #h-txt .li', Math.max(H0 + 1.0, connGone + GAP));
-
-    // hard cut
-    const R0 = H0 + 3.9;
+    FT('#s-heli .still .f', { scale: 1 + 0.06 * K }, { scale: 1, duration: 3.6, ease: 'power2.out' }, H0);
+    tl.to('#q-scrim', { autoAlpha: 0, duration: 0.6, ease: 'none' }, H0);
+    S('#s-seq', { autoAlpha: 0 }, H0 + 1.05);
+    const R0 = H0 + 3.0;                                  // a short wordless pause, then a hard cut
     S('#s-reel', { autoAlpha: 1 }, R0);
     const reel = addClip($('#r-reel'), R0, true);
     S('#s-heli', { autoAlpha: 0 }, R0);
     marks.reel = reel;
+    sayIn('#r-say', R0 + 0.3);
+    sayOut('#r-say', reel.end - 0.7);
+    // Name each group as it plays: connect, create, unwind.
+    const cuts = MEDIA.clips.crescendo.cuts;
+    const groups = [];
+    cuts.forEach((c) => { if (!groups.length || groups[groups.length - 1].label !== c.label) groups.push({ label: c.label, t: c.t }); });
+    groups.forEach((g, k) => {
+      const inAt = R0 + g.t + (k === 0 ? 0.3 : 0.15);
+      const outAt = (k + 1 < groups.length ? R0 + groups[k + 1].t : reel.end) - 0.45;
+      sayIn('#g-' + g.label, inAt, 0.4);
+      sayOut('#g-' + g.label, outAt, 0.35);
+    });
 
-    /* ---------------- The point, then Pursuit */
+    /* ---------------- 6 · Pursuit */
     const Re = reel.end;
-    chapter('The point', Re);
+    chapter('Pursuit', Re);
     S('#s-point', { autoAlpha: 1 }, Re);
-    S('#s-reel', { autoAlpha: 0 }, Re + 0.05);
-    lift('.point--a .li', Re + 0.1);
-    const aGone = drop('.point--a .li', Re + 1.75);
-    lift('.point--b .li', aGone + GAP);
-    const bGone = drop('.point--b .li', aGone + GAP + 1.75);
-    const C0 = bGone + GAP;
+    S('#s-reel', { autoAlpha: 0 }, Re);
+    sayIn('#pt-line', Re + 0.2, 0.9);
+    const ptGone = sayOut('#pt-line', Re + 3.9);
+    const C0 = ptGone + GAP;
     S('.cta', { autoAlpha: 1 }, C0);
-    FT('.cta__path', { autoAlpha: 0, y: 8 * K }, { autoAlpha: 1, y: 0, duration: 0.7, ease: 'power2.out' }, C0);
-    lift('.cta__title .li', C0 + 0.1);
-    FT(['.cta__btn', '.cta__replay'], { autoAlpha: 0, y: 10 * K }, { autoAlpha: 1, y: 0, duration: 0.7, stagger: 0.12, ease: 'power2.out' }, C0 + 0.5);
-    TOTAL = C0 + 1.3;
+    sayIn('.cta__title', C0, 0.9);
+    sayIn('.cta__btn', C0 + 0.35, 0.7);
+    sayIn('.cta__replay', C0 + 0.55, 0.7);
+    TOTAL = C0 + 1.5;
     tl.set({}, {}, TOTAL);
     marks.header = TOTAL - 0.8;
 
@@ -358,39 +330,12 @@
 
   /* ------------------------------------------------------------------ UI bound to film time */
 
-  const roomList = $('#s-room-list');
-  const roomNow = $('#s-now');
-  let ROOMS = [];
-  let roomIdx = -2;
-  let cutIdx = -1;
 
   function buildUI() {
-    ROOMS = MEDIA.clips.flight.marks.map((mk, i) => ({ at: mk.t, name: mk.label, n: String(i + 1).padStart(2, '0') }));
-    roomList.innerHTML = ROOMS.map((r) => `<li><span>${r.n}</span>${r.name}</li>`).join('');
-    ROOMS.forEach((r, i) => { r.li = roomList.children[i]; });
-    roomIdx = -2;
-    $('#r-total').textContent = '/ ' + String(MEDIA.clips.crescendo.cuts.length).padStart(2, '0');
     $('#ctl-ticks').innerHTML = CH.slice(1).map((c) => `<i style="left:${((c.t / TOTAL) * 100).toFixed(3)}%"></i>`).join('');
   }
 
   function updateUI(animate) {
-    // rooms, keyed to the flight's own time
-    const fl = marks.flight;
-    const ft = T - fl.start;
-    let i = -1;
-    if (T >= fl.start - 0.01 && T < fl.end) for (let k = 0; k < ROOMS.length; k++) if (ft >= Math.max(ROOMS[k].at, marks.roomsFrom)) i = k;
-    if (i !== roomIdx) {
-      roomIdx = i;
-      ROOMS.forEach((r, k) => { r.li.classList.toggle('is-on', k === i); r.li.classList.toggle('is-near', k === i + 1); });
-      showRoom(i, animate && K);
-    }
-    // amenities counter, keyed to the cuts
-    const rt = T - marks.reel.start;
-    let c = 0;
-    const cuts = MEDIA.clips.crescendo.cuts;
-    for (let k = 0; k < cuts.length; k++) if (rt >= cuts[k].t - 0.01) c = k;
-    if (c !== cutIdx) { cutIdx = c; $('#r-num').textContent = String(c + 1).padStart(2, '0'); }
-
     // controls
     const p = clamp(T / TOTAL, 0, 1);
     $('#ctl-fill').style.transform = `scaleX(${p.toFixed(4)})`;
@@ -407,21 +352,6 @@
     }
     body.classList.toggle('is-playing', !(state === 'ended' || T >= marks.header));
     updateSkipLabel();
-  }
-  // A room name changes in two clean steps: the old name rises and fades out completely,
-  // then the new one rises in. When seeking, it changes at once.
-  let roomTween = null;
-  function showRoom(i, animate) {
-    if (roomTween) { roomTween.kill(); roomTween = null; }
-    const put = () => {
-      if (i < 0) { roomNow.textContent = ''; return; }
-      const cs = splitChars(roomNow, ROOMS[i].name);
-      if (animate) roomTween = gsap.fromTo(cs, { y: 14, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.6, stagger: 0.02, ease: 'power3.out' });
-    };
-    const old = $$('.c', roomNow);
-    if (animate && old.length) {
-      roomTween = gsap.to(old, { y: -8, autoAlpha: 0, duration: 0.28, stagger: 0.008, ease: 'power2.in', onComplete: put });
-    } else put();
   }
   const fmt = (s) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
   function chapterAt(t) {
