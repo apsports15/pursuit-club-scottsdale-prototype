@@ -111,7 +111,7 @@ STILLS = [
     {'name': 'helicopter', 'at': 0.60},
     # the value moment: a supplied photograph of a session under the hex lights, when it
     # is in source-media/value/; until then the same room from the master
-    {'name': 'room', 'at': 28.40, 'file': ROOT / 'source-media' / 'value' / 'club-scottsdale-room.jpg'},
+    {'name': 'room', 'at': 28.40, 'file': ROOT / 'source-media' / 'value' / 'club-scottsdale-room.webp'},
 ]
 
 # The editorial cover: a supplied aerial sunset still of the building (not from the

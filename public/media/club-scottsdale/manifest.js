@@ -489,8 +489,8 @@ window.CS_MEDIA = {
    "master_time": 0.6
   },
   "room": {
-   "w": 1080,
-   "h": 1920,
+   "w": 1320,
+   "h": 1526,
    "files": [
     "still-room.1080.avif",
     "still-room.1080.webp",

@@ -233,7 +233,7 @@ html.wide .rooms__list li:not(.is-on):not(.is-near) { display: list-item; }
 
 /* ---------------------------------------------------------------- outside / inside */
 .s-over-line { position: absolute; left: var(--g); right: var(--g); bottom: var(--lift); font-size: clamp(44px, 13.5cqw, 150px); }
-html.wide #s-over .still { inset: 7% auto 7% 11%; aspect-ratio: 9 / 16; width: auto; height: 86%; }
+html.wide #s-over .still { inset: 7% auto 7% 9%; aspect-ratio: 1320 / 1526; width: auto; height: 86%; max-width: 50%; }
 html.wide #s-over .scrim { display: none; }
 html.wide .s-over-line { left: auto; right: 11%; bottom: 13%; max-width: 44%; text-align: right; font-size: clamp(56px, 6.4cqw, 150px); }
 
