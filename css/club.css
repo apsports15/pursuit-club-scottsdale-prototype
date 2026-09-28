@@ -365,10 +365,21 @@ body.is-blocked .tap { display: inline-flex; }
   .s-over-line { font-size: clamp(44px, 13.5vw, 150px); }
 }
 
-/* ================================================================ revision: new words, the original type
-   The type system above is unchanged; these rules only place the new structure. */
+/* ================================================================ the film's type system
+   Modelled on the Pursuit site: an editorial serif for the few statements and for names,
+   restrained sans microtext for labels and roles, thin rules, italic only where a word
+   carries the line. Six roles, each used for one job:
+     statement   the major cinematic line (3 in the film, plus the CTA)
+     chapter     the quiet label in the controls: number, rule, name
+     room        a room's number and name, once the room is on screen
+     person      eyebrow role, serif name, short descriptor (Kyler keeps his larger scale)
+     caption     one small caption across a group of shots
+     closing     the one line before the application                               */
 
-/* the cover: the new title, set like the old one (uppercase serif, open tracking, one line) */
+.film { --lift: calc(96px + env(safe-area-inset-bottom, 0px)); }
+.ctl { padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px)); }
+
+/* the cover: the title on one line, the place beneath it */
 .cover__title { font-size: clamp(22px, 6.6cqw, 52px); }
 html.wide .cover__title { font-size: clamp(30px, 2.9cqw, 52px); }
 .cover__sub { white-space: nowrap; letter-spacing: 0.3em; text-indent: 0.3em; }
@@ -376,32 +387,108 @@ html.wide .cover__sub { letter-spacing: 0.4em; text-indent: 0.4em; }
 .gate__cue { gap: 10px; }
 .gate__len { color: rgba(228, 218, 202, 0.42); }
 
-/* Learn and Connect: one run of page turns. Phones: clips full screen; a photograph across
-   the top at a width that keeps everyone in frame (--k = height / width), feathered into
-   black, with its words beneath. Desktop: a portrait panel on the right, words on the left. */
+/* 1 · statement */
+.statement {
+  position: absolute; left: var(--g); right: var(--g); bottom: var(--lift); z-index: 22; margin: 0;
+  max-width: 10.5em;
+  font: 400 clamp(30px, 9.6cqw, 44px)/0.98 var(--serif); letter-spacing: 0.015em;
+  text-transform: uppercase; text-wrap: balance; color: var(--pearl);
+  text-shadow: 0 2px 26px rgba(0, 0, 0, 0.45);
+  visibility: hidden; pointer-events: none;
+}
+.statement em { font-style: italic; letter-spacing: 0; }
+.statement--sc { text-transform: none; letter-spacing: -0.005em; line-height: 1.04; font-size: clamp(30px, 8.6cqw, 40px); max-width: 11em; }
+html.wide .statement { left: 9%; right: auto; bottom: 14%; font-size: clamp(40px, 3.6cqw, 60px); }
+
+/* 2 · chapter label (in the controls, bottom left) */
+.ctl__chap { display: flex; align-items: center; gap: 9px; font: 500 9px/1 var(--sans); letter-spacing: 0.28em; text-transform: uppercase; color: var(--pearl-2); }
+.ctl__chap b { font-weight: 500; color: var(--pearl); }
+.ctl__chap i { width: 14px; height: 1px; background: currentColor; opacity: 0.6; }
+
+/* 3 · room */
+.room {
+  position: absolute; left: var(--g); bottom: var(--lift); z-index: 22; margin: 0;
+  display: flex; align-items: baseline; gap: 10px;
+  text-shadow: 0 1px 18px rgba(0, 0, 0, 0.55);
+  visibility: hidden; pointer-events: none;
+}
+.room__n { font: 500 9.5px/1 var(--sans); letter-spacing: 0.26em; color: var(--pearl-2); }
+.room__name { font: 400 clamp(22px, 6.8cqw, 28px)/1 var(--serif); letter-spacing: 0.005em; color: var(--pearl); }
+/* the Lounge line sits above the room's name, which reads as its caption */
+#s-talk { bottom: calc(var(--lift) + 40px); }
+html.wide .room { left: 9%; bottom: 14%; }
+html.wide .room__name { font-size: clamp(26px, 2vw, 34px); }
+html.wide #s-talk { bottom: calc(14% + 48px); }
+
+/* the people run: phones show clips full screen and photographs across the top at a width
+   that keeps everyone in frame (--k = height / width); desktop, a portrait panel */
 .seq .item { position: absolute; inset: 0; overflow: hidden; background: var(--black); }
-.item--photo .still { bottom: auto; height: min(calc(100cqw * var(--k)), 76%); -webkit-mask-image: linear-gradient(#000 78%, transparent); mask-image: linear-gradient(#000 78%, transparent); }
+.item--photo .still { bottom: auto; height: min(calc(100cqw * var(--k)), 76%); -webkit-mask-image: linear-gradient(#000 80%, transparent); mask-image: linear-gradient(#000 80%, transparent); }
 #q-scrim { z-index: 20; }
 .film > .p-head { z-index: 21; }
 .p-head .micro + .micro { margin-top: -8px; }
-.nw { white-space: nowrap; }
-#n-lanctot { bottom: auto; top: calc(min(100cqw * 1.228, 76%) - 24px); }
 html.wide .seq .item { inset: 7% 9% 7% auto; aspect-ratio: 9 / 16; width: auto; height: 86%; }
 html.wide .seq .item--photo { aspect-ratio: var(--ar); }
 html.wide .item--photo .still { inset: 0; height: auto; -webkit-mask-image: none; mask-image: none; }
 html.wide #q-scrim { display: none; }
-html.wide .film > .p-head { left: 9%; right: auto; bottom: 14%; max-width: 44%; }
-html.wide #n-lanctot { top: auto; bottom: 14%; }
+html.wide .film > .p-head { left: 9%; right: auto; bottom: 14%; max-width: 40%; }
+html.wide .p-say { max-width: 40%; }
 
-/* Beyond the workday: the helicopter stands alone; the amenity groups are named where the
-   counter used to sit */
+/* 4 · person: eyebrow, serif name, descriptor */
+.person { gap: 12px; }
+.person .micro { font-size: 9.5px; letter-spacing: 0.26em; }
+.person__name { margin: 0; font: 400 clamp(30px, 8.8cqw, 38px)/1 var(--serif); letter-spacing: -0.005em; color: var(--pearl); }
+html.wide .person__name { font-size: clamp(36px, 3cqw, 50px); }
+
+/* Bob Menery and Michael Lanctot: two columns under the photograph, each name beneath its
+   own face (Bob left, Michael right), a hairline between, where they are underneath */
+.duo { gap: 16px; bottom: auto; top: calc(min(100cqw * 1.228, 76%) - 6px); }
+.duo__cols { display: grid; grid-template-columns: 1fr 1px 1fr; column-gap: 16px; }
+.duo__p { display: grid; gap: 9px; align-content: start; }
+.duo .person__name { font-size: clamp(21px, 5.9cqw, 26px); white-space: nowrap; }
+.duo__d { margin: 0; font: 500 9px/1.3 var(--sans); letter-spacing: 0.24em; text-transform: uppercase; color: var(--pearl-2); }
+.duo__rule { background: var(--hair); }
+.duo__at { padding-top: 14px; border-top: 1px solid var(--hair); font-size: 9px; letter-spacing: 0.28em; }
+html.wide #i-lanctot { bottom: auto; height: 68%; }
+html.wide .film > .duo { left: auto; right: 9%; top: calc(7% + 68% + 22px); bottom: auto; width: calc(68cqh * 1320 / 1621); max-width: none; }
+html.wide .duo .person__name { font-size: clamp(22px, 1.9cqw, 30px); }
+
+/* 5 · caption */
+.caption { position: absolute; left: var(--g); right: var(--g); bottom: var(--lift); z-index: 22; margin: 0; max-width: 20em; visibility: hidden; pointer-events: none; text-shadow: 0 1px 14px rgba(0, 0, 0, 0.6); }
+.caption__k { margin: 0; display: flex; align-items: center; gap: 12px; font: 500 10px/1 var(--sans); letter-spacing: 0.28em; text-transform: uppercase; color: var(--pearl); }
+.caption__k::before { content: ""; width: 22px; height: 1px; background: currentColor; opacity: 0.6; flex: none; }
+.caption__s { margin: 10px 0 0 34px; font: 300 11px/1.5 var(--sans); letter-spacing: 0.02em; color: var(--pearl-2); }
+html.wide .caption { left: 9%; bottom: 14%; }
+html.wide .caption__s { font-size: 12px; }
+
+/* 6 · closing, on black */
+.closing {
+  position: absolute; left: var(--g); right: var(--g); top: 50%; transform: translateY(-50%); margin: 0;
+  font: 400 clamp(25px, 7.6cqw, 32px)/1.08 var(--serif); letter-spacing: 0.04em; text-indent: 0.04em;
+  text-transform: uppercase; text-align: center; text-wrap: balance; color: var(--pearl);
+  visibility: hidden;
+}
+html.wide .closing { font-size: clamp(30px, 2.4cqw, 40px); }
+
+/* the application */
+.cta { gap: 22px; }
+.cta__eyebrow { display: flex; align-items: center; gap: 14px; font-size: 9.5px; letter-spacing: 0.3em; color: var(--pearl-2); }
+.cta__eyebrow i { width: 22px; height: 1px; background: var(--champagne); }
+.cta__title { margin: 0; font: 400 clamp(32px, 9.6cqw, 44px)/1.02 var(--serif); letter-spacing: -0.005em; text-wrap: balance; color: var(--pearl); }
+.cta__title em { font-style: italic; }
+html.wide .cta__title { font-size: clamp(44px, 3.8cqw, 64px); }
+.cta__btn { margin-top: 10px; }
+
+/* Desktop: the footage is vertical 1080 px video, so it is never stretched into a soft
+   landscape background. Every clip plays whole, in the same portrait panel the people run
+   uses, on the right; the words sit in the column on the left. Only the cover (a true wide
+   photograph) fills the screen. */
+html.wide #s-aerial, html.wide #s-flight, html.wide #r-reel { inset: 7% 9% 7% auto; aspect-ratio: 9 / 16; width: auto; height: 86%; }
+html.wide #c-scrim, html.wide #s-inside .scrim, html.wide #s-reel .scrim { display: none; }
+html.wide .statement, html.wide .caption { max-width: 38%; }
+
+/* the helicopter stands alone (desktop: a portrait panel) */
 html.wide .heli__img { inset: 7% auto; left: 50%; right: auto; transform: translateX(-50%); }
-.groups { position: absolute; right: var(--g); top: calc(5% + env(safe-area-inset-top, 0px)); width: 60%; height: 20px; }
-.group { position: absolute; right: 0; top: 0; margin: 0; white-space: nowrap; color: var(--pearl); visibility: hidden; }
-
-/* Pursuit: the statement is centred however many lines it takes */
-.point { top: 50%; margin-top: 0; transform: translateY(-50%); }
-.cta__title { text-wrap: balance; }
 
 /* the film controls retire when the film is over; Watch again brings them back */
 body.is-ended .ctl { opacity: 0; visibility: hidden; }
@@ -409,36 +496,13 @@ body.is-ended .ctl { opacity: 0; visibility: hidden; }
 @supports not (width: 1cqw) {
   .cover__title { font-size: clamp(22px, 6.6vw, 52px); }
   .item--photo .still { height: min(calc(100vw * var(--k)), 76%); }
-  #n-lanctot { top: calc(min(100vw * 1.228, 76%) - 24px); }
+  .statement { font-size: clamp(30px, 9.6vw, 44px); }
+  .statement--sc { font-size: clamp(30px, 8.6vw, 40px); }
+  .room__name { font-size: clamp(22px, 6.8vw, 28px); }
+  .person__name { font-size: clamp(30px, 8.8vw, 38px); }
+  .duo { top: calc(min(100vw * 1.228, 76%) - 6px); }
+  .duo .person__name { font-size: clamp(21px, 5.9vw, 26px); }
+  .closing { font-size: clamp(25px, 7.6vw, 32px); }
+  .cta__title { font-size: clamp(32px, 9.6vw, 44px); }
+  html.wide .film > .duo { width: calc(68vh * 1320 / 1621); }
 }
-
-/* ================================================================ revision: sleeker statements
-   Kyler Murray keeps the big uppercase serif; every other statement and name shares one
-   quieter setting: the same serif in sentence case, smaller, with normal leading. */
-.display.sleek { text-transform: none; font-size: clamp(28px, 8.2cqw, 40px); line-height: 1.06; letter-spacing: -0.005em; text-wrap: balance; }
-.display.sleek em { letter-spacing: -0.01em; }
-html.wide .display.sleek { font-size: clamp(34px, 3cqw, 52px); }
-.p-head:has(.sleek) { gap: 12px; }
-
-/* Step inside: a light, open-tracked sans line instead of the display serif */
-.s-step { font: 300 clamp(20px, 6.2cqw, 30px)/1 var(--sans); letter-spacing: 0.34em; text-transform: uppercase; color: var(--pearl); margin: 0; }
-html.wide .s-step { font-size: clamp(24px, 2.2cqw, 36px); }
-
-/* Michael Lanctot and Bob Menery: each name under their own face (Bob left, Michael right) */
-#n-lanctot { gap: 14px; }
-#n-lanctot .pair { position: relative; height: 2.2em; font-size: clamp(28px, 8.2cqw, 40px); }
-#n-lanctot .pair__l, #n-lanctot .pair__r { position: absolute; top: 0; }
-#n-lanctot .pair__l { left: 0; }
-#n-lanctot .pair__r { left: 52%; }
-html.wide #i-lanctot { bottom: auto; height: 68%; }
-html.wide #n-lanctot { left: auto; right: 9%; top: calc(7% + 68% + 20px); bottom: auto; width: calc(68cqh * 1320 / 1621); max-width: none; }
-html.wide #n-lanctot .pair { font-size: clamp(30px, 2.4cqw, 40px); }
-html.wide #n-lanctot .display.sleek { font-size: inherit; }
-
-@supports not (width: 1cqw) {
-  .display.sleek, #n-lanctot .pair { font-size: clamp(28px, 8.2vw, 40px); }
-  html.wide .display.sleek { font-size: clamp(34px, 3vw, 52px); }
-  .s-step { font-size: clamp(20px, 6.2vw, 30px); }
-  html.wide #n-lanctot { width: calc(68vh * 1320 / 1621); }
-}
-html.wide .point { left: 50%; right: auto; width: min(16em, 80%); transform: translate(-50%, -50%); }

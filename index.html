@@ -30,63 +30,69 @@
        ================================================================== -->
   <section class="film" id="club-scottsdale" aria-label="Club Scottsdale, a short film">
 
-    <!-- 1 · Enter: after the cover, the drone descends and flies over the cars -->
-    <div class="m" id="s-aerial" data-clip="aerial" data-wide data-op="50% 50%" data-op-wide="50% 50%"></div>
+    <!-- 01 · Enter: after the cover, the drone descends and flies over the cars -->
+    <div class="m" id="s-aerial" data-clip="aerial" data-op="50% 50%"></div>
     <i class="dim" id="s-dim" aria-hidden="true"></i>
+    <i class="scrim scrim--foot scrim--soft" id="c-scrim" aria-hidden="true"></i>
+    <p class="caption" id="c-above"><span class="caption__k">The club from above</span></p>
 
-    <!-- 2 · Step inside: the continuous flight, one room label at a time -->
+    <!-- 02 · Inside: the flight from the event floor to the Lounge. "A look inside" arrives
+         with the reveal; each room is named once it is on screen. -->
     <div class="panel win" id="s-inside">
-      <div class="m" id="s-flight" data-clip="flight" data-wide data-op="50% 50%" data-op-wide="50% 52%"></div>
+      <div class="m" id="s-flight" data-clip="flight" data-op="50% 50%"></div>
       <div class="scrim scrim--foot scrim--soft"></div>
-      <div class="rooms" id="s-rooms" aria-hidden="true">
-        <ol class="rooms__list" id="s-room-list"></ol>
-        <p class="display rooms__now" id="s-now"></p>
-      </div>
     </div>
-    <h2 class="s-step" id="s-step">Step inside</h2>
+    <h2 class="statement" id="s-look">A look inside</h2>
+    <p class="room" id="r-floor"><span class="room__n">02 /</span> <span class="room__name">The Floor</span></p>
+    <p class="room" id="r-collection"><span class="room__n">03 /</span> <span class="room__name">The Collection</span></p>
+    <p class="statement statement--sc" id="s-talk">Where the conversation stays in the <em>room.</em></p>
+    <p class="room" id="r-lounge"><span class="room__n">04 /</span> <span class="room__name">The Lounge</span></p>
 
-    <!-- 3 · Learn and 4 · Connect: one run of page turns. Phones: full screen (photos sit
-         across the top at full width). Desktop: a portrait panel, the words beside it. -->
+    <!-- 03 · People: one run of page turns. Phones: full screen (photos sit across the top
+         at full width). Desktop: a portrait panel, the words beside it. -->
     <div class="panel panel--clear seq" id="s-seq">
       <div class="item item--photo win" id="i-room" style="--ar: 1320 / 1526; --k: 1.36"><div class="still" data-still="room" data-op="34% 0%" data-op-wide="50% 50%" data-alt="A session under the hex lights: a speaker by the screen, the group listening from the sofa and chairs"></div></div>
       <div class="item m win" id="i-jeremy" data-clip="p-session" data-op="50% 45%"></div>
       <div class="item m win" id="i-lounge" data-clip="p-lounge" data-op="46% 40%"></div>
       <div class="item m win" id="i-mic" data-clip="p-room" data-op="50% 50%"></div>
       <div class="item m win" id="i-applause" data-clip="p-applause" data-op="45% 50%"></div>
-      <div class="item m win" id="i-panel" data-clip="p-panel" data-op="50% 55%"></div>
       <div class="item m win" id="i-dinner" data-clip="p-dinner" data-op="50% 55%"></div>
       <div class="item m win" id="i-network" data-clip="p-network" data-op="60% 45%"></div>
       <div class="item m win" id="i-kyler" data-clip="p-kyler" data-op="50% 40%"></div>
-      <div class="item item--photo win" id="i-lanctot" style="--ar: 1320 / 1621; --k: 1.228"><div class="still" data-still="lanctot" data-op="50% 0%" data-op-wide="50% 50%" data-alt="Michael Lanctot and Bob Menery in conversation on the lounge sofas at Club Scottsdale"></div></div>
+      <div class="item item--photo win" id="i-lanctot" style="--ar: 1320 / 1621; --k: 1.228"><div class="still" data-still="lanctot" data-op="50% 0%" data-op-wide="50% 50%" data-alt="Bob Menery, left, and Michael Lanctot, right, in conversation on the lounge sofas at Club Scottsdale"></div></div>
       <div class="item m win" id="i-candid" data-clip="p-candid" data-op="62% 45%"></div>
     </div>
     <div class="scrim scrim--people" id="q-scrim"></div>
-    <div class="p-head" id="q-learn"><p class="micro">Learn</p><h2 class="display sleek">Who you learn from <em>matters.</em></h2></div>
-    <div class="p-head" id="n-jeremy"><p class="micro">Sales trainer · Founder, 7th Level</p><h3 class="display sleek">Jeremy Miner</h3></div>
-    <div class="p-head" id="q-connect"><p class="micro">Connect</p><h2 class="display sleek">Build relationships beyond the <em>workday.</em></h2></div>
+    <h2 class="statement p-say" id="q-share">Experience is meant to be <em>shared.</em></h2>
+    <div class="p-head person" id="n-jeremy"><p class="micro">Sales trainer · Founder, 7th Level</p><h3 class="person__name">Jeremy Miner</h3></div>
     <div class="p-head" id="n-kyler"><p class="micro">NFL quarterback</p><h3 class="display">Kyler Murray</h3><p class="micro">At Club Scottsdale</p></div>
-    <div class="p-head" id="n-lanctot"><div class="pair"><h3 class="display sleek pair__l">Bob<br>Menery</h3><h3 class="display sleek pair__r">Michael<br>Lanctot</h3></div><p class="micro">At Club Scottsdale</p></div>
+    <div class="p-head duo" id="n-lanctot">
+      <div class="duo__cols">
+        <div class="duo__p"><h3 class="person__name">Bob Menery</h3><p class="duo__d">Media personality</p></div>
+        <i class="duo__rule" aria-hidden="true"></i>
+        <div class="duo__p"><h3 class="person__name">Michael Lanctot</h3><p class="duo__d">Mentor · YNR</p></div>
+      </div>
+      <p class="micro duo__at">At Club Scottsdale</p>
+    </div>
 
-    <!-- 5 · Beyond the workday: the helicopter (no words), then the amenities -->
+    <!-- 04 · Amenities: the helicopter (no words), then three captioned groups -->
     <div class="panel" id="s-heli">
       <figure class="heli__img"><div class="still" data-still="helicopter" data-op="50% 58%" data-alt="A helicopter parked beneath the illuminated Club Scottsdale sign at dusk"></div></figure>
     </div>
     <div class="panel" id="s-reel">
-      <div class="m" id="r-reel" data-clip="crescendo" data-wide data-op="50% 55%" data-op-wide="50% 50%"></div>
+      <div class="m" id="r-reel" data-clip="crescendo" data-op="50% 55%"></div>
       <div class="scrim scrim--foot"></div>
-      <div class="groups" aria-hidden="true">
-        <p class="micro group" id="g-connect">Connect</p>
-        <p class="micro group" id="g-create">Create</p>
-        <p class="micro group" id="g-unwind">Unwind</p>
-      </div>
-      <h2 class="display sleek r-line" id="r-say">Space to connect, create, and <em>unwind.</em></h2>
     </div>
+    <div class="caption group" id="g-connect"><p class="caption__k">Connect</p><p class="caption__s">Conversations that continue beyond the presentation.</p></div>
+    <div class="caption group" id="g-create"><p class="caption__k">Create</p><p class="caption__s">Media, ideas, and content in motion.</p></div>
+    <div class="caption group" id="g-unwind"><p class="caption__k">Unwind</p><p class="caption__s">A place to stay after the work is done.</p></div>
 
-    <!-- 6 · Pursuit -->
+    <!-- 05 · Pursuit: one closing line on black, then the application -->
     <div class="panel" id="s-point">
-      <p class="display sleek point" id="pt-line">Club Scottsdale is one of the rooms where the Pursuit ecosystem <em>comes together.</em></p>
+      <p class="closing" id="s-close">Ready to make it yours?</p>
       <div class="cta" id="cta" tabindex="-1">
-        <h2 class="display sleek cta__title">Build your next chapter with <em>Pursuit.</em></h2>
+        <p class="micro cta__eyebrow"><i aria-hidden="true"></i>Your next move<i aria-hidden="true"></i></p>
+        <h2 class="cta__title">Your <em>Pursuit</em> starts now.</h2>
         <a class="cta__btn" href="#apply">Apply to Pursuit <span aria-hidden="true">→</span></a>
         <button type="button" class="cta__replay" id="replay">Watch again</button>
       </div>
@@ -133,10 +139,6 @@
   </section>
 </main>
 
-<footer class="foot" id="apply">
-  <span class="brand__word">PURSUIT</span>
-  <span class="micro">05 / The ecosystem · Club Scottsdale prototype</span>
-</footer>
 
 <script src="public/media/club-scottsdale/manifest.js"></script>
 <script src="vendor/gsap.min.js"></script>

@@ -66,13 +66,17 @@ CLIPS = {
                          P(15.86, 19.07, 0.5, speed=0.75)],
                'kinds': ['portrait', 'wide'], 'cuts': True,
                'drift': {'zoom': 0.12, 'x': 0.34}, 'xfade': 0.5},
-    # the FPV flight, uncut: the collection (66.6-74.35) runs a touch faster, 1.25x: doorway, the lounge, the event floor, the
-    # collection, and on (the source's own cut at 74.367) into the room with the round
-    # white sofa, up to the cut to the applause at 76.867. The last room gets its own
-    # landscape crop, lower, so the sofa and the people in it stay in frame.
-    'flight': {'parts': [P(58.42, 66.60, 0.52), P(66.60, 74.35, 0.52, speed=1.25), P(74.37, 76.83, 0.62)],
+    # the FPV flight, from the event floor at 0.9x (the lounge at its start is cut, so the first room
+    # named is the floor): the floor, the collection at 1.25x so it does not linger, then on
+    # through the source's own cut (74.367) into the room with the round white sofa, which is
+    # the Lounge. The Lounge gets more time from more source footage: the flight's last
+    # seconds there at 0.9x, then the seated group on the same sofa (51.72-53.85, the other
+    # angle of the room) at 0.9x. No freeze, no loop. 'talk' marks where the Lounge line
+    # can begin (the seated group).
+    'flight': {'parts': [P(62.25, 66.60, 0.52, speed=0.9), P(66.60, 74.35, 0.52, speed=1.25),
+                         P(74.37, 76.83, 0.62, speed=0.9), P(51.72, 53.85, 0.60, speed=0.9)],
                'kinds': ['portrait', 'wide'],
-               'marks': [('The lounge', 59.40), ('The floor', 62.25), ('The collection', 66.60), ('The meeting space', 74.37)]},
+               'marks': [('The Floor', 62.25), ('The Collection', 66.60), ('The Lounge', 75.30), ('talk', 51.72)]},
     # people. Learn: Jeremy Miner presenting (the whole shot, at 0.45x so his name can be
     # read), then the audience. Connect: the table, the dinner, a supplied clip of Kyler
     # Murray, the room, a candid conversation.
@@ -80,7 +84,6 @@ CLIPS = {
     'p-lounge': {'parts': [P(32.47, 35.27)], 'kinds': ['portrait']},    # teaching a small group (LOUNGE)
     'p-room': {'parts': [P(78.70, 80.22)], 'kinds': ['portrait']},      # on a microphone, a room of ~100
     'p-applause': {'parts': [P(76.95, 78.62)], 'kinds': ['portrait']},
-    'p-panel': {'parts': [P(51.72, 53.85)], 'kinds': ['portrait']},
     'p-dinner': {'parts': [P(46.90, 48.40)], 'kinds': ['portrait']},
     'p-kyler': {'parts': [P(0.02, 4.00, speed=0.8, src=KYLER)], 'kinds': ['portrait']},
     'p-network': {'parts': [P(30.92, 32.40)], 'kinds': ['portrait']},
@@ -95,7 +98,7 @@ CLIPS = {
             P(57.04, 58.30, 0.38, label='connect'),                 # DJ at the neon
             P(89.04, 89.42, 0.62, speed=0.5, label='connect'),      # card room
             P(88.54, 88.87, 0.62, speed=0.5, label='connect'),      # chesterfield lounge
-            P(11.90, 13.10, 0.62, label='create'),                  # podcast recording
+            P(11.62, 13.70, 0.62, label='create'),                  # podcast recording (the whole shot)
             P(84.37, 84.79, 0.58, speed=0.5, label='create'),       # podcast studio
             P(55.72, 56.95, 0.52, label='unwind'),                  # sim racing
             P(29.05, 29.80, 0.62, label='unwind'),                  # pickleball court
@@ -219,8 +222,10 @@ def encode(name, spec, kind, suffix, size, codec):
             args += ['-i', str(slow_source(p))]
         else:
             args += ['-ss', f"{p['in']:.3f}", '-t', f"{p['out'] - p['in'] + 0.2:.3f}", '-i', str(MASTER)]
+        # slowed parts can come out a frame or two short: pad with the last frame (at most
+        # four, invisible) so the frame-exact trim always has enough
         chains.append(f"[{i}:v]{grade},{geometry(kind, p['y'])},scale={size[0]}:{size[1]}:flags=lanczos,setsar=1,"
-                      f'trim=end_frame={frames(p)},setpts=PTS-STARTPTS[v{i}]')
+                      f'tpad=stop_mode=clone:stop=4,trim=end_frame={frames(p)},setpts=PTS-STARTPTS[v{i}]')
     if spec.get('xfade'):
         # every part but the last is one move (with an optional drift), blended into the last
         lead = parts[:-1]

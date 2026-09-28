@@ -22,34 +22,42 @@ clock and the clip carrying it; `window.ClubScottsdale` in the console has helpe
 
 ## The film
 
-About 68 s on every screen. The story: enter the place, explore it, learn from
-experience, see the relationships and perspectives, discover the amenities, understand
-the connection to Pursuit, apply. People are named from the client's identification.
+About 67 s on every screen, in five chapters (Skip moves one chapter on). The story:
+enter the place, move inside, see the rooms, meet the people, understand what happens
+there, connect it back to Pursuit, apply. People are named from the client's identification.
 
 | | Chapter | Media | On screen |
 |---|---|---|---|
-| 1 | Enter | Cover still, drone | *Enter the ecosystem.* / CLUB SCOTTSDALE · SCOTTSDALE, ARIZONA / *Scroll once to begin.* / *A one-minute look inside.* The first scroll, tap or key starts the film; the cover cuts to black and the drone descends and flies over the cars. |
-| 2 | Step inside | FPV flight (the pass over the cars at 1.25×) | STEP INSIDE (light, open-tracked sans) over the threshold, then the room names in large serif, one at a time, with the numbered list of rooms beside them previewing what comes next: 01 THE LOUNGE, 02 THE FLOOR, 03 THE COLLECTION, 04 THE MEETING SPACE. |
-| 3 | Learn | Session photo, Jeremy Miner clip, a presenter teaching in the lounge room, a speaker on the mic, applause | *Who you learn from matters.* (over the photo) · **Jeremy Miner** / Sales trainer · Founder, 7th Level (over his clip, ~3.3 s) · two more teaching moments, wordless · the audience. |
-| 4 | Connect | Table, dinner, room, Kyler Murray clip, Lanctot & Menery photo, conversation | *Build relationships beyond the workday.* · **Kyler Murray** / NFL quarterback / AT CLUB SCOTTSDALE (clip, ~3.4 s) · **Bob Menery** and **Michael Lanctot**, each name under their own face / AT CLUB SCOTTSDALE (photo, 3 s). |
-| 5 | Beyond the workday | Helicopter still, 9 amenity shots | The helicopter, wordless. Then *Space to connect, create, and unwind.* with a small label naming each group as it plays: CONNECT (DJ, card room, lounge), CREATE (podcast), UNWIND (sim racing, pickleball, barber, terrace). |
-| 6 | Pursuit | — | *Club Scottsdale is one of the rooms where the Pursuit ecosystem comes together.* Then *Build your next chapter with Pursuit.* / **Apply to Pursuit** / Watch again. The film controls retire. |
+| 01 | Enter | Cover still, drone | ENTER THE ECOSYSTEM / CLUB SCOTTSDALE · SCOTTSDALE, ARIZONA. The first scroll, tap or key starts the film; the cover cuts to black and the drone descends and flies over the cars under one caption: THE CLUB FROM ABOVE. |
+| 02 | Inside | FPV flight: the event floor (0.9×), the collection (1.25×), the white-sofa room (0.9×) and its seated group (0.9×, the other angle of the same room) | A LOOK INSIDE arrives with the interior reveal. Then each room once it is on screen: 02 / The Floor, 03 / The Collection, 04 / The Lounge, with *Where the conversation stays in the room.* settling above the Lounge's name. |
+| 03 | People | Session photo, Jeremy Miner, teaching, the mic, applause, dinner, the room, Kyler Murray, Bob Menery & Michael Lanctot, conversation | EXPERIENCE IS MEANT TO BE *SHARED.* (over the photo, apart from any name) · SALES TRAINER · FOUNDER, 7TH LEVEL / Jeremy Miner · NFL QUARTERBACK / KYLER MURRAY / AT CLUB SCOTTSDALE (unchanged) · Bob Menery / MEDIA PERSONALITY and Michael Lanctot / MENTOR · YNR, each under their own face, a hairline between / AT CLUB SCOTTSDALE. |
+| 04 | Amenities | Helicopter still, 9 amenity shots | The helicopter, wordless. Then one caption per group: CONNECT / *Conversations that continue beyond the presentation.* · CREATE / *Media, ideas, and content in motion.* · UNWIND / *A place to stay after the work is done.* |
+| 05 | Pursuit | Black | The terrace fades to black under READY TO MAKE IT YOURS?, then YOUR NEXT MOVE / *Your Pursuit starts now.* / APPLY TO PURSUIT → / Watch again. The film controls retire. |
 
 ## Typography
 
-| Role | Face | Phone | Desktop |
+Modelled on the Pursuit site's system: an editorial serif (Instrument Serif) for statements
+and names, restrained sans microtext (Outfit) for labels and roles, thin rules, italic only
+on the word that carries a line, and plenty of black. Each role does one job.
+
+| Role | Setting | Phone | Used for |
 |---|---|---|---|
-| Statements and names (Learn, Jeremy Miner, Connect, Bob Menery / Michael Lanctot, the amenities line, the Pursuit line, the closing title) | Instrument Serif 400, sentence case, the key word in italic, line height 1.06; all one size | 28–40 px | 34–52 px |
-| Kyler Murray, the room names | Instrument Serif 400, uppercase, line height 0.9 | up to 13 % of the width | up to 132 px |
-| Step inside | Outfit 300, uppercase, 0.34 em tracking | 20–30 px | 24–36 px |
-| Cover title | Instrument Serif 400, uppercase, open tracking, one line | 22–29 px | 30–52 px |
-| Labels (role, context, room list, group, chapter) | Outfit, uppercase, 0.3 em tracking | 9.5–10.5 px | same |
+| Statement | Serif, tight leading, restrained tracking | 30–44 px | A LOOK INSIDE · Where the conversation stays in the room. · EXPERIENCE IS MEANT TO BE SHARED. · the CTA title (four in the film) |
+| Chapter label | Sans 9 px, uppercase, 0.28 em (2.5 px), number + short rule | 9 px | Bottom left, in the controls: 01 — ENTER … 05 — PURSUIT |
+| Room name | Sans number + serif title-case name | 22–28 px | 02 / The Floor · 03 / The Collection · 04 / The Lounge, only once each room is on screen |
+| Person | Sans eyebrow role, serif name, sans descriptor | name 30–38 px (duo 21–26 px) | Jeremy Miner; Bob Menery and Michael Lanctot. Kyler Murray keeps his larger uppercase scale. |
+| Caption | Sans 10 px uppercase with a rule, 11 px supporting line | 10–11 px | THE CLUB FROM ABOVE; CONNECT / CREATE / UNWIND, one at a time |
+| Closing | Serif uppercase, open tracking, centred | 25–32 px | READY TO MAKE IT YOURS?, once, before the CTA |
 
 Every phrase enters and leaves whole, and a new phrase arrives only after the previous
-one has fully gone (audited every 50 ms: no two ever overlap). Room names change letter
-by letter. Phones show clips full screen and photographs across the top at a width that
-keeps everyone in frame, with the words beneath; desktop shows each person moment in a
-portrait panel with the words beside it.
+one has fully gone (audited every 50 ms: no two ever overlap; the Lounge line and its room
+name are one composed unit). All text stays at least 16 px inside the frame and above the
+controls at 360, 375 and 390 px, inside the artifact viewer's safe-area padding.
+
+Desktop keeps the same hierarchy. The footage is vertical 1080 px video, so it is never
+stretched into a soft landscape background: every clip plays whole in a portrait panel on
+the right and the words sit in a column on the left. Only the cover, a true wide
+photograph, fills the screen.
 
 ## How it plays
 
@@ -60,7 +68,9 @@ portrait panel with the words beside it.
   either way is just setting the time: nothing restarts, loops or replays a first frame.
 - **Scroll lock.** From the opening screen until the end, the page does not scroll
   (overflow hidden, plus wheel, touch and scroll keys stopped). It is released when the
-  film ends, when Skip is pressed, or if anything throws. Seeking back after the end
+  film ends, when Skip is pressed, or if anything throws. The film is the page's only
+  content in this prototype (no stand-in footer), so seeking, skipping, replaying and
+  finishing never reveal anything below it or move the layout. Seeking back after the end
   locks it again.
 - **Controls.** A discreet bar along the bottom: pause/resume, a timeline with a tick
   for each chapter (tap or drag to seek, arrow keys ±5 s, Page keys by chapter, Home/End),
@@ -134,9 +144,11 @@ public/media/club-scottsdale/  generated production media
 ## Notes
 
 - The header and the Apply button are stand-ins so the entrance and exit can be judged in
-  context; the button's link is a placeholder.
+  context. No application route is configured in this repository, so the button still
+  points at the placeholder `#apply`; wire it to the live site's application link when
+  the film is placed on the site.
 - The tent logo is about 97 px wide in the source frame against about 760 px for the
   neon's CS, so the opening is a positional match with a dissolve rather than a size
   match (a size match would need an ~8× blow-up).
-- Desktop full-screen clips crop vertical footage (1080 px wide) to landscape, so they are
-  softer than on a phone.
+- The landscape (`w1080`) clip variants are still built but no longer used: desktop
+  plays the portrait files in a panel.

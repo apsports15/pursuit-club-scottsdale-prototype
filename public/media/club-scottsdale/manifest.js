@@ -58,38 +58,38 @@ window.CS_MEDIA = {
    ]
   },
   "flight": {
-   "frames": 505,
-   "duration": 16.833,
+   "frames": 484,
+   "duration": 16.133,
    "variants": {
     "p1080.hevc": {
      "src": "flight.p1080.hevc.mp4",
      "w": 1080,
      "h": 1920,
-     "kb": 3904
+     "kb": 3423
     },
     "p1080": {
      "src": "flight.p1080.mp4",
      "w": 1080,
      "h": 1920,
-     "kb": 8267
+     "kb": 7359
     },
     "p720": {
      "src": "flight.p720.mp4",
      "w": 720,
      "h": 1280,
-     "kb": 3571
+     "kb": 3190
     },
     "w1080.hevc": {
      "src": "flight.w1080.hevc.mp4",
      "w": 1080,
      "h": 810,
-     "kb": 2191
+     "kb": 1901
     },
     "w1080": {
      "src": "flight.w1080.mp4",
      "w": 1080,
      "h": 810,
-     "kb": 4104
+     "kb": 3638
     }
    },
    "posters": {
@@ -103,20 +103,20 @@ window.CS_MEDIA = {
    },
    "marks": [
     {
-     "t": 0.98,
-     "label": "The lounge"
+     "t": 0.0,
+     "label": "The Floor"
     },
     {
-     "t": 3.83,
-     "label": "The floor"
+     "t": 4.833,
+     "label": "The Collection"
     },
     {
-     "t": 8.167,
-     "label": "The collection"
+     "t": 12.067,
+     "label": "The Lounge"
     },
     {
-     "t": 14.367,
-     "label": "The meeting space"
+     "t": 13.767,
+     "label": "talk"
     }
    ]
   },
@@ -237,36 +237,6 @@ window.CS_MEDIA = {
     "portrait": [
      "p-applause.portrait.1080.webp",
      "p-applause.portrait.720.webp"
-    ]
-   }
-  },
-  "p-panel": {
-   "frames": 64,
-   "duration": 2.133,
-   "variants": {
-    "p1080.hevc": {
-     "src": "p-panel.p1080.hevc.mp4",
-     "w": 1080,
-     "h": 1920,
-     "kb": 437
-    },
-    "p1080": {
-     "src": "p-panel.p1080.mp4",
-     "w": 1080,
-     "h": 1920,
-     "kb": 909
-    },
-    "p720": {
-     "src": "p-panel.p720.mp4",
-     "w": 720,
-     "h": 1280,
-     "kb": 388
-    }
-   },
-   "posters": {
-    "portrait": [
-     "p-panel.portrait.1080.webp",
-     "p-panel.portrait.720.webp"
     ]
    }
   },
@@ -391,38 +361,38 @@ window.CS_MEDIA = {
    }
   },
   "crescendo": {
-   "frames": 246,
-   "duration": 8.2,
+   "frames": 272,
+   "duration": 9.067,
    "variants": {
     "p1080.hevc": {
      "src": "crescendo.p1080.hevc.mp4",
      "w": 1080,
      "h": 1920,
-     "kb": 1023
+     "kb": 1126
     },
     "p1080": {
      "src": "crescendo.p1080.mp4",
      "w": 1080,
      "h": 1920,
-     "kb": 2461
+     "kb": 2789
     },
     "p720": {
      "src": "crescendo.p720.mp4",
      "w": 720,
      "h": 1280,
-     "kb": 1048
+     "kb": 1154
     },
     "w1080.hevc": {
      "src": "crescendo.w1080.hevc.mp4",
      "w": 1080,
      "h": 810,
-     "kb": 553
+     "kb": 629
     },
     "w1080": {
      "src": "crescendo.w1080.mp4",
      "w": 1080,
      "h": 810,
-     "kb": 1276
+     "kb": 1457
     }
    },
    "posters": {
@@ -452,23 +422,23 @@ window.CS_MEDIA = {
      "label": "create"
     },
     {
-     "t": 3.9,
+     "t": 4.767,
      "label": "create"
     },
     {
-     "t": 4.733,
+     "t": 5.6,
      "label": "unwind"
     },
     {
-     "t": 5.967,
+     "t": 6.833,
      "label": "unwind"
     },
     {
-     "t": 6.7,
+     "t": 7.567,
      "label": "unwind"
     },
     {
-     "t": 7.467,
+     "t": 8.333,
      "label": "unwind"
     }
    ]
