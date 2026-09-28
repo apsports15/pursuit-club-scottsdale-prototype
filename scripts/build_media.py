@@ -54,11 +54,12 @@ CLIPS = {
     # nears the cars (0.4x, 0.55x, 0.75x) and stops short of the near-still frames at the
     # start of the rise, so it never settles on the McLaren. While it descends the frame
     # drifts toward the car's left side ('drift'), then a half-second blend moving the
-    # same way as the flyover ('xfade', smoothleft) carries it into the glide down the row.
+    # same way as the flyover ('xfade', smoothleft) carries it into the glide down the row,
+    # which plays its whole run at 0.75x so every car gets its moment.
     'aerial': {'parts': [P(10.10, 11.44, 0.40, speed=0.4, reverse=True),
                          P(9.70, 10.10, 0.40, speed=0.55, reverse=True),
                          P(9.35, 9.70, 0.40, speed=0.75, reverse=True),
-                         P(15.92, 19.07, 0.5)],
+                         P(15.86, 19.07, 0.5, speed=0.75)],
                'kinds': ['portrait', 'wide'], 'cuts': True,
                'drift': {'zoom': 0.12, 'x': 0.34}, 'xfade': 0.5},
     # the FPV flight, uncut and at speed: doorway, the lounge, the event floor, the

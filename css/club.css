@@ -233,6 +233,13 @@ html.wide .rooms__list li:not(.is-on):not(.is-near) { display: list-item; }
 
 /* ---------------------------------------------------------------- outside / inside */
 .s-over-line { position: absolute; left: var(--g); right: var(--g); bottom: var(--lift); font-size: clamp(44px, 13.5cqw, 150px); }
+/* Phones: the photograph is nearly square, so it sits at the top at a width that keeps
+   most of the room (the speaker, the ceiling and the seated group) and feathers into
+   black under the line, rather than being cropped to the screen's tall shape. */
+#s-over .still { bottom: auto; height: min(calc(100cqw * 1.36), 74%); -webkit-mask-image: linear-gradient(#000 76%, transparent); mask-image: linear-gradient(#000 76%, transparent); }
+#s-over .still img { object-position: 34% 0%; }
+html.wide #s-over .still { -webkit-mask-image: none; mask-image: none; }
+html.wide #s-over .still img { object-position: 50% 50%; }
 html.wide #s-over .still { inset: 7% auto 7% 9%; aspect-ratio: 1320 / 1526; width: auto; height: 86%; max-width: 50%; }
 html.wide #s-over .scrim { display: none; }
 html.wide .s-over-line { left: auto; right: 11%; bottom: 13%; max-width: 44%; text-align: right; font-size: clamp(56px, 6.4cqw, 150px); }
@@ -350,6 +357,7 @@ body.is-blocked .tap { display: inline-flex; }
 @supports not (width: 1cqw) {
   .film { --g: max(20px, 6vw); }
   .cover__title { font-size: clamp(29px, 8.4vw, 58px); }
+  #s-over .still { height: min(calc(100vw * 1.36), 74%); }
   html.wide .cover__title { font-size: clamp(34px, 3.4vw, 58px); }
   .rooms__now { font-size: clamp(34px, 11.5vw, 110px); }
   .s-step { font-size: clamp(44px, 13.5vw, 150px); }

@@ -27,7 +27,7 @@ About 60 s on phones, 54 s on desktop (the people run as two columns at once the
 | | Chapter | Footage | What happens |
 |---|---|---|---|
 | — | Cover | Aerial sunset still | An editorial cover: the still fills the screen (phones get a composed portrait of it), barely drifting. *Club Scottsdale / Enter the ecosystem / Scroll.* The first scroll, swipe, tap or key starts the film. |
-| 01 | Arrival | Drone | The type fades, the photograph darkens and settles, a 250 ms black beat, then a hard cut to the real footage: the drone starts high over the lot and descends (its rise off the tent, reversed, quickening from 0.4× to 0.75× near the cars so it never settles), drifting toward the McLaren's left side, then sweeps right into the flyover down the row of cars in one blended move. *Club Scottsdale · Scottsdale, Arizona.* |
+| 01 | Arrival | Drone | The type fades, the photograph darkens and settles, a 250 ms black beat, then a hard cut to the real footage: the drone starts high over the lot and descends (its rise off the tent, reversed, quickening from 0.4× to 0.75× near the cars so it never settles), drifting toward the McLaren's left side, then sweeps right into the flyover down the row of cars (its whole run, at 0.75×) in one blended move. *Club Scottsdale · Scottsdale, Arizona.* |
 | 02 | Step inside | FPV flight, 18.4 s | Over the last of the glide the exterior dims and *Step inside.* arrives; the interior then wipes up slowly, already moving, and the title leaves once we are through the door. Room names follow the camera at normal speed: the lounge, the floor, the collection, the inner room. |
 | 03 | The value | A session under the hex lights (still) | The still wipes up over the end of the flight. *The value is who you're around.* The first people clip then turns the page over it. |
 | 04 | In the room | 4 clips | *Proximity is the curriculum.* The first clip (the session) is slowed to 0.6× to establish the room; the rest build pace. Phone: one frame, each clip wiping up over the last just before it ends. Desktop: two columns. |
@@ -64,8 +64,10 @@ About 60 s on phones, 54 s on desktop (the people run as two columns at once the
 - **Fits the screen.** The page is one screen tall: `html`, `body` and the film fill the
   viewport inside the safe-area padding the artifact viewer puts on `:root` in the phone
   app, so the controls and the bottom lines are never below the fold.
-- **When a clip fails.** A clip that errors is skipped at once; one that has not started
-  2.5 s after it should (or stalls for 5 s mid-play) is skipped. The film moves on to
+- **When a clip fails.** A clip that errors is skipped at once. A clip that is still
+  arriving is waited for (the film holds on its current frame; phones do not preload, so
+  the first clip after the cover often needs a moment); only a clip with no progress at
+  all for 4 s (6 s mid-play), or 25 s of waiting in total, is skipped. The film moves on to
   wherever the next beat begins. A watchdog moves the film on if the clock ever stops
   for 8 s.
 

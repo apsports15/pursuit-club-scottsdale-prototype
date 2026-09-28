@@ -37,8 +37,11 @@
 
   const PRELOAD = 11;      // s: a clip starts loading this far ahead of its start (the flight during the opening screen)
   const UNLOAD = 15;       // s: a clip this far behind the playhead gives its buffers back
-  const STALL_START = 2.5; // s a clip may take to start before the film moves on without it
-  const STALL_MID = 5;     // s a clip may buffer mid-play before the film moves on
+  // A clip that is still arriving is waited for (the film holds on its current frame);
+  // only a clip whose download and playback have both stopped is skipped.
+  const STALL_START = 4;   // s with no progress at all before a clip that never started is skipped
+  const STALL_MID = 6;     // s with no progress before a clip that stalled mid-play is skipped
+  const STALL_MAX = 25;    // s of waiting on one clip in total, whatever the progress
 
   const wideNow = () => innerWidth >= 900 && innerWidth / innerHeight >= 1.05;
   let WIDE = wideNow();
@@ -465,14 +468,26 @@
       const v = lead.v;
       if (v._failed || v.error) { fail(lead); return; }
       const nearEnd = T - lead.start > lead.dur - 0.3;
-      const ok = v._loaded && !v.seeking && (v.ended || (!v.paused && (v.readyState >= 3 || (nearEnd && v.readyState >= 2))));
+      // Playing means the frame is moving. (iOS can report HAVE_CURRENT_DATA while it plays.)
+      const moving = !v.paused && v.currentTime > (lead.lastVT || 0) + 0.001;
+      const ok = v._loaded && !v.seeking && (v.ended || (!v.paused && (v.readyState >= 3 || moving || (nearEnd && v.readyState >= 2))));
+      lead.lastVT = v.currentTime;
       if (v.ended) {
         // ran out a frame early: let the clock finish the beat
       } else if (!ok) {
-        lead.stall += dt;
         step = 0;
-        if (lead.stall > (lead.played ? STALL_MID : STALL_START)) { fail(lead); return; }
+        lead.wait = (lead.wait || 0) + dt;
+        // Progress (more data buffered, a higher ready state) resets the no-progress clock.
+        const buf = v.buffered && v.buffered.length ? v.buffered.end(v.buffered.length - 1) : 0;
+        if (buf > (lead.lastBuf || 0) + 0.01 || v.readyState > (lead.lastRS || 0)) {
+          lead.stall = 0;
+          lastAdvance = performance.now();
+        } else lead.stall += dt;
+        lead.lastBuf = Math.max(lead.lastBuf || 0, buf);
+        lead.lastRS = Math.max(lead.lastRS || 0, v.readyState);
+        if (lead.stall > (lead.played ? STALL_MID : STALL_START) || lead.wait > STALL_MAX) { fail(lead); return; }
       } else {
+        lead.wait = 0;
         lead.played = true;
         lead.stall = 0;
         // Follow the clip: small errors ease out, so the picture and the timeline stay locked.
@@ -594,7 +609,7 @@
     if (state === 'ended' || state === 'gate') { state = 'playing'; lockPage(); }
     T = t;
     lastAdvance = performance.now();
-    clips.forEach((c) => { c.stall = 0; c.played = false; if (T < c.end) c.failed = !!c.v._failed; });
+    clips.forEach((c) => { c.stall = 0; c.wait = 0; c.lastBuf = 0; c.lastRS = 0; c.lastVT = 0; c.played = false; if (T < c.end) c.failed = !!c.v._failed; });
     if (!keepState) setClasses();
     render(false);
   }

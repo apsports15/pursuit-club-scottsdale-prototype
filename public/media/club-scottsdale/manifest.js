@@ -3,38 +3,38 @@ window.CS_MEDIA = {
  "fps": 30,
  "clips": {
   "aerial": {
-   "frames": 216,
-   "duration": 7.2,
+   "frames": 249,
+   "duration": 8.3,
    "variants": {
     "p1080.hevc": {
      "src": "aerial.p1080.hevc.mp4",
      "w": 1080,
      "h": 1920,
-     "kb": 1867
+     "kb": 2173
     },
     "p1080": {
      "src": "aerial.p1080.mp4",
      "w": 1080,
      "h": 1920,
-     "kb": 4331
+     "kb": 5010
     },
     "p720": {
      "src": "aerial.p720.mp4",
      "w": 720,
      "h": 1280,
-     "kb": 1871
+     "kb": 2194
     },
     "w1080.hevc": {
      "src": "aerial.w1080.hevc.mp4",
      "w": 1080,
      "h": 810,
-     "kb": 887
+     "kb": 1038
     },
     "w1080": {
      "src": "aerial.w1080.mp4",
      "w": 1080,
      "h": 810,
-     "kb": 1988
+     "kb": 2313
     }
    },
    "posters": {
