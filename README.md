@@ -29,22 +29,21 @@ the connection to Pursuit, apply. People are named from the client's identificat
 | | Chapter | Media | On screen |
 |---|---|---|---|
 | 1 | Enter | Cover still, drone | *Enter the ecosystem.* / CLUB SCOTTSDALE · SCOTTSDALE, ARIZONA / *Scroll once to begin.* / *A one-minute look inside.* The first scroll, tap or key starts the film; the cover cuts to black and the drone descends and flies over the cars. |
-| 2 | Step inside | FPV flight (the pass over the cars at 1.25×) | *STEP INSIDE.* over the threshold, then the room names in large serif, one at a time, with the numbered list of rooms beside them previewing what comes next: 01 THE LOUNGE, 02 THE FLOOR, 03 THE COLLECTION, 04 THE MEETING SPACE. |
+| 2 | Step inside | FPV flight (the pass over the cars at 1.25×) | STEP INSIDE (light, open-tracked sans) over the threshold, then the room names in large serif, one at a time, with the numbered list of rooms beside them previewing what comes next: 01 THE LOUNGE, 02 THE FLOOR, 03 THE COLLECTION, 04 THE MEETING SPACE. |
 | 3 | Learn | Session photo, Jeremy Miner clip, a presenter teaching in the lounge room, a speaker on the mic, applause | *Who you learn from matters.* (over the photo) · **Jeremy Miner** / Sales trainer · Founder, 7th Level (over his clip, ~3.3 s) · two more teaching moments, wordless · the audience. |
-| 4 | Connect | Table, dinner, room, Kyler Murray clip, Lanctot & Menery photo, conversation | *Build relationships beyond the workday.* · **Kyler Murray** / NFL quarterback / AT CLUB SCOTTSDALE (clip, ~3.4 s) · **Michael Lanctot & Bob Menery** / AT CLUB SCOTTSDALE (photo, 3 s). |
+| 4 | Connect | Table, dinner, room, Kyler Murray clip, Lanctot & Menery photo, conversation | *Build relationships beyond the workday.* · **Kyler Murray** / NFL quarterback / AT CLUB SCOTTSDALE (clip, ~3.4 s) · **Bob Menery** and **Michael Lanctot**, each name under their own face / AT CLUB SCOTTSDALE (photo, 3 s). |
 | 5 | Beyond the workday | Helicopter still, 9 amenity shots | The helicopter, wordless. Then *Space to connect, create, and unwind.* with a small label naming each group as it plays: CONNECT (DJ, card room, lounge), CREATE (podcast), UNWIND (sim racing, pickleball, barber, terrace). |
-| 6 | Pursuit | — | *Club Scottsdale is one part of the Pursuit ecosystem.* Then *Build your next chapter with Pursuit.* / **Apply to Pursuit** / Watch again. The film controls retire. |
+| 6 | Pursuit | — | *Club Scottsdale is one of the rooms where the Pursuit ecosystem comes together.* Then *Build your next chapter with Pursuit.* / **Apply to Pursuit** / Watch again. The film controls retire. |
 
 ## Typography
 
-The prototype's original type, carrying the new words.
-
 | Role | Face | Phone | Desktop |
 |---|---|---|---|
-| Titles, statements, names, room names | Instrument Serif 400, uppercase, line height 0.9, the key word in italic | 34–64 px (room names and *Step inside.* larger, up to 13.5 % of the width) | up to 150 px |
+| Statements and names (Learn, Jeremy Miner, Connect, Bob Menery / Michael Lanctot, the amenities line, the Pursuit line, the closing title) | Instrument Serif 400, sentence case, the key word in italic, line height 1.06; all one size | 28–40 px | 34–52 px |
+| Kyler Murray, the room names | Instrument Serif 400, uppercase, line height 0.9 | up to 13 % of the width | up to 132 px |
+| Step inside | Outfit 300, uppercase, 0.34 em tracking | 20–30 px | 24–36 px |
 | Cover title | Instrument Serif 400, uppercase, open tracking, one line | 22–29 px | 30–52 px |
 | Labels (role, context, room list, group, chapter) | Outfit, uppercase, 0.3 em tracking | 9.5–10.5 px | same |
-| Apply | Outfit, uppercase, in an outlined button | 10.5 px | same |
 
 Every phrase enters and leaves whole, and a new phrase arrives only after the previous
 one has fully gone (audited every 50 ms: no two ever overlap). Room names change letter
