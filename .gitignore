@@ -144,3 +144,8 @@ vite.config.ts.timestamp-*
 
 # Club Scottsdale media build intermediates
 build/
+
+# Framer export: generated test page bundles (node framer-export/qa/build-harness.mjs)
+framer-export/qa/harness/*.html
+framer-export/qa/harness/harness*.js
+framer-export/qa/harness/ssr.cjs
