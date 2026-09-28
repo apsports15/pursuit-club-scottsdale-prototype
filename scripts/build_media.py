@@ -97,7 +97,7 @@ CLIPS = {
             P(89.04, 89.42, 0.62, speed=0.5, label='connect'),      # card room
             P(88.54, 88.87, 0.62, speed=0.5, label='connect'),      # chesterfield lounge
             P(51.72, 53.85, 0.60, label='connect'),                 # the seated group on the white sofa
-            P(11.62, 13.70, 0.62, label='create'),                  # podcast recording (the whole shot)
+            P(11.62, 15.75, 0.62, label='create'),                  # podcast recording: the whole take, to the cut at 15.83
             P(84.37, 84.79, 0.58, speed=0.5, label='create'),       # podcast studio
             P(55.72, 56.95, 0.52, label='unwind'),                  # sim racing
             P(29.05, 29.80, 0.62, label='unwind'),                  # pickleball court

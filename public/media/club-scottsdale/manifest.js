@@ -357,38 +357,38 @@ window.CS_MEDIA = {
    }
   },
   "crescendo": {
-   "frames": 336,
-   "duration": 11.2,
+   "frames": 398,
+   "duration": 13.267,
    "variants": {
     "p1080.hevc": {
      "src": "crescendo.p1080.hevc.mp4",
      "w": 1080,
      "h": 1920,
-     "kb": 1599
+     "kb": 1793
     },
     "p1080": {
      "src": "crescendo.p1080.mp4",
      "w": 1080,
      "h": 1920,
-     "kb": 3726
+     "kb": 4273
     },
     "p720": {
      "src": "crescendo.p720.mp4",
      "w": 720,
      "h": 1280,
-     "kb": 1576
+     "kb": 1803
     },
     "w1080.hevc": {
      "src": "crescendo.w1080.hevc.mp4",
      "w": 1080,
      "h": 810,
-     "kb": 867
+     "kb": 995
     },
     "w1080": {
      "src": "crescendo.w1080.mp4",
      "w": 1080,
      "h": 810,
-     "kb": 1918
+     "kb": 2189
     }
    },
    "posters": {
@@ -422,23 +422,23 @@ window.CS_MEDIA = {
      "label": "create"
     },
     {
-     "t": 6.9,
+     "t": 8.967,
      "label": "create"
     },
     {
-     "t": 7.733,
+     "t": 9.8,
      "label": "unwind"
     },
     {
-     "t": 8.967,
+     "t": 11.033,
      "label": "unwind"
     },
     {
-     "t": 9.7,
+     "t": 11.767,
      "label": "unwind"
     },
     {
-     "t": 10.467,
+     "t": 12.533,
      "label": "unwind"
     }
    ]
