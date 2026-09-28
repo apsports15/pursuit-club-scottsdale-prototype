@@ -30,21 +30,21 @@ there, connect it back to Pursuit, apply. People are named from the client's ide
 |---|---|---|---|
 | 01 | Enter | Cover still, drone | ENTER THE ECOSYSTEM / CLUB SCOTTSDALE · SCOTTSDALE, ARIZONA. The first scroll, tap or key starts the film; the cover cuts to black and the drone descends and flies over the cars under one caption: THE CLUB FROM ABOVE. |
 | 02 | Inside | FPV flight: the event floor (0.9×), the collection (1.25×), the white-sofa room (0.9×) and its seated group (0.9×, the other angle of the same room) | A LOOK INSIDE arrives with the interior reveal. Then each room once it is on screen: 02 / The Floor, 03 / The Collection, 04 / The Lounge, with *Where the conversation stays in the room.* settling above the Lounge's name. |
-| 03 | People | Session photo, Jeremy Miner, teaching, the mic, applause, dinner, the room, Kyler Murray, Bob Menery & Michael Lanctot, conversation | EXPERIENCE IS MEANT TO BE *SHARED.* (over the photo, apart from any name) · SALES TRAINER · FOUNDER, 7TH LEVEL / Jeremy Miner · NFL QUARTERBACK / KYLER MURRAY / AT CLUB SCOTTSDALE (unchanged) · Bob Menery / MEDIA PERSONALITY and Michael Lanctot / MENTOR · YNR, each under their own face, a hairline between / AT CLUB SCOTTSDALE. |
+| 03 | People | Session photo, Jeremy Miner, teaching, the mic, applause, dinner, the room, Kyler Murray, Bob Menery & Michael Lanctot, conversation | EXPERIENCE IS MEANT TO BE *SHARED.* (over the photo, apart from any name) · SALES TRAINER · FOUNDER, 7TH LEVEL / Jeremy Miner · NFL QUARTERBACK / KYLER MURRAY / AT CLUB SCOTTSDALE (unchanged) · Bob Menery / MEDIA PERSONALITY (left) and Michael Lanctot / MENTOR / YNR (right, as on the site), set like the site's Ayden Parks and Michael Lanctot: a corner each, short rules above and below / AT CLUB SCOTTSDALE. |
 | 04 | Amenities | Helicopter still, 9 amenity shots | The helicopter, wordless. Then one caption per group: CONNECT / *Conversations that continue beyond the presentation.* · CREATE / *Media, ideas, and content in motion.* · UNWIND / *A place to stay after the work is done.* |
-| 05 | Pursuit | Black | The terrace fades to black under READY TO MAKE IT YOURS?, then YOUR NEXT MOVE / *Your Pursuit starts now.* / APPLY TO PURSUIT → / Watch again. The film controls retire. |
+| 05 | Pursuit | Black | The terrace fades to black under READY TO MAKE IT YOURS?, then —— 05 —— / YOUR NEXT MOVE / *Your Pursuit starts now.* / a hairline / APPLY TO PURSUIT → in the site's ivory pill / Watch again. The film controls retire. |
 
 ## Typography
 
-Modelled on the Pursuit site's system: an editorial serif (Instrument Serif) for statements
-and names, restrained sans microtext (Outfit) for labels and roles, thin rules, italic only
+Matched to the live Pursuit site (thepursuitpath.com, mobile): Bodoni Moda, the site's
+serif, for statements, names and numbers, restrained sans microtext (Outfit) for labels and roles, thin rules, italic only
 on the word that carries a line, and plenty of black. Each role does one job.
 
 | Role | Setting | Phone | Used for |
 |---|---|---|---|
 | Statement | Serif, tight leading, restrained tracking | 30–44 px | A LOOK INSIDE · Where the conversation stays in the room. · EXPERIENCE IS MEANT TO BE SHARED. · the CTA title (four in the film) |
-| Chapter label | Sans 9 px, uppercase, 0.28 em (2.5 px), number + short rule | 9 px | Bottom left, in the controls: 01 — ENTER … 05 — PURSUIT |
-| Room name | Sans number + serif title-case name | 22–28 px | 02 / The Floor · 03 / The Collection · 04 / The Lounge, only once each room is on screen |
+| Chapter label | Serif number + short rule + sans 9 px uppercase, 0.28 em (2.5 px), like the site's "01 —— SELL" | 9 px | Bottom left, in the controls: 01 — ENTER … 05 — PURSUIT |
+| Room name | Serif number, rule, serif title-case name (the site's path cards) | 22–28 px | 02 — The Floor · 03 — The Collection · 04 — The Lounge, only once each room is on screen; the Lounge line sits beneath its name |
 | Person | Sans eyebrow role, serif name, sans descriptor | name 30–38 px (duo 21–26 px) | Jeremy Miner; Bob Menery and Michael Lanctot. Kyler Murray keeps his larger uppercase scale. |
 | Caption | Sans 10 px uppercase with a rule, 11 px supporting line | 10–11 px | THE CLUB FROM ABOVE; CONNECT / CREATE / UNWIND, one at a time |
 | Closing | Serif uppercase, open tracking, centred | 25–32 px | READY TO MAKE IT YOURS?, once, before the CTA |
@@ -135,7 +135,7 @@ index.html                     the film stage: every layer, the controls, the CT
 css/club.css                   tokens, type, layouts (html.wide = landscape ≥ 900px)
 js/club.js                     film clock, timeline, clip sync, controls, scroll lock
 vendor/gsap.min.js             GSAP 3 (the only library)
-assets/fonts/                  Instrument Serif, Outfit
+assets/fonts/                  Bodoni Moda (OFL), Outfit
 scripts/build_media.py         master → production media
 source-media/                  the master, its media map, source-quality stills
 public/media/club-scottsdale/  generated production media

@@ -6,7 +6,7 @@
 <title>Club Scottsdale · Pursuit</title>
 <meta name="description" content="Club Scottsdale, one of the environments around Pursuit: a short film.">
 <meta name="theme-color" content="#000000">
-<link rel="preload" href="assets/fonts/instrument-serif-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/bodoni-moda-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="css/club.css">
 </head>
 <body>
@@ -43,10 +43,10 @@
       <div class="scrim scrim--foot scrim--soft"></div>
     </div>
     <h2 class="statement" id="s-look">A look inside</h2>
-    <p class="room" id="r-floor"><span class="room__n">02 /</span> <span class="room__name">The Floor</span></p>
-    <p class="room" id="r-collection"><span class="room__n">03 /</span> <span class="room__name">The Collection</span></p>
+    <p class="room" id="r-floor"><span class="room__n">02</span><i class="room__rule" aria-hidden="true"></i><span class="room__name">The Floor</span></p>
+    <p class="room" id="r-collection"><span class="room__n">03</span><i class="room__rule" aria-hidden="true"></i><span class="room__name">The Collection</span></p>
     <p class="statement statement--sc" id="s-talk">Where the conversation stays in the <em>room.</em></p>
-    <p class="room" id="r-lounge"><span class="room__n">04 /</span> <span class="room__name">The Lounge</span></p>
+    <p class="room" id="r-lounge"><span class="room__n">04</span><i class="room__rule" aria-hidden="true"></i><span class="room__name">The Lounge</span></p>
 
     <!-- 03 · People: one run of page turns. Phones: full screen (photos sit across the top
          at full width). Desktop: a portrait panel, the words beside it. -->
@@ -63,14 +63,13 @@
       <div class="item m win" id="i-candid" data-clip="p-candid" data-op="62% 45%"></div>
     </div>
     <div class="scrim scrim--people" id="q-scrim"></div>
-    <h2 class="statement p-say" id="q-share">Experience is meant to be <em>shared.</em></h2>
+    <h2 class="statement p-say" id="q-share"><span class="ln">Experience is</span> <span class="ln">meant to be</span> <span class="ln"><em>shared.</em></span></h2>
     <div class="p-head person" id="n-jeremy"><p class="micro">Sales trainer · Founder, 7th Level</p><h3 class="person__name">Jeremy Miner</h3></div>
     <div class="p-head" id="n-kyler"><p class="micro">NFL quarterback</p><h3 class="display">Kyler Murray</h3><p class="micro">At Club Scottsdale</p></div>
     <div class="p-head duo" id="n-lanctot">
       <div class="duo__cols">
-        <div class="duo__p"><h3 class="person__name">Bob Menery</h3><p class="duo__d">Media personality</p></div>
-        <i class="duo__rule" aria-hidden="true"></i>
-        <div class="duo__p"><h3 class="person__name">Michael Lanctot</h3><p class="duo__d">Mentor · YNR</p></div>
+        <div class="duo__p duo__p--l"><i class="duo__line" aria-hidden="true"></i><h3 class="person__name">Bob Menery</h3><p class="duo__d">Media personality</p><i class="duo__line" aria-hidden="true"></i></div>
+        <div class="duo__p duo__p--r"><i class="duo__line" aria-hidden="true"></i><h3 class="person__name">Michael Lanctot</h3><p class="duo__d">Mentor / YNR</p><i class="duo__line" aria-hidden="true"></i></div>
       </div>
       <p class="micro duo__at">At Club Scottsdale</p>
     </div>
@@ -91,8 +90,9 @@
     <div class="panel" id="s-point">
       <p class="closing" id="s-close">Ready to make it yours?</p>
       <div class="cta" id="cta" tabindex="-1">
-        <p class="micro cta__eyebrow"><i aria-hidden="true"></i>Your next move<i aria-hidden="true"></i></p>
+        <div class="cta__eyebrow"><p class="cta__mark" aria-hidden="true"><i></i><span>05</span><i></i></p><p class="micro cta__label">Your next move</p></div>
         <h2 class="cta__title">Your <em>Pursuit</em> starts now.</h2>
+        <i class="cta__vr" aria-hidden="true"></i>
         <a class="cta__btn" href="#apply">Apply to Pursuit <span aria-hidden="true">→</span></a>
         <button type="button" class="cta__replay" id="replay">Watch again</button>
       </div>

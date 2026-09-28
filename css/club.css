@@ -4,8 +4,9 @@
    html.wide = landscape screens ≥ 900px (set by js/club.js).
    ========================================================================== */
 
-@font-face { font-family: "Pursuit Serif"; src: url("../assets/fonts/instrument-serif-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
-@font-face { font-family: "Pursuit Serif"; src: url("../assets/fonts/instrument-serif-latin-400-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+/* Bodoni Moda (OFL), the serif of the live Pursuit site */
+@font-face { font-family: "Pursuit Serif"; src: url("../assets/fonts/bodoni-moda-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Pursuit Serif"; src: url("../assets/fonts/bodoni-moda-latin-400-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
 @font-face { font-family: "Pursuit Sans"; src: url("../assets/fonts/outfit-latin-300-normal.woff2") format("woff2"); font-weight: 300; font-display: swap; }
 @font-face { font-family: "Pursuit Sans"; src: url("../assets/fonts/outfit-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-display: swap; }
 @font-face { font-family: "Pursuit Sans"; src: url("../assets/fonts/outfit-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-display: swap; }
@@ -20,7 +21,7 @@
   --silver: #A5A39E;
   --hair: rgba(236, 233, 227, 0.14);
   --champagne: rgba(185, 170, 140, 0.7);
-  --serif: "Pursuit Serif", "Instrument Serif", "Times New Roman", serif;
+  --serif: "Pursuit Serif", "Bodoni Moda", "Didot", "Times New Roman", serif;
   --sans: "Pursuit Sans", "Outfit", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --ease: cubic-bezier(0.2, 0.7, 0.1, 1);
   --t: 0%; --r: 0%; --b: 0%; --l: 0%;
@@ -490,6 +491,84 @@ html.wide .statement, html.wide .caption { max-width: 38%; }
 /* the helicopter stands alone (desktop: a portrait panel) */
 html.wide .heli__img { inset: 7% auto; left: 50%; right: auto; transform: translateX(-50%); }
 
+/* ================================================================ the live site's details
+   Taken from thepursuitpath.com at phone size: Bodoni Moda for every serif line, tight
+   uppercase headlines centred, section numbers in the serif between thin rules, path cards
+   set as number + rule + label over a sentence-case serif title, people named in the
+   corners with short rules above and below, and an ivory pill for the one real action. */
+
+/* headlines: tight, centred on phones (the words sit in a left column on desktop) */
+.statement { left: var(--g); right: var(--g); max-width: none; margin: 0 auto; text-align: center; font-size: clamp(30px, 8.8cqw, 44px); line-height: 0.96; letter-spacing: -0.01em; }
+.statement em { letter-spacing: -0.01em; }
+html.wide .statement { text-align: left; margin: 0; }
+.statement .ln { display: block; }
+.cover__title { font-size: clamp(20px, 5.5cqw, 44px); letter-spacing: 0.08em; text-indent: 0.08em; }
+html.wide .cover__title { font-size: clamp(28px, 2.6cqw, 48px); }
+.display { letter-spacing: -0.01em; }
+
+/* Kyler keeps the largest person scale: one line, as before */
+#n-kyler .display { font-size: clamp(34px, 10cqw, 60px); line-height: 0.95; }
+html.wide #n-kyler .display { font-size: clamp(48px, 4.6cqw, 88px); }
+
+/* the chapter label: serif number, a rule, the tracked name (the site's "01 —— SELL") */
+.ctl__chap { gap: 10px; }
+.ctl__chap b { font: 400 13px/1 var(--serif); letter-spacing: 0; color: var(--pearl); }
+.ctl__chap i { width: 18px; }
+
+/* rooms, like the site's path cards: number, rule, name; the Lounge line sits beneath */
+.room { align-items: center; gap: 12px; }
+.room__n { font: 400 clamp(22px, 6.4cqw, 28px)/1 var(--serif); letter-spacing: 0; color: var(--pearl-2); }
+.room__rule { width: 26px; height: 1px; background: var(--pearl); opacity: 0.5; flex: none; }
+.room__name { font-size: clamp(22px, 6.4cqw, 28px); }
+#r-lounge { bottom: calc(var(--lift) + 92px); }
+#s-talk { bottom: var(--lift); left: var(--g); right: var(--g); margin: 0; text-align: left; max-width: 11em; font-size: clamp(28px, 8cqw, 36px); line-height: 1.06; letter-spacing: -0.01em; }
+html.wide #r-lounge { bottom: calc(14% + 110px); }
+html.wide #s-talk { bottom: 14%; font-size: clamp(34px, 2.8cqw, 48px); }
+
+/* people */
+.person__name { letter-spacing: -0.01em; font-size: clamp(28px, 8cqw, 36px); }
+/* Bob Menery and Michael Lanctot, as the site sets Ayden Parks and Michael Lanctot:
+   each name in its own corner under its own face, a short rule above and below,
+   Bob left-aligned on the left, Michael right-aligned on the right */
+.duo { gap: 18px; }
+.duo__cols { grid-template-columns: 1fr 1fr; column-gap: 20px; }
+.duo__p { gap: 10px; }
+.duo__p--r { justify-items: end; text-align: right; }
+.duo__line { width: 22px; height: 1px; background: var(--pearl); opacity: 0.55; }
+.duo .person__name { font-size: clamp(18px, 5.2cqw, 24px); white-space: nowrap; }
+.duo__d { font-size: 8.5px; letter-spacing: 0.24em; }
+.duo__at { justify-self: center; display: grid; justify-items: center; gap: 10px; padding-top: 0; border-top: 0; font-size: 8.5px; }
+.duo__at::before { content: ""; width: 1px; height: 22px; background: var(--pearl); opacity: 0.4; }
+html.wide .duo .person__name { font-size: clamp(20px, 1.6cqw, 28px); }
+
+/* the application: section mark, headline, a vertical hairline, the ivory pill */
+.cta { gap: 20px; }
+.cta__eyebrow { display: grid; justify-items: center; gap: 12px; }
+.cta__mark { margin: 0; display: flex; align-items: center; gap: 14px; }
+.cta__mark i { width: 46px; height: 1px; background: var(--pearl); opacity: 0.4; }
+.cta__mark span { font: 400 22px/1 var(--serif); color: var(--pearl); }
+.cta__label { font-size: 9.5px; letter-spacing: 0.34em; color: var(--pearl); }
+.cta__title { letter-spacing: -0.01em; font-size: clamp(30px, 8.8cqw, 44px); }
+.cta__vr { width: 1px; height: 30px; background: var(--pearl); opacity: 0.45; }
+.cta__btn {
+  margin-top: 0; padding: 20px 40px; gap: 18px;
+  border: 0; border-radius: 999px; background: #EFEDE8; color: #0A0A0A;
+  font: 600 11px/1 var(--sans); letter-spacing: 0.3em;
+}
+.cta__btn:hover { background: #fff; color: #000; }
+.closing { letter-spacing: 0.02em; text-indent: 0.02em; }
+
+@supports not (width: 1cqw) {
+  .statement { font-size: clamp(30px, 8.8vw, 44px); }
+  .cover__title { font-size: clamp(20px, 5.5vw, 44px); }
+  #n-kyler .display { font-size: clamp(34px, 10vw, 60px); }
+  .room__n, .room__name { font-size: clamp(22px, 6.4vw, 28px); }
+  #s-talk { font-size: clamp(28px, 8vw, 36px); }
+  .person__name { font-size: clamp(28px, 8vw, 36px); }
+  .duo .person__name { font-size: clamp(18px, 5.2vw, 24px); }
+  .cta__title { font-size: clamp(30px, 8.8vw, 44px); }
+}
+
 /* the film controls retire when the film is over; Watch again brings them back */
 body.is-ended .ctl { opacity: 0; visibility: hidden; }
 
@@ -505,4 +584,14 @@ body.is-ended .ctl { opacity: 0; visibility: hidden; }
   .closing { font-size: clamp(25px, 7.6vw, 32px); }
   .cta__title { font-size: clamp(32px, 9.6vw, 44px); }
   html.wide .film > .duo { width: calc(68vh * 1320 / 1621); }
+}
+
+/* Short phones: the paired photograph gives up a little height so both names, their
+   roles and "At Club Scottsdale" always sit above the controls. */
+#i-lanctot .still { height: min(calc(100cqw * var(--k)), 76%, calc(100% - var(--lift) - 150px)); }
+.duo { top: calc(min(100cqw * 1.228, 76%, 100% - var(--lift) - 150px) - 6px); }
+html.wide #i-lanctot .still { height: auto; }
+@supports not (width: 1cqw) {
+  #i-lanctot .still { height: min(calc(100vw * var(--k)), 76%, calc(100% - var(--lift) - 150px)); }
+  .duo { top: calc(min(100vw * 1.228, 76%, 100% - var(--lift) - 150px) - 6px); }
 }
