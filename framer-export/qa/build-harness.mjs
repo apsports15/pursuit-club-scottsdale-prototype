@@ -70,8 +70,13 @@ h1, h2, h3 { font-size: 40px; font-weight: 900; }
 em { font-style: normal; font-weight: 900; }
 section { display: flex; overflow: auto; }
 * { outline: 1px dashed rgba(0,255,0,0.4); }
+/* The layout wrappers of the page keep the Framer layout (on a real site Framer class rules
+   set them); site CSS that moved them would break the whole page, not just the film. */
+html, body, #main, .framer-page, .framer-1abc2de-container { margin: 0 !important; padding: 0 !important; box-sizing: border-box !important; outline: none !important; }
+.framer-page { overflow-x: clip !important; }
 `;
 
+if (/['\\]/.test(HOSTILE_CSS)) throw new Error('HOSTILE_CSS must not contain quotes or backslashes (it is inlined in a JS string)');
 const page = (ssrMarkup) => `<!doctype html>
 <html lang="en">
 <head>
