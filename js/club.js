@@ -201,13 +201,14 @@
     S('#s-gate', { autoAlpha: 0 }, O);
     S('#s-aerial', { autoAlpha: 1 }, O);
     const ae = addClip($('#s-aerial'), O, true);
-    // Phones: as the drone levels off over the cars, the frame eases out to the footage's
-    // full width (the tall screen would otherwise crop its sides), feathered top and bottom.
+    // Phones: as the drone levels off over the cars, the frame eases out past the footage's
+    // full width (the tall screen would otherwise crop its sides), feathered on every edge.
     const glide0 = (MEDIA.clips.aerial.cuts || [{ t: 0 }, { t: ae.dur * 0.55 }])[1].t;
     if (!WIDE) {
       const r = $('.film').getBoundingClientRect();
       const fit = Math.min(1, (r.width / 1080) / (r.height / 1920));
-      if (fit < 0.98) FT('#s-aerial .f', { scale: 1 }, { scale: fit, duration: Math.max(0.01, 1.8 * K), ease: 'power2.inOut' }, O + glide0 - 0.3);
+      // pull back past full width, so the row of cars sits in open black space
+      if (fit < 0.98) FT('#s-aerial .f', { scale: 1 }, { scale: fit * 0.88, duration: Math.max(0.01, 2.0 * K), ease: 'power2.inOut' }, O + glide0 - 0.3);
     }
     const F0 = ae.end - 0.9;                              // the interior reveal
     // one quiet caption across the whole descent and flyover
@@ -233,8 +234,11 @@
     const collGone = sayOut('#r-collection', mk['The Lounge'] - 0.75, 0.4);
     // the Lounge: named as the sofa comes into view; the shot plays out to its own cut
     sayIn('#r-lounge', Math.max(collGone + GAP, mk['The Lounge'] - 0.1), 0.5);
-    sayOut('#r-lounge', fl.end - 0.3, 0.4);
-    const O1 = fl.end;                                    // the page turns into People once the shot has ended
+    // the camera settles on the sofa: a slow push-in over the last seconds, holding briefly
+    // on the final frame (still moving) before the page turns
+    FT('#s-flight .f', { scale: 1 }, { scale: 1 + 0.035 * K, duration: 2.2, ease: 'power1.out' }, fl.end - 1.8);
+    sayOut('#r-lounge', fl.end + 0.05, 0.4);
+    const O1 = fl.end + 0.4;                              // the page turns into People once the shot has settled
 
     /* ---------------- 03 · People: page turns */
     const turn = (el, at) => {

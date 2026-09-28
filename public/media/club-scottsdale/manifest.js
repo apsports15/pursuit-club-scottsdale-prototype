@@ -58,38 +58,38 @@ window.CS_MEDIA = {
    ]
   },
   "flight": {
-   "frames": 529,
-   "duration": 17.633,
+   "frames": 544,
+   "duration": 18.133,
    "variants": {
     "p1080.hevc": {
      "src": "flight.p1080.hevc.mp4",
      "w": 1080,
      "h": 1920,
-     "kb": 3855
+     "kb": 3903
     },
     "p1080": {
      "src": "flight.p1080.mp4",
      "w": 1080,
      "h": 1920,
-     "kb": 8289
+     "kb": 8431
     },
     "p720": {
      "src": "flight.p720.mp4",
      "w": 720,
      "h": 1280,
-     "kb": 3621
+     "kb": 3684
     },
     "w1080.hevc": {
      "src": "flight.w1080.hevc.mp4",
      "w": 1080,
      "h": 810,
-     "kb": 2141
+     "kb": 2177
     },
     "w1080": {
      "src": "flight.w1080.mp4",
      "w": 1080,
      "h": 810,
-     "kb": 4113
+     "kb": 4193
     }
    },
    "posters": {

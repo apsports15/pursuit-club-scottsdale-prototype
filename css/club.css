@@ -597,7 +597,12 @@ html.wide #i-lanctot .still { height: auto; }
    the scale out reveals the sides of the footage instead of shrinking a crop */
 html:not(.wide) #s-aerial .f { right: auto; width: max(100%, 100cqh * 9 / 16); left: calc(50% - max(100%, 100cqh * 9 / 16) / 2); }
 @supports not (width: 1cqw) { html:not(.wide) #s-aerial .f { width: max(100%, 100vh * 9 / 16); left: calc(50% - max(100%, 100vh * 9 / 16) / 2); } }
-html:not(.wide) #s-aerial .f { -webkit-mask-image: linear-gradient(transparent, #000 5%, #000 95%, transparent); mask-image: linear-gradient(transparent, #000 5%, #000 95%, transparent); }
+html:not(.wide) #s-aerial .f {
+  -webkit-mask-image: linear-gradient(transparent, #000 5%, #000 95%, transparent), linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(transparent, #000 5%, #000 95%, transparent), linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  mask-composite: intersect;
+}
 
 /* "A look inside" sits where the room names sit, numbered 01, with a line of microtext;
    "Learn from people…" is set the same way: eyebrow, sentence-case serif title, microtext */
