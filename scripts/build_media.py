@@ -67,13 +67,13 @@ CLIPS = {
                'kinds': ['portrait', 'wide'], 'cuts': True,
                'drift': {'zoom': 0.12, 'x': 0.34}, 'xfade': 0.5},
     # the FPV flight, whole from the doorway: the front desk and the white sectionals under
-    # the neon (the first beat, under "A look inside"), the event floor at 0.9x, the
-    # collection at 1.25x so it does not linger, then through the source's own cut (74.367)
+    # the neon (the first beat, under "A look inside"), the event floor at normal speed, the
+    # collection at 1.45x so it does not linger, then through the source's own cut (74.367)
     # into the room with the round white sofa, the Lounge, played to its own cut (76.867)
-    # and never trimmed: 0.9x, easing to 0.6x over its last second so it settles on the sofa.
-    'flight': {'parts': [P(58.42, 62.25, 0.52), P(62.25, 66.60, 0.52, speed=0.9),
-                         P(66.60, 74.35, 0.52, speed=1.25),
-                         P(74.37, 75.95, 0.62, speed=0.9), P(75.95, 76.85, 0.62, speed=0.6)],
+    # and never trimmed: at a steady 0.9x, no held or slowed frames at the end.
+    'flight': {'parts': [P(58.42, 62.25, 0.52), P(62.25, 66.60, 0.52),
+                         P(66.60, 74.35, 0.52, speed=1.45),
+                         P(74.37, 76.85, 0.62, speed=0.9)],
                'kinds': ['portrait', 'wide'],
                'marks': [('The Floor', 62.25), ('The Collection', 66.60), ('The Lounge', 74.95)]},
     # people. Learn: Jeremy Miner presenting (the whole shot, at 0.45x so his name can be

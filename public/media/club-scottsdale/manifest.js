@@ -58,38 +58,38 @@ window.CS_MEDIA = {
    ]
   },
   "flight": {
-   "frames": 544,
-   "duration": 18.133,
+   "frames": 488,
+   "duration": 16.267,
    "variants": {
     "p1080.hevc": {
      "src": "flight.p1080.hevc.mp4",
      "w": 1080,
      "h": 1920,
-     "kb": 3903
+     "kb": 3778
     },
     "p1080": {
      "src": "flight.p1080.mp4",
      "w": 1080,
      "h": 1920,
-     "kb": 8431
+     "kb": 8045
     },
     "p720": {
      "src": "flight.p720.mp4",
      "w": 720,
      "h": 1280,
-     "kb": 3684
+     "kb": 3497
     },
     "w1080.hevc": {
      "src": "flight.w1080.hevc.mp4",
      "w": 1080,
      "h": 810,
-     "kb": 2177
+     "kb": 2117
     },
     "w1080": {
      "src": "flight.w1080.mp4",
      "w": 1080,
      "h": 810,
-     "kb": 4193
+     "kb": 3980
     }
    },
    "posters": {
@@ -107,11 +107,11 @@ window.CS_MEDIA = {
      "label": "The Floor"
     },
     {
-     "t": 8.667,
+     "t": 8.167,
      "label": "The Collection"
     },
     {
-     "t": 15.511,
+     "t": 14.144,
      "label": "The Lounge"
     }
    ]

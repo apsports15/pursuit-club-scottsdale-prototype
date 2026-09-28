@@ -22,14 +22,14 @@ clock and the clip carrying it; `window.ClubScottsdale` in the console has helpe
 
 ## The film
 
-About 74 s on every screen, in five chapters (Skip moves one chapter on). The story:
+About 72 s on every screen, in five chapters (Skip moves one chapter on). The story:
 enter the place, move inside, see the rooms, meet the people, understand what happens
 there, connect it back to Pursuit, apply. People are named from the client's identification.
 
 | | Chapter | Media | On screen |
 |---|---|---|---|
 | 01 | Enter | Cover still, drone | ENTER THE ECOSYSTEM / CLUB SCOTTSDALE · SCOTTSDALE, ARIZONA. The first scroll, tap or key starts the film; the cover cuts to black and the drone descends, then (on phones) eases out past the footage's full width for the flyover, feathered on every edge, over the cars, under one caption: THE CLUB FROM ABOVE. |
-| 02 | Inside | The whole FPV flight: the doorway, front desk and white sectionals, the event floor (0.9×), the collection (1.25×), the white-sofa room played to its own cut (0.9× easing to 0.6×, then a slow push-in as it settles) | 01 — A Look Inside / THROUGH THE FRONT DOOR holds over the entrance and front desk, on the same line the rooms use. Then each room once it is on screen: 02 — The Floor, 03 — The Collection, 04 — The Lounge. |
+| 02 | Inside | The whole FPV flight: the doorway, front desk and white sectionals, the event floor (normal speed), the collection (1.45×), the white-sofa room played to its own cut at a steady 0.9×, with no held frame | 01 — A Look Inside / THROUGH THE FRONT DOOR holds over the entrance and front desk, on the same line the rooms use. Then each room once it is on screen: 02 — The Floor, 03 — The Collection, 04 — The Lounge. |
 | 03 | People | Session photo, Jeremy Miner, teaching, the mic, applause, dinner, the room, Kyler Murray, Bob Menery & Michael Lanctot, conversation | 03 — THE NETWORK / Learn from people who have already *done it.* / SALES TRAINERS · ENTREPRENEURS · MENTORS (under the photo, apart from any name) · SALES TRAINER · FOUNDER, 7TH LEVEL / Jeremy Miner · NFL QUARTERBACK / KYLER MURRAY / AT CLUB SCOTTSDALE · Bob Menery / MEDIA PERSONALITY (left) and Michael Lanctot / MENTOR / YNR (right), set like the site's Ayden Parks and Michael Lanctot / AT CLUB SCOTTSDALE. |
 | 04 | Amenities | Helicopter still, 10 amenity shots | The helicopter, wordless. Then one caption per group: CONNECT (DJ, card room, chesterfield, the seated group on the white sofa) / *Conversations that continue beyond the presentation.* · CREATE (the podcast take, whole, and the studio) / *Media, ideas, and content in motion.* · UNWIND / *A place to stay after the work is done.* |
 | 05 | Pursuit | Black | The terrace fades to black under READY TO MAKE IT YOURS?, then —— 05 —— / THE NEXT MOVE / YOUR PURSUIT STARTS NOW (set like the site's hero) / a hairline / APPLY TO PURSUIT → in the site's ivory pill / Watch again. The film controls retire. |

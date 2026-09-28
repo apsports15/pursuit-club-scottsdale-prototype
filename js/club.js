@@ -234,11 +234,9 @@
     const collGone = sayOut('#r-collection', mk['The Lounge'] - 0.75, 0.4);
     // the Lounge: named as the sofa comes into view; the shot plays out to its own cut
     sayIn('#r-lounge', Math.max(collGone + GAP, mk['The Lounge'] - 0.1), 0.5);
-    // the camera settles on the sofa: a slow push-in over the last seconds, holding briefly
-    // on the final frame (still moving) before the page turns
-    FT('#s-flight .f', { scale: 1 }, { scale: 1 + 0.035 * K, duration: 2.2, ease: 'power1.out' }, fl.end - 1.8);
-    sayOut('#r-lounge', fl.end + 0.05, 0.4);
-    const O1 = fl.end + 0.4;                              // the page turns into People once the shot has settled
+    // the shot eases into the sofa and the page turns as it ends: no held frame
+    sayOut('#r-lounge', fl.end - 0.55, 0.4);
+    const O1 = fl.end - 0.05;                             // the page turns into People as the shot ends
 
     /* ---------------- 03 · People: page turns */
     const turn = (el, at) => {
