@@ -40,28 +40,20 @@ SRC_W, SRC_H = 1080, 1920
 FPS = 30
 
 
-def P(t_in, t_out, y=0.5, speed=1.0, label=None):
+def P(t_in, t_out, y=0.5, speed=1.0, label=None, reverse=False):
     """One part of a clip. Times are seconds in the master, trimmed a frame or two
     inside every cut. y is the vertical centre (0-1) of the 1080x810 crop used on
-    landscape screens. speed < 1 is motion-interpolated slow motion."""
-    return {'in': t_in, 'out': t_out, 'y': y, 'speed': speed, 'label': label}
+    landscape screens. speed < 1 is motion-interpolated slow motion; reverse plays
+    the part backwards."""
+    return {'in': t_in, 'out': t_out, 'y': y, 'speed': speed, 'label': label, 'reverse': reverse}
 
-
-# The neon's black is lifted (about RGB 4,5,8). Pull it to true black so the sign
-# sits on the page's #000 with no visible frame edge.
-NEON_GRADE = 'colorlevels=rimin=0.035:gimin=0.035:bimin=0.05'
 
 CLIPS = {
-    # identity: the CS neon in the dark. Portrait only: the page splits the sign open
-    # on the neon still, which has to line up with the video exactly on every screen.
-    # logo is the centre of the CS mark (source px).
-    'neon': {'parts': [P(49.25, 51.60)], 'kinds': ['portrait'], 'grade': NEON_GRADE,
-             'points': {'logo': (550, 702)}},
-    # aerial: the drone rises slowly off the tent's CS logo (the whole rise, at half
-    # speed), then glides over the collection at speed. tent_logo is where that logo
-    # sits in the first frame (source px); the page matches it to the neon sign.
-    'aerial': {'parts': [P(9.25, 11.44, 0.32, speed=0.5), P(15.92, 19.07, 0.5)], 'kinds': ['portrait', 'wide'],
-               'points': {'tent_logo': (710, 438)}},
+    # aerial, the first moving shot after the cover: the drone's rise off the tent,
+    # reversed and slowed to 0.4x, so it starts high over the lot and descends onto the
+    # cars; then the glide down the row of cars at speed.
+    'aerial': {'parts': [P(9.25, 11.44, 0.40, speed=0.4, reverse=True), P(15.92, 19.07, 0.5)],
+               'kinds': ['portrait', 'wide'], 'cuts': True},
     # the FPV flight, uncut and at speed: doorway, the lounge, the event floor, the
     # collection, and on (the source's own cut at 74.367) into the room with the round
     # white sofa, up to the cut to the applause at 76.867. The last room gets its own
@@ -106,12 +98,18 @@ CLIPS = {
 }
 
 # Source-quality stills. 'at' is a master time, or ('last', clip) for the exact
-# final frame of a clip (the neon still is what the sign splits open on).
+# final frame of a clip.
 STILLS = [
     {'name': 'helicopter', 'at': 0.60},
     {'name': 'overhead', 'at': 19.90},
-    {'name': 'neon', 'at': ('last', 'neon'), 'grade': NEON_GRADE},
 ]
+
+# The editorial cover: a supplied aerial sunset still of the building (not from the
+# master). Wide screens get it as is. Phones get a composed portrait: a crop around
+# the facade and sign, placed high on a tall canvas, the sky above it softly extended
+# from its own top edge and the ground below fading to black under the type.
+COVER = ROOT / 'source-media' / 'cover' / 'club-scottsdale-cover.webp'
+COVER_TALL = {'center_x': 960, 'crop_w': 660, 'aspect': 9 / 19.5, 'top': 0.15}
 
 H264 = ['-c:v', 'libx264', '-preset', 'slow', '-profile:v', 'high', '-pix_fmt', 'yuv420p',
         '-g', '30', '-keyint_min', '30', '-sc_threshold', '0']
@@ -170,14 +168,21 @@ def geometry(kind, y):
 
 
 def slow_source(p):
-    """Lossless, motion-interpolated slow-motion intermediate for one part."""
+    """Lossless intermediate for a part that is slowed (motion-interpolated) and/or
+    reversed. The source is trimmed frame-exact first, so nothing past the cut ends up
+    at the start of a reversed part."""
     CACHE.mkdir(parents=True, exist_ok=True)
-    path = CACHE / f"slow-{p['in']:.2f}-{p['out']:.2f}-{p['speed']:.2f}.mkv"
+    rev = '-rev' if p['reverse'] else ''
+    path = CACHE / f"slow-{p['in']:.2f}-{p['out']:.2f}-{p['speed']:.2f}{rev}.mkv"
     if not path.exists():
         rate = Fraction(FPS) / Fraction(str(p['speed']))
-        vf = (f'minterpolate=fps={rate.numerator}/{rate.denominator}:mi_mode=mci:mc_mode=aobmc:'
-              f"me_mode=bidir:vsbmc=1,setpts=PTS/{p['speed']},fps={FPS}")
-        print(f'  slow motion {p["in"]}-{p["out"]} at {p["speed"]}x (slow)')
+        vf = f"trim=end_frame={round((p['out'] - p['in']) * FPS)},setpts=PTS-STARTPTS"
+        if p['reverse']:
+            vf += ',reverse'
+        if p['speed'] != 1.0:
+            vf += (f',minterpolate=fps={rate.numerator}/{rate.denominator}:mi_mode=mci:mc_mode=aobmc:'
+                   f"me_mode=bidir:vsbmc=1,setpts=PTS/{p['speed']},fps={FPS}")
+        print(f'  intermediate {p["in"]}-{p["out"]} at {p["speed"]}x{" reversed" if rev else ""} (slow)')
         run(['-ss', f"{p['in']:.3f}", '-t', f"{p['out'] - p['in'] + 0.2:.3f}", '-i', str(MASTER),
              '-vf', vf, '-c:v', 'libx264', '-qp', '0', '-preset', 'ultrafast', str(path)])
     return path
@@ -191,7 +196,7 @@ def encode(name, spec, kind, suffix, size, codec):
     grade = spec.get('grade', 'null')
     args, chains = [], []
     for i, p in enumerate(parts):
-        if p['speed'] != 1.0:
+        if p['speed'] != 1.0 or p['reverse']:
             args += ['-i', str(slow_source(p))]
         else:
             args += ['-ss', f"{p['in']:.3f}", '-t', f"{p['out'] - p['in'] + 0.2:.3f}", '-i', str(MASTER)]
@@ -260,12 +265,6 @@ def build_clips():
             entry['cuts'] = cuts
         if spec.get('marks'):
             entry['marks'] = [{'t': to_output_time(spec['parts'], t), 'label': label} for label, t in spec['marks']]
-        if spec.get('points'):
-            p0 = spec['parts'][0]
-            entry['points'] = {
-                key: {'portrait': [x / SRC_W, y / SRC_H],
-                      'wide': [x / SRC_W, (y - wide_top(p0['y'])) / 810]}
-                for key, (x, y) in spec['points'].items()}
         manifest[name] = entry
     return manifest
 
@@ -307,6 +306,55 @@ def build_stills():
     return manifest
 
 
+def build_cover():
+    from PIL import ImageFilter
+    src = Image.open(COVER).convert('RGB')
+    W, H = src.size
+    out = {'wide': [], 'tall': []}
+    for w in (W, 1200):
+        im = src if w == W else src.resize((w, round(H * w / W)), Image.LANCZOS)
+        for fmt, ext, kw in (('AVIF', 'avif', {'quality': 70}), ('WEBP', 'webp', {'quality': 86, 'method': 6})):
+            dest = OUT / f'cover-wide.{w}.{ext}'
+            if fresh(dest):
+                im.save(dest, fmt, **kw)
+            out['wide'].append(dest.name)
+    # the phone composition
+    c = COVER_TALL
+    cw = c['crop_w']
+    x0 = max(0, min(W - cw, c['center_x'] - cw // 2))
+    crop = src.crop((x0, 0, x0 + cw, H))
+    ch = round(cw / c['aspect'])
+    top = round(ch * c['top'])
+    canvas = Image.new('RGB', (cw, ch), (0, 0, 0))
+    # sky: the sky colour just under the photo's darker top edge (rows 18-40), smoothed
+    # sideways and stretched upward, deepening toward the top of the screen
+    row = crop.crop((0, 18, cw, 40)).resize((cw, 1), Image.BOX).filter(ImageFilter.GaussianBlur(30))
+    sky = row.resize((cw, top + 160), Image.BILINEAR)
+    shade = Image.linear_gradient('L').resize((cw, top + 160))     # 0 at top -> 255 at bottom
+    canvas.paste(Image.composite(sky, Image.new('RGB', sky.size, (0, 0, 0)), shade.point(lambda v: 70 + v * 185 // 255)), (0, 0))
+    # the photograph, from below its dark top edge, feathered into the sky over 150 px
+    crop = crop.crop((0, 14, cw, H))
+    ph = crop.height
+    feather = Image.new('L', crop.size, 255)
+    feather.paste(Image.linear_gradient('L').resize((cw, 150)), (0, 0))
+    canvas.paste(crop, (0, top), feather)
+    # below the photograph: black (the type sits here); feather its bottom 120 px
+    fade = Image.linear_gradient('L').transpose(Image.FLIP_TOP_BOTTOM).resize((cw, 120))
+    bottom = crop.crop((0, ph - 120, cw, ph))
+    canvas.paste(Image.new('RGB', (cw, 120), (0, 0, 0)), (0, top + ph - 120), Image.eval(fade, lambda v: 255 - v))
+    canvas.paste(bottom, (0, top + ph - 120), fade)
+    for w in (1080, 720):
+        im = canvas.resize((w, round(ch * w / cw)), Image.LANCZOS)
+        for fmt, ext, kw in (('AVIF', 'avif', {'quality': 70}), ('WEBP', 'webp', {'quality': 86, 'method': 6})):
+            dest = OUT / f'cover-tall.{w}.{ext}'
+            if fresh(dest):
+                im.save(dest, fmt, **kw)
+            out['tall'].append(dest.name)
+    print(f'  cover wide {W}x{H}, tall {cw}x{ch} (crop x {x0}-{x0 + cw}, photo at {top}px)')
+    return {'wide': {'w': W, 'h': H, 'files': out['wide']},
+            'tall': {'w': 1080, 'h': round(ch * 1080 / cw), 'files': out['tall']}}
+
+
 def remove_stale():
     for folder in (OUT, STILLS_SRC):
         for f in folder.iterdir():
@@ -323,7 +371,9 @@ def main():
     clips = build_clips()
     print('Stills')
     stills = build_stills()
-    data = {'fps': FPS, 'clips': clips, 'stills': stills}
+    print('Cover')
+    cover = build_cover()
+    data = {'fps': FPS, 'clips': clips, 'stills': stills, 'cover': cover}
     manifest = OUT / 'manifest.js'
     written.add(manifest.resolve())
     manifest.write_text(

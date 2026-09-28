@@ -142,37 +142,70 @@ main { height: 100%; }
 .scrim { position: absolute; inset: 0; pointer-events: none; }
 .scrim--foot { background: linear-gradient(0deg, rgba(0, 0, 0, 0.84) 0%, rgba(0, 0, 0, 0.42) 30%, transparent 55%); }
 
-/* ---------------------------------------------------------------- opening */
+/* ---------------------------------------------------------------- opening: the editorial cover */
 .gate {
   position: absolute; inset: 0; z-index: 40;
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
   background: var(--black);
   cursor: pointer;
+  overflow: hidden;
+  --ivory: #E4DACA;                          /* muted warm pearl for the title */
+  --champ: rgba(206, 186, 150, 0.86);        /* restrained champagne for the microcopy */
 }
-.gate__in { display: grid; justify-items: center; gap: 22px; text-align: center; padding: 0 var(--g); }
-.gate__eyebrow { color: var(--pearl-2); }
-.gate__title { font-size: clamp(50px, 15.5cqw, 150px); }
-.gate__cue {
-  position: absolute; left: 50%; bottom: 30px; transform: translateX(-50%);
-  display: grid; justify-items: center; gap: 14px; padding: 10px 16px;
-  font: 500 10px/1 var(--sans); letter-spacing: 0.32em; text-transform: uppercase; color: var(--pearl-2);
+/* Phones: the composed portrait fills the screen. */
+.cover { position: absolute; inset: 0; }
+.cover__drift { position: absolute; inset: 0; animation: cover-in 1.8s var(--ease) both, cover-drift 16s cubic-bezier(0.25, 0.1, 0.25, 1) both; }
+.cover picture { position: absolute; inset: 0; }
+.cover img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
+@keyframes cover-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes cover-drift { from { transform: scale(1); } to { transform: scale(1.03) translateY(-0.4%); } }
+/* Shorter phones (e.g. 375 × 667): frame lower in the composition so the cars clear the title. */
+@media (max-aspect-ratio: 3/5) and (min-aspect-ratio: 1/2) { .cover img { object-position: 50% 62%; } }
+/* Wider screens: the panorama fills the top of the screen and feathers into black under the type. */
+@media (min-aspect-ratio: 3/5) {
+  .cover { bottom: 21%; -webkit-mask-image: linear-gradient(#000 80%, transparent); mask-image: linear-gradient(#000 80%, transparent); }
+  .cover img { object-position: 54% 62%; }
+}
+.cover__shade {
+  position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 120% 90% at 50% 40%, transparent 55%, rgba(0, 0, 0, 0.42) 100%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, transparent 16%, transparent 56%, rgba(0, 0, 0, 0.5) 70%, rgba(0, 0, 0, 0.9) 84%, #000 100%);
+}
+.cover__dark { position: absolute; inset: 0; background: #000; opacity: 0; pointer-events: none; }
+.gate__in {
+  position: absolute; left: 0; right: 0; bottom: max(34px, 5.5%);
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  padding: 0 var(--g);
+}
+.cover__title {
+  margin: 0;
+  font: 400 clamp(29px, 8.4cqw, 58px)/1 var(--serif);
+  letter-spacing: 0.1em; text-indent: 0.1em;          /* indent balances the trailing tracking */
+  text-transform: uppercase; color: var(--ivory);
   white-space: nowrap;
 }
-.gate__cue i { position: relative; width: 1px; height: 40px; background: rgba(236, 233, 227, 0.2); overflow: hidden; }
-.gate__cue i::after {
-  content: ""; position: absolute; left: 0; top: 0; width: 1px; height: 14px; background: var(--pearl);
-  animation: cue 2.2s var(--ease) infinite;
+.cover__sub {
+  margin: 16px 0 0;
+  font: 400 9.5px/1 var(--sans); letter-spacing: 0.46em; text-indent: 0.46em;
+  text-transform: uppercase; color: var(--champ);
 }
-@keyframes cue { 0% { transform: translateY(-14px); } 70%, 100% { transform: translateY(40px); } }
+.gate__cue {
+  margin-top: 26px; padding: 6px 16px;
+  display: grid; justify-items: center; gap: 12px;
+  font: 400 8.5px/1 var(--sans); letter-spacing: 0.42em; text-indent: 0.42em; text-transform: uppercase;
+  color: rgba(228, 218, 202, 0.58);
+}
+.gate__cue i { position: relative; width: 1px; height: 34px; background: rgba(228, 218, 202, 0.24); overflow: hidden; }
+.gate__cue i::after {
+  content: ""; position: absolute; left: 0; top: 0; width: 1px; height: 12px; background: rgba(228, 218, 202, 0.8);
+  animation: cue 3.2s var(--ease) 1.8s infinite both;
+}
+@keyframes cue { 0% { transform: translateY(-12px); } 60%, 100% { transform: translateY(34px); } }
 .gate__cue:focus-visible, .ctl__btn:focus-visible, .ctl__track:focus-visible, .cta__btn:focus-visible, .cta__replay:focus-visible { outline: 1px solid var(--pearl); outline-offset: 3px; }
+html.wide .cover__title { font-size: clamp(34px, 3.4cqw, 58px); }
+html.wide .cover__sub { font-size: 10px; }
 
 /* ---------------------------------------------------------------- arrival */
-.split { position: absolute; inset: 0; visibility: hidden; pointer-events: none; }
-.split__half { position: absolute; inset: 0; overflow: hidden; }
-.split__img { position: absolute; inset: 0; }
-.split__img picture { position: absolute; inset: 0; }
-.split__img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: var(--op, 50% 50%); }
-.split__seam { position: absolute; top: 0; bottom: 0; left: 50%; width: 1px; margin-left: -0.5px; background: linear-gradient(transparent, rgba(236, 233, 227, 0.8) 25%, rgba(236, 233, 227, 0.8) 75%, transparent); }
 .s-cap { left: var(--g); bottom: var(--lift); visibility: hidden; }
 .s-cap__in { display: grid; gap: 8px; }
 .s-cap__in span { color: var(--pearl-2); }
@@ -308,13 +341,15 @@ body.is-blocked .tap { display: inline-flex; }
 .dbg { position: fixed; z-index: 99; left: 8px; top: 8px; padding: 6px 8px; background: rgba(0, 0, 0, 0.7); font: 11px/1.4 ui-monospace, Menlo, monospace; color: #E9D9A8; pointer-events: none; white-space: pre; }
 
 @media (prefers-reduced-motion: reduce) {
-  .gate__cue i::after { animation: none; transform: translateY(13px); }
+  .gate__cue i::after { animation: none; transform: translateY(11px); }
+  .cover__drift { animation: cover-in 0.6s linear both; }
 }
 
 /* Browsers without container query units (iOS < 16): the stage is the viewport, so vw stands in. */
 @supports not (width: 1cqw) {
   .film { --g: max(20px, 6vw); }
-  .gate__title { font-size: clamp(50px, 15.5vw, 150px); }
+  .cover__title { font-size: clamp(29px, 8.4vw, 58px); }
+  html.wide .cover__title { font-size: clamp(34px, 3.4vw, 58px); }
   .rooms__now { font-size: clamp(34px, 11.5vw, 110px); }
   .s-step { font-size: clamp(44px, 13.5vw, 150px); }
   html.wide .s-step { font-size: clamp(56px, 6.4vw, 150px); }

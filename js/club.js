@@ -9,7 +9,7 @@
    out of sync; a clip that fails is skipped. The film is a pure function of
    its time, so seeking in either direction is just setting the time.
 
-   Arrival      neon → the sign splits → tent logo → the drone rises slowly and pulls back
+   Arrival      the editorial cover → type fades, image darkens → black beat → the drone descends onto the cars
    Step inside  the flight wipes in, already moving: lounge, floor, collection, inner room
    Who's inside the 911 from above → It's who's inside.
    In the room / Around the table   people, as page wipes (phone) or columns (desktop)
@@ -93,7 +93,7 @@
       const name = el.dataset.still;
       const s = MEDIA.stills[name];
       const set = (ext) => [1080, 720].map((w) => `${BASE}still-${name}.${w}.${ext} ${w}w`).join(', ');
-      const sizes = WIDE && !el.classList.contains('split__img') ? '50vh' : '100vw';
+      const sizes = WIDE ? '50vh' : '100vw';
       el.style.setProperty('--op', opOf(el));
       el.innerHTML = `<div class="f"><picture><source type="image/avif" srcset="${set('avif')}" sizes="${sizes}">` +
         `<source type="image/webp" srcset="${set('webp')}" sizes="${sizes}">` +
@@ -146,18 +146,6 @@
 
   /* ------------------------------------------------------------------ geometry */
 
-  // Where a source pixel of a cover-fitted video/image lands in a W×H box.
-  function coverMap(W, H, vw, vh, op) {
-    const [px, py] = op.split(' ').map((s) => parseFloat(s) / 100);
-    const s = Math.max(W / vw, H / vh);
-    const ox = (W - vw * s) * px, oy = (H - vh * s) * py;
-    return { s, ox, oy, w: vw * s, h: vh * s, at: (x, y) => [ox + x * s, oy + y * s] };
-  }
-  function dims(v) {
-    const s = variantFor(v._name, v._kind);
-    return [s.v.w, s.v.h];
-  }
-
   /* ------------------------------------------------------------------ film state */
 
   let tl = null;
@@ -189,84 +177,33 @@
   /* ------------------------------------------------------------------ the film */
 
   function compose() {
-    const W = stage.clientWidth, H = stage.clientHeight;
     CH = [];
     clips = [];
     marks = {};
 
-    // Everything starts hidden except the gate and, beneath it, the neon.
-    gsap.set(['#s-aerial', '#s-split', '#s-cap', '#s-inside', '#s-over', '#s-pivot', '#s-people', '#s-heli', '#s-reel', '#s-point', '.cta', '.p-head', '#p-scrim', '#s-rooms', '#h-scrim', '#h-txt .micro'], { autoAlpha: 0 });
-    gsap.set('#s-neon', { autoAlpha: 1 });
+    // Everything starts hidden except the cover.
+    gsap.set(['#s-aerial', '#s-cap', '#s-inside', '#s-over', '#s-pivot', '#s-people', '#s-heli', '#s-reel', '#s-point', '.cta', '.p-head', '#p-scrim', '#s-rooms', '#h-scrim', '#h-txt .micro'], { autoAlpha: 0 });
     gsap.set('#s-gate', { autoAlpha: 1 });
-    gsap.set(['.gate__in', '.gate__cue'], { autoAlpha: 1, y: 0 });
+    gsap.set('.gate__in', { autoAlpha: 1, y: 0 });
+    gsap.set('#s-cover-dark', { opacity: 0 });
+    gsap.set('#s-cover', { scale: 1 });
     gsap.set(['#s-step .li', '#s-over-line .li', '.pivot .li', '.p-head .li', '#h-txt .li', '.point .li', '.cta__title .li'], { yPercent: 112 });
 
-    /* ---------------- Arrival: the neon, the split, the drone */
+    /* ---------------- Arrival: the cover, a cut to black, then the drone */
+    // Stillness, anticipation, cut, motion. The type fades, the photograph darkens and
+    // settles a touch closer, a short black beat, then a hard cut into real footage.
+    // The cover is a different day from the footage; the cut makes that plain.
     chapter('Arrival', 0);
-    const nv = $('#s-neon')._v;
-    const nmap = coverMap(W, H, 1080, 1920, opOf($('#s-neon')));
-    // The sign fills the screen: by the end of its slow push-in the lettering (the widest
-    // part, ~800 source px) spans 90% of a phone's width; on landscape screens the whole
-    // sign fits the height. The clip's black is graded to #000, so when the frame is
-    // smaller than the screen its edges disappear into the page.
-    const [bx, by] = nmap.at(550, 900);                   // centre of the whole sign
-    const fEnd = clamp(Math.min((0.9 * W) / (800 * nmap.s), (0.8 * H) / (700 * nmap.s)), 0.5, 1.35);
-    const fill = K ? fEnd / 1.05 : fEnd;
-    const dy = H / 2 - by;
-    // The clip and the still are laid out at their full frame (not cropped to the screen),
-    // so scaling below cover reveals the whole sign rather than a shrunken crop of it.
-    gsap.set(['#s-neon .f', '.split__img'], {
-      left: nmap.ox, top: nmap.oy, width: nmap.w, height: nmap.h, right: 'auto', bottom: 'auto',
-      transformOrigin: `${bx - nmap.ox}px ${by - nmap.oy}px`,
-    });
-    gsap.set('#s-neon .f', { scale: fill, y: dy });
-    gsap.set('.split__img', { scale: fEnd, y: dy });
-    const logo = MEDIA.clips.neon.points.logo.portrait;
-    const [lx0, ly0] = nmap.at(logo[0] * 1080, logo[1] * 1920);
-    const Pn = [bx + fEnd * (lx0 - bx), by + dy + fEnd * (ly0 - by)];
-    const sx = Pn[0];
-
-    tl.to('.gate__in', { autoAlpha: 0, y: -14 * K, duration: 0.6, ease: 'power2.in' }, 0.001);
-    tl.to('.gate__cue', { autoAlpha: 0, duration: 0.35, ease: 'none' }, 0.001);
-    tl.to('#s-gate', { autoAlpha: 0, duration: 0.9, ease: 'power1.inOut' }, 0.2);
-    const N0 = 0.35;
-    addClip($('#s-neon'), N0, true);
-    FT('#s-neon .f', { scale: fill }, { scale: fEnd, duration: D('neon') + N0, ease: 'none' }, 0.001);
-
-    // The sign splits open down the middle of the CS, on its own last frame.
-    const Sp = N0 + D('neon');
-    gsap.set('#s-half-l', { clipPath: `inset(0px ${W - sx}px 0px 0px)`, x: 0 });
-    gsap.set('#s-half-r', { clipPath: `inset(0px 0px 0px ${sx}px)`, x: 0 });
-    gsap.set('#s-seam', { left: sx, scaleY: 0, autoAlpha: 0 });
-    S('#s-split', { autoAlpha: 1 }, Sp);
-    S('#s-neon', { autoAlpha: 0 }, Sp + 0.06);
-    FT('#s-seam', { scaleY: 0, autoAlpha: 1 }, { scaleY: 1, duration: 0.35, ease: 'power2.out' }, Sp);
-    const O = Sp + 0.28;
-    if (K) {
-      tl.to('#s-half-l', { x: -(sx + 40), duration: 1.3, ease: 'power3.inOut' }, O);
-      tl.to('#s-half-r', { x: W - sx + 40, duration: 1.3, ease: 'power3.inOut' }, O);
-    } else {
-      tl.to(['#s-half-l', '#s-half-r'], { autoAlpha: 0, duration: 0.8, ease: 'none' }, O);
-    }
-    tl.to('#s-seam', { autoAlpha: 0, duration: 0.3, ease: 'none' }, O + 0.12);
-    S('#s-split', { autoAlpha: 0 }, O + 1.35);
-
-    // Behind it, the tent's CS logo sits where the neon's was, and the drone pulls back.
-    // (The tent logo is ~97 px wide in the source, so this is a positional match with a
-    // dissolve, not a size match.)
-    const av = $('#s-aerial')._v;
-    const [aw, ah] = dims(av);
-    const amap = coverMap(W, H, aw, ah, opOf($('#s-aerial')));
-    const tent = MEDIA.clips.aerial.points.tent_logo[av._kind];
-    const Pt = amap.at(tent[0] * aw, tent[1] * ah);
-    const need = Math.max(Pn[0] / Pt[0], Pn[1] / Pt[1], (W - Pn[0]) / (W - Pt[0]), (H - Pn[1]) / (H - Pt[1]));
-    const Z = K ? clamp(Math.max(WIDE ? 1.8 : 2.4, need * 1.03), 1, 4) : 1;
-    gsap.set('#s-aerial .f', { transformOrigin: `${Pt[0]}px ${Pt[1]}px` });
-    FT('#s-aerial', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.6, ease: 'none' }, O);
+    tl.to('.gate__in', { autoAlpha: 0, y: -8 * K, duration: 0.7, ease: 'power2.out' }, 0.001);
+    tl.to('#s-cover', { scale: 1 + 0.02 * K, duration: 1.15, ease: 'power1.in' }, 0.001);
+    tl.to('#s-cover-dark', { opacity: 1, duration: 0.95, ease: 'power2.in' }, 0.15);
+    const O = 1.1 + 0.25;                                 // 250 ms of black
+    S('#s-gate', { autoAlpha: 0 }, O);
+    S('#s-aerial', { autoAlpha: 1 }, O);
     const ae = addClip($('#s-aerial'), O, true);
-    // The pull-back spans the whole slow rise off the tent (the clip's first 4.4 s).
-    FT('#s-aerial .f', { x: K ? Pn[0] - Pt[0] : 0, y: K ? Pn[1] - Pt[1] : 0, scale: Z }, { x: 0, y: 0, scale: 1, duration: 4.4, ease: 'power2.inOut' }, O + 0.12);
-    FT('#s-cap', { autoAlpha: 0, y: 8 * K }, { autoAlpha: 1, y: 0, duration: 0.8, ease: 'power2.out' }, O + 4.7);
+    // The descent is the clip's first part; the caption comes in with the glide over the cars.
+    const glide = (MEDIA.clips.aerial.cuts || [{ t: 0 }, { t: ae.dur * 0.6 }])[1].t;
+    FT('#s-cap', { autoAlpha: 0, y: 8 * K }, { autoAlpha: 1, y: 0, duration: 0.8, ease: 'power2.out' }, O + glide + 0.4);
 
     /* ---------------- Step inside: the flight wipes up over the drone, already moving */
     // Same page turn as the other chapters: full screen, never cropped, no hold.
@@ -454,7 +391,7 @@
       track.setAttribute('aria-valuenow', String(now));
       track.setAttribute('aria-valuetext', `${fmt(T)} of ${fmt(TOTAL)}, ${label}`);
     }
-    body.classList.toggle('is-playing', state !== 'gate' && !(state === 'ended' || T >= marks.header));
+    body.classList.toggle('is-playing', !(state === 'ended' || T >= marks.header));
   }
   const fmt = (s) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
   function chapterAt(t) {
@@ -490,9 +427,6 @@
     // current frame and show "Tap to play". The tap unlocks and resumes it.
     if (blocked) return;
     blocked = true;
-    // Refused on the very first clip: finish clearing the opening title so the button
-    // sits over the neon, not over the words.
-    if (T < 1.15) { T = 1.15; render(false); }
     if (state === 'playing') pause(false);
     setClasses();
   }
@@ -805,8 +739,6 @@
     lockPage();          // the opening screen: the first scroll starts the film
     setClasses();
     bindInput();
-    // The split halves must be decoded before the sign splits.
-    $$('.split__img img').forEach((img) => { if (img.decode) img.decode().catch(() => {}); });
 
     let rT, lastW = stage.clientWidth, lastH = stage.clientHeight;
     addEventListener('resize', () => {

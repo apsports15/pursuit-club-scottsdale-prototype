@@ -30,14 +30,8 @@
        ================================================================== -->
   <section class="film" id="club-scottsdale" aria-label="Club Scottsdale, a short film">
 
-    <!-- Arrival: the neon splits open onto the drone over the lot -->
+    <!-- Arrival: after the cover, the drone descends onto the cars -->
     <div class="m" id="s-aerial" data-clip="aerial" data-wide data-op="50% 50%" data-op-wide="50% 50%"></div>
-    <div class="m" id="s-neon" data-clip="neon" data-op="50% 50%" data-op-wide="50% 29%"></div>
-    <div class="split" id="s-split" aria-hidden="true">
-      <div class="split__half" id="s-half-l"><div class="split__img" data-still="neon" data-op="50% 50%" data-op-wide="50% 29%"></div></div>
-      <div class="split__half" id="s-half-r"><div class="split__img" data-still="neon" data-op="50% 50%" data-op-wide="50% 29%"></div></div>
-      <i class="split__seam" id="s-seam"></i>
-    </div>
     <p class="cap s-cap" id="s-cap"><span class="s-cap__in">Club Scottsdale<span>Scottsdale, Arizona</span></span></p>
 
     <!-- Step inside: the flight wipes up over the drone, already moving -->
@@ -122,13 +116,26 @@
     <!-- Shown only if the phone refuses to start video by itself (e.g. iOS Low Power Mode) -->
     <button type="button" class="tap" id="tap-play"><i aria-hidden="true"></i><span>Tap to play</span></button>
 
-    <!-- Opening screen -->
+    <!-- Opening screen: the editorial cover -->
     <div class="gate" id="s-gate">
-      <div class="gate__in">
-        <p class="micro gate__eyebrow">Club Scottsdale</p>
-        <h1 class="display gate__title"><span class="line"><span class="li">Enter the</span></span><span class="line"><span class="li"><em>ecosystem</em></span></span></h1>
+      <div class="cover" id="s-cover">
+        <div class="cover__drift">
+          <picture>
+            <source media="(max-aspect-ratio: 3/5)" type="image/avif" srcset="public/media/club-scottsdale/cover-tall.1080.avif 1080w, public/media/club-scottsdale/cover-tall.720.avif 720w" sizes="100vw">
+            <source media="(max-aspect-ratio: 3/5)" type="image/webp" srcset="public/media/club-scottsdale/cover-tall.1080.webp 1080w, public/media/club-scottsdale/cover-tall.720.webp 720w" sizes="100vw">
+            <source type="image/avif" srcset="public/media/club-scottsdale/cover-wide.1774.avif 1774w, public/media/club-scottsdale/cover-wide.1200.avif 1200w" sizes="100vw">
+            <source type="image/webp" srcset="public/media/club-scottsdale/cover-wide.1774.webp 1774w, public/media/club-scottsdale/cover-wide.1200.webp 1200w" sizes="100vw">
+            <img src="public/media/club-scottsdale/cover-wide.1200.webp" alt="Club Scottsdale from the air at sunset: the lit facade and sign, a row of exotic cars out front, mountains on the horizon" fetchpriority="high" decoding="async">
+          </picture>
+        </div>
       </div>
-      <button type="button" class="gate__cue" id="gate-cue"><span>Scroll to enter</span><i aria-hidden="true"></i></button>
+      <i class="cover__shade" aria-hidden="true"></i>
+      <i class="cover__dark" id="s-cover-dark" aria-hidden="true"></i>
+      <div class="gate__in">
+        <h1 class="cover__title">Club Scottsdale</h1>
+        <p class="cover__sub">Enter the ecosystem</p>
+        <button type="button" class="gate__cue" id="gate-cue"><i aria-hidden="true"></i><span>Scroll</span></button>
+      </div>
     </div>
 
     <!-- Film controls -->

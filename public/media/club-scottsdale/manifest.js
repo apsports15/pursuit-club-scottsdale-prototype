@@ -2,81 +2,39 @@
 window.CS_MEDIA = {
  "fps": 30,
  "clips": {
-  "neon": {
-   "frames": 71,
-   "duration": 2.367,
-   "variants": {
-    "p1080.hevc": {
-     "src": "neon.p1080.hevc.mp4",
-     "w": 1080,
-     "h": 1920,
-     "kb": 78
-    },
-    "p1080": {
-     "src": "neon.p1080.mp4",
-     "w": 1080,
-     "h": 1920,
-     "kb": 121
-    },
-    "p720": {
-     "src": "neon.p720.mp4",
-     "w": 720,
-     "h": 1280,
-     "kb": 58
-    }
-   },
-   "posters": {
-    "portrait": [
-     "neon.portrait.1080.webp",
-     "neon.portrait.720.webp"
-    ]
-   },
-   "points": {
-    "logo": {
-     "portrait": [
-      0.5092592592592593,
-      0.365625
-     ],
-     "wide": [
-      0.5092592592592593,
-      0.1814814814814815
-     ]
-    }
-   }
-  },
   "aerial": {
-   "frames": 226,
-   "duration": 7.533,
+   "frames": 259,
+   "duration": 8.633,
    "variants": {
     "p1080.hevc": {
      "src": "aerial.p1080.hevc.mp4",
      "w": 1080,
      "h": 1920,
-     "kb": 1922
+     "kb": 2057
     },
     "p1080": {
      "src": "aerial.p1080.mp4",
      "w": 1080,
      "h": 1920,
-     "kb": 4211
+     "kb": 4596
     },
     "p720": {
      "src": "aerial.p720.mp4",
      "w": 720,
      "h": 1280,
-     "kb": 1810
+     "kb": 1976
     },
     "w1080.hevc": {
      "src": "aerial.w1080.hevc.mp4",
      "w": 1080,
      "h": 810,
-     "kb": 939
+     "kb": 983
     },
     "w1080": {
      "src": "aerial.w1080.mp4",
      "w": 1080,
      "h": 810,
-     "kb": 1969
+     "kb": 2117
     }
    },
    "posters": {
@@ -88,18 +46,16 @@ window.CS_MEDIA = {
      "aerial.wide.1080.webp"
     ]
    },
-   "points": {
-    "tent_logo": {
-     "portrait": [
-      0.6574074074074074,
-      0.228125
-     ],
-     "wide": [
-      0.6574074074074074,
-      0.28271604938271605
-     ]
+   "cuts": [
+    {
+     "t": 0.0,
+     "label": null
+    },
+    {
+     "t": 5.467,
+     "label": null
     }
-   }
+   ]
   },
   "flight": {
    "frames": 552,
@@ -542,17 +498,28 @@ window.CS_MEDIA = {
     "still-overhead.720.webp"
    ],
    "master_time": 19.9
-  },
-  "neon": {
-   "w": 1080,
-   "h": 1920,
+  }
+ },
+ "cover": {
+  "wide": {
+   "w": 1774,
+   "h": 887,
    "files": [
-    "still-neon.1080.avif",
-    "still-neon.1080.webp",
-    "still-neon.720.avif",
-    "still-neon.720.webp"
-   ],
-   "master_time": 51.583
+    "cover-wide.1774.avif",
+    "cover-wide.1774.webp",
+    "cover-wide.1200.avif",
+    "cover-wide.1200.webp"
+   ]
+  },
+  "tall": {
+   "w": 1080,
+   "h": 2340,
+   "files": [
+    "cover-tall.1080.avif",
+    "cover-tall.1080.webp",
+    "cover-tall.720.avif",
+    "cover-tall.720.webp"
+   ]
   }
  }
 };

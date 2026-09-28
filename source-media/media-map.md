@@ -53,7 +53,7 @@ as a "dinner / mastermind sequence".
 | 36.73–37.77 | Host with a mic in front of the neon. | |
 | 37.80–46.03 | Evening event: the matte Huracán from behind, crowd, greetings, handshakes, a hug, dinner tables laughing. | Many short cuts |
 | 46.03–49.17 | Dinner: speaker on the floor, long tables listening, guests laughing. | People |
-| 49.17–51.67 | The CS / CLUB SCOTTSDALE neon on black. Clean, native video. | Still: `neon` @ 51.583 (graded) |
+| 49.17–51.67 | The CS / CLUB SCOTTSDALE neon on black. Clean, native video. | Not used since the cover replaced it |
 | 51.67–53.90 | Panel on white sofas, car footage on the screens behind. | People |
 | 53.90–55.67 | Two men in conversation, candid. | People |
 | 55.67–57.00 | Sim racing (F1 rig). | |
@@ -72,9 +72,9 @@ The chapter is a single guided film (see `README.md`). In running order:
 
 | Asset | Master in–out | Type | Use | Length |
 |---|---|---|---|---|
-| `neon` | 49.25–51.60 | video | Opens the film, filling the screen. Graded so its black is true #000 (`colorlevels`, black point ~RGB 4,5,8 → 0). | 2.4 s |
 | `neon` still | 51.583 (the clip's exact last frame, same grade) | still | The sign splits open on this frame, in two halves | — |
-| `aerial` | **9.25–11.44 at 0.5×** + 15.92–19.07 | video | Revealed behind the split: starts on the tent's CS logo, which the page places where the neon's CS was. The whole rise off the tent is motion-interpolated to half speed (4.4 s) while the page pulls back; the glide over the cars runs at speed. Landscape crop centred at y .32 so the tent is in frame. | 7.5 s |
+| `cover` | supplied still, `source-media/cover/` | still | The editorial cover. Not from the master: a different day and car line-up, so the film cuts to black before the drone. | — |
+| `aerial` | **9.25–11.44 reversed, at 0.4×** + 15.92–19.07 | video | The first moving shot: the drone's rise off the tent played backwards, so it starts high over the lot and descends onto the cars (5.5 s), then the glide over the cars at speed. | 8.6 s |
 | `flight` | 58.42–74.35 + 74.37–76.83 | video | Step inside: the flight at normal speed, doorway to the collection, then on through the source's own cut (74.367) into the room with the round white sofa, up to the cut to the applause (76.867). The last room's landscape crop sits lower (y .62) so the sofa and the people stay in frame. Room marks: The lounge 0.98, The floor 3.83, The collection 8.18, The inner room 15.93 s (output time). | 18.4 s |
 | `overhead` | 19.90 | still | Who's inside: the 911 from above, full screen | — |
 | `p-session` … `p-candid` | as before (27.03–28.85, 32.47–35.27, 78.70–80.22, 76.95–78.62, 30.92–32.40, 46.90–48.40, 51.72–53.85, 53.95–55.62) | video | In the room, around the table | 1.5–2.8 s each |

@@ -22,12 +22,12 @@ clock and the clip carrying it; `window.ClubScottsdale` in the console has helpe
 
 ## The film
 
-About 62 s on phones, 54 s on desktop (the people run as three columns at once there).
+About 61 s on phones, 53 s on desktop (the people run as three columns at once there).
 
 | | Chapter | Footage | What happens |
 |---|---|---|---|
-| — | Opening | — | Solid #000. *Club Scottsdale / Enter the ecosystem / Scroll to enter.* The first scroll, swipe, tap or key starts the film. |
-| 01 | Arrival | CS neon, drone | The neon fills the screen and pushes in slowly. The sign splits open down the middle of the CS, on the clip's own last frame. Behind it, the tent's CS logo sits where the neon's was; it dissolves in, and the drone rises slowly off the tent (the whole rise at half speed, motion-interpolated) while the frame pulls back to reveal the cars (the film's one zoom-out). Then the glide down the row of cars at speed. *Club Scottsdale · Scottsdale, Arizona.* |
+| — | Cover | Aerial sunset still | An editorial cover: the still fills the screen (phones get a composed portrait of it), barely drifting. *Club Scottsdale / Enter the ecosystem / Scroll.* The first scroll, swipe, tap or key starts the film. |
+| 01 | Arrival | Drone | The type fades, the photograph darkens and settles, a 250 ms black beat, then a hard cut to the real footage: the drone starts high over the lot and descends onto the cars (its rise off the tent, reversed and slowed to 0.4×), then glides down the row of cars at speed. *Club Scottsdale · Scottsdale, Arizona.* |
 | 02 | Step inside | FPV flight, 18.4 s | The flight wipes up over the drone, full screen and already moving: the same page turn as the other chapters. *Step inside.* over the doorway, then the room names follow the camera at normal speed: the lounge, the floor, the collection, and the inner room with the round white sofa. |
 | 03 | Who's inside | 911 overhead still | The still wipes up over the end of the flight, full screen. *The value isn't what's parked outside.* It fades as *It's who's inside.* rises. |
 | 04 | In the room | 4 clips | *Proximity is the curriculum.* Phone: one frame, each clip wiping up over the last just before it ends. Desktop: three columns. |
@@ -78,11 +78,11 @@ python3 scripts/build_media.py          # builds anything missing, removes anyth
 python3 scripts/build_media.py --force  # rebuilds everything
 ```
 
-It writes source-quality PNG stills to `source-media/stills/` and production media to
+It also builds the cover from the supplied still in `source-media/cover/` (a wide version, and a composed portrait for phones). It writes source-quality PNG stills to `source-media/stills/` and production media to
 `public/media/club-scottsdale/` (clips, posters, AVIF/WebP stills, `manifest.js`). In/out
 points, crops, speed, grade and still times all live at the top of the script; trims are
 frame-exact so the amenity counter and the room names stay in sync. Slow motion goes
-through a lossless intermediate in `build/cache/` (not committed): the drone's rise off the tent plays at half speed. See
+through a lossless intermediate in `build/cache/` (not committed): the drone's rise off the tent is reversed and plays at 0.4×. See
 `source-media/media-map.md` for the scene map and the selects.
 
 | | |
