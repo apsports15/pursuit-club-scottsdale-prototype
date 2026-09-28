@@ -58,38 +58,38 @@ window.CS_MEDIA = {
    ]
   },
   "flight": {
-   "frames": 484,
-   "duration": 16.133,
+   "frames": 529,
+   "duration": 17.633,
    "variants": {
     "p1080.hevc": {
      "src": "flight.p1080.hevc.mp4",
      "w": 1080,
      "h": 1920,
-     "kb": 3423
+     "kb": 3855
     },
     "p1080": {
      "src": "flight.p1080.mp4",
      "w": 1080,
      "h": 1920,
-     "kb": 7359
+     "kb": 8289
     },
     "p720": {
      "src": "flight.p720.mp4",
      "w": 720,
      "h": 1280,
-     "kb": 3190
+     "kb": 3621
     },
     "w1080.hevc": {
      "src": "flight.w1080.hevc.mp4",
      "w": 1080,
      "h": 810,
-     "kb": 1901
+     "kb": 2141
     },
     "w1080": {
      "src": "flight.w1080.mp4",
      "w": 1080,
      "h": 810,
-     "kb": 3638
+     "kb": 4113
     }
    },
    "posters": {
@@ -103,20 +103,16 @@ window.CS_MEDIA = {
    },
    "marks": [
     {
-     "t": 0.0,
+     "t": 3.833,
      "label": "The Floor"
     },
     {
-     "t": 4.833,
+     "t": 8.667,
      "label": "The Collection"
     },
     {
-     "t": 12.067,
+     "t": 15.511,
      "label": "The Lounge"
-    },
-    {
-     "t": 13.767,
-     "label": "talk"
     }
    ]
   },
@@ -361,38 +357,38 @@ window.CS_MEDIA = {
    }
   },
   "crescendo": {
-   "frames": 272,
-   "duration": 9.067,
+   "frames": 336,
+   "duration": 11.2,
    "variants": {
     "p1080.hevc": {
      "src": "crescendo.p1080.hevc.mp4",
      "w": 1080,
      "h": 1920,
-     "kb": 1126
+     "kb": 1599
     },
     "p1080": {
      "src": "crescendo.p1080.mp4",
      "w": 1080,
      "h": 1920,
-     "kb": 2789
+     "kb": 3726
     },
     "p720": {
      "src": "crescendo.p720.mp4",
      "w": 720,
      "h": 1280,
-     "kb": 1154
+     "kb": 1576
     },
     "w1080.hevc": {
      "src": "crescendo.w1080.hevc.mp4",
      "w": 1080,
      "h": 810,
-     "kb": 629
+     "kb": 867
     },
     "w1080": {
      "src": "crescendo.w1080.mp4",
      "w": 1080,
      "h": 810,
-     "kb": 1457
+     "kb": 1918
     }
    },
    "posters": {
@@ -419,26 +415,30 @@ window.CS_MEDIA = {
     },
     {
      "t": 2.7,
+     "label": "connect"
+    },
+    {
+     "t": 4.833,
      "label": "create"
     },
     {
-     "t": 4.767,
+     "t": 6.9,
      "label": "create"
     },
     {
-     "t": 5.6,
+     "t": 7.733,
      "label": "unwind"
     },
     {
-     "t": 6.833,
+     "t": 8.967,
      "label": "unwind"
     },
     {
-     "t": 7.567,
+     "t": 9.7,
      "label": "unwind"
     },
     {
-     "t": 8.333,
+     "t": 10.467,
      "label": "unwind"
     }
    ]

@@ -415,11 +415,9 @@ html.wide .statement { left: 9%; right: auto; bottom: 14%; font-size: clamp(40px
 }
 .room__n { font: 500 9.5px/1 var(--sans); letter-spacing: 0.26em; color: var(--pearl-2); }
 .room__name { font: 400 clamp(22px, 6.8cqw, 28px)/1 var(--serif); letter-spacing: 0.005em; color: var(--pearl); }
-/* the Lounge line sits above the room's name, which reads as its caption */
-#s-talk { bottom: calc(var(--lift) + 40px); }
+
 html.wide .room { left: 9%; bottom: 14%; }
 html.wide .room__name { font-size: clamp(26px, 2vw, 34px); }
-html.wide #s-talk { bottom: calc(14% + 48px); }
 
 /* the people run: phones show clips full screen and photographs across the top at a width
    that keeps everyone in frame (--k = height / width); desktop, a portrait panel */
@@ -515,15 +513,11 @@ html.wide #n-kyler .display { font-size: clamp(48px, 4.6cqw, 88px); }
 .ctl__chap b { font: 400 13px/1 var(--serif); letter-spacing: 0; color: var(--pearl); }
 .ctl__chap i { width: 18px; }
 
-/* rooms, like the site's path cards: number, rule, name; the Lounge line sits beneath */
+/* rooms, like the site's path cards: number, rule, name */
 .room { align-items: center; gap: 12px; }
 .room__n { font: 400 clamp(22px, 6.4cqw, 28px)/1 var(--serif); letter-spacing: 0; color: var(--pearl-2); }
 .room__rule { width: 26px; height: 1px; background: var(--pearl); opacity: 0.5; flex: none; }
 .room__name { font-size: clamp(22px, 6.4cqw, 28px); }
-#r-lounge { bottom: calc(var(--lift) + 92px); }
-#s-talk { bottom: var(--lift); left: var(--g); right: var(--g); margin: 0; text-align: left; max-width: 11em; font-size: clamp(28px, 8cqw, 36px); line-height: 1.06; letter-spacing: -0.01em; }
-html.wide #r-lounge { bottom: calc(14% + 110px); }
-html.wide #s-talk { bottom: 14%; font-size: clamp(34px, 2.8cqw, 48px); }
 
 /* people */
 .person__name { letter-spacing: -0.01em; font-size: clamp(28px, 8cqw, 36px); }
@@ -548,7 +542,10 @@ html.wide .duo .person__name { font-size: clamp(20px, 1.6cqw, 28px); }
 .cta__mark i { width: 46px; height: 1px; background: var(--pearl); opacity: 0.4; }
 .cta__mark span { font: 400 22px/1 var(--serif); color: var(--pearl); }
 .cta__label { font-size: 9.5px; letter-spacing: 0.34em; color: var(--pearl); }
-.cta__title { letter-spacing: -0.01em; font-size: clamp(30px, 8.8cqw, 44px); }
+/* the title is set like the site's hero ("THE PURSUIT STARTS HERE."): uppercase, tight */
+.cta__title { text-transform: uppercase; letter-spacing: -0.03em; line-height: 1.02; font-size: clamp(34px, 10.2cqw, 48px); }
+.cta__title .ln { display: block; }
+html.wide .cta__title { font-size: clamp(48px, 4.4cqw, 76px); }
 .cta__vr { width: 1px; height: 30px; background: var(--pearl); opacity: 0.45; }
 .cta__btn {
   margin-top: 0; padding: 20px 40px; gap: 18px;
@@ -563,10 +560,9 @@ html.wide .duo .person__name { font-size: clamp(20px, 1.6cqw, 28px); }
   .cover__title { font-size: clamp(20px, 5.5vw, 44px); }
   #n-kyler .display { font-size: clamp(34px, 10vw, 60px); }
   .room__n, .room__name { font-size: clamp(22px, 6.4vw, 28px); }
-  #s-talk { font-size: clamp(28px, 8vw, 36px); }
   .person__name { font-size: clamp(28px, 8vw, 36px); }
   .duo .person__name { font-size: clamp(18px, 5.2vw, 24px); }
-  .cta__title { font-size: clamp(30px, 8.8vw, 44px); }
+  .cta__title { font-size: clamp(34px, 10.2vw, 48px); }
 }
 
 /* the film controls retire when the film is over; Watch again brings them back */
@@ -595,3 +591,10 @@ html.wide #i-lanctot .still { height: auto; }
   #i-lanctot .still { height: min(calc(100vw * var(--k)), 76%, calc(100% - var(--lift) - 150px)); }
   .duo { top: calc(min(100vw * 1.228, 76%, 100% - var(--lift) - 150px) - 6px); }
 }
+
+/* the drone on phones: feathered top and bottom for when it eases out to full width */
+/* the drone layer is as wide as the whole 9:16 frame (wider than a tall phone), so easing
+   the scale out reveals the sides of the footage instead of shrinking a crop */
+html:not(.wide) #s-aerial .f { right: auto; width: max(100%, 100cqh * 9 / 16); left: calc(50% - max(100%, 100cqh * 9 / 16) / 2); }
+@supports not (width: 1cqw) { html:not(.wide) #s-aerial .f { width: max(100%, 100vh * 9 / 16); left: calc(50% - max(100%, 100vh * 9 / 16) / 2); } }
+html:not(.wide) #s-aerial .f { -webkit-mask-image: linear-gradient(transparent, #000 5%, #000 95%, transparent); mask-image: linear-gradient(transparent, #000 5%, #000 95%, transparent); }

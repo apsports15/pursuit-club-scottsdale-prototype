@@ -22,17 +22,17 @@ clock and the clip carrying it; `window.ClubScottsdale` in the console has helpe
 
 ## The film
 
-About 67 s on every screen, in five chapters (Skip moves one chapter on). The story:
+About 71 s on every screen, in five chapters (Skip moves one chapter on). The story:
 enter the place, move inside, see the rooms, meet the people, understand what happens
 there, connect it back to Pursuit, apply. People are named from the client's identification.
 
 | | Chapter | Media | On screen |
 |---|---|---|---|
-| 01 | Enter | Cover still, drone | ENTER THE ECOSYSTEM / CLUB SCOTTSDALE · SCOTTSDALE, ARIZONA. The first scroll, tap or key starts the film; the cover cuts to black and the drone descends and flies over the cars under one caption: THE CLUB FROM ABOVE. |
-| 02 | Inside | FPV flight: the event floor (0.9×), the collection (1.25×), the white-sofa room (0.9×) and its seated group (0.9×, the other angle of the same room) | A LOOK INSIDE arrives with the interior reveal. Then each room once it is on screen: 02 / The Floor, 03 / The Collection, 04 / The Lounge, with *Where the conversation stays in the room.* settling above the Lounge's name. |
-| 03 | People | Session photo, Jeremy Miner, teaching, the mic, applause, dinner, the room, Kyler Murray, Bob Menery & Michael Lanctot, conversation | EXPERIENCE IS MEANT TO BE *SHARED.* (over the photo, apart from any name) · SALES TRAINER · FOUNDER, 7TH LEVEL / Jeremy Miner · NFL QUARTERBACK / KYLER MURRAY / AT CLUB SCOTTSDALE (unchanged) · Bob Menery / MEDIA PERSONALITY (left) and Michael Lanctot / MENTOR / YNR (right, as on the site), set like the site's Ayden Parks and Michael Lanctot: a corner each, short rules above and below / AT CLUB SCOTTSDALE. |
-| 04 | Amenities | Helicopter still, 9 amenity shots | The helicopter, wordless. Then one caption per group: CONNECT / *Conversations that continue beyond the presentation.* · CREATE / *Media, ideas, and content in motion.* · UNWIND / *A place to stay after the work is done.* |
-| 05 | Pursuit | Black | The terrace fades to black under READY TO MAKE IT YOURS?, then —— 05 —— / YOUR NEXT MOVE / *Your Pursuit starts now.* / a hairline / APPLY TO PURSUIT → in the site's ivory pill / Watch again. The film controls retire. |
+| 01 | Enter | Cover still, drone | ENTER THE ECOSYSTEM / CLUB SCOTTSDALE · SCOTTSDALE, ARIZONA. The first scroll, tap or key starts the film; the cover cuts to black and the drone descends, then (on phones) eases out to the footage's full width for the flyover over the cars, under one caption: THE CLUB FROM ABOVE. |
+| 02 | Inside | The whole FPV flight: the doorway, front desk and white sectionals, the event floor (0.9×), the collection (1.25×), the white-sofa room played to its own cut (0.9×) | A LOOK INSIDE holds over the entrance and front desk. Then each room once it is on screen: 02 — The Floor, 03 — The Collection, 04 — The Lounge. |
+| 03 | People | Session photo, Jeremy Miner, teaching, the mic, applause, dinner, the room, Kyler Murray, Bob Menery & Michael Lanctot, conversation | LEARN FROM PEOPLE WHO HAVE ALREADY *DONE IT.* (over the photo, apart from any name) · SALES TRAINER · FOUNDER, 7TH LEVEL / Jeremy Miner · NFL QUARTERBACK / KYLER MURRAY / AT CLUB SCOTTSDALE · Bob Menery / MEDIA PERSONALITY (left) and Michael Lanctot / MENTOR / YNR (right), set like the site's Ayden Parks and Michael Lanctot / AT CLUB SCOTTSDALE. |
+| 04 | Amenities | Helicopter still, 10 amenity shots | The helicopter, wordless. Then one caption per group: CONNECT (DJ, card room, chesterfield, the seated group on the white sofa) / *Conversations that continue beyond the presentation.* · CREATE / *Media, ideas, and content in motion.* · UNWIND / *A place to stay after the work is done.* |
+| 05 | Pursuit | Black | The terrace fades to black under READY TO MAKE IT YOURS?, then —— 05 —— / THE NEXT MOVE / YOUR PURSUIT STARTS NOW. (set like the site's hero) / a hairline / APPLY TO PURSUIT → in the site's ivory pill / Watch again. The film controls retire. |
 
 ## Typography
 
@@ -42,16 +42,15 @@ on the word that carries a line, and plenty of black. Each role does one job.
 
 | Role | Setting | Phone | Used for |
 |---|---|---|---|
-| Statement | Serif, tight leading, restrained tracking | 30–44 px | A LOOK INSIDE · Where the conversation stays in the room. · EXPERIENCE IS MEANT TO BE SHARED. · the CTA title (four in the film) |
+| Statement | Serif, uppercase, tight leading and tracking, centred | 30–48 px | A LOOK INSIDE · LEARN FROM PEOPLE WHO HAVE ALREADY DONE IT. · the CTA title, set like the site's hero |
 | Chapter label | Serif number + short rule + sans 9 px uppercase, 0.28 em (2.5 px), like the site's "01 —— SELL" | 9 px | Bottom left, in the controls: 01 — ENTER … 05 — PURSUIT |
-| Room name | Serif number, rule, serif title-case name (the site's path cards) | 22–28 px | 02 — The Floor · 03 — The Collection · 04 — The Lounge, only once each room is on screen; the Lounge line sits beneath its name |
+| Room name | Serif number, rule, serif title-case name (the site's path cards) | 22–28 px | 02 — The Floor · 03 — The Collection · 04 — The Lounge, only once each room is on screen |
 | Person | Sans eyebrow role, serif name, sans descriptor | name 30–38 px (duo 21–26 px) | Jeremy Miner; Bob Menery and Michael Lanctot. Kyler Murray keeps his larger uppercase scale. |
 | Caption | Sans 10 px uppercase with a rule, 11 px supporting line | 10–11 px | THE CLUB FROM ABOVE; CONNECT / CREATE / UNWIND, one at a time |
 | Closing | Serif uppercase, open tracking, centred | 25–32 px | READY TO MAKE IT YOURS?, once, before the CTA |
 
 Every phrase enters and leaves whole, and a new phrase arrives only after the previous
-one has fully gone (audited every 50 ms: no two ever overlap; the Lounge line and its room
-name are one composed unit). All text stays at least 16 px inside the frame and above the
+one has fully gone (audited every 50 ms: no two ever overlap). All text stays at least 16 px inside the frame and above the
 controls at 360, 375 and 390 px, inside the artifact viewer's safe-area padding.
 
 Desktop keeps the same hierarchy. The footage is vertical 1080 px video, so it is never

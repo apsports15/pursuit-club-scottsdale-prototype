@@ -183,7 +183,7 @@
     marks = {};
 
     // Everything starts hidden except the cover.
-    const TEXT = ['#c-above', '#s-look', '.film > .room', '#s-talk', '#q-share', '.film > .p-head', '.film > .group', '#s-close', '.cta__eyebrow', '.cta__title', '.cta__btn', '.cta__replay'];
+    const TEXT = ['#c-above', '#s-look', '.film > .room', '#q-share', '.film > .p-head', '.film > .group', '#s-close', '.cta__eyebrow', '.cta__title', '.cta__btn', '.cta__replay'];
     gsap.set(['#s-aerial', '#c-scrim', '#s-inside', '#s-seq', '#q-scrim', '#s-heli', '#s-reel', '#s-point', '.cta'].concat(TEXT), { autoAlpha: 0 });
     gsap.set('#s-gate', { autoAlpha: 1 });
     gsap.set('.gate__in', { autoAlpha: 1, y: 0 });
@@ -201,6 +201,14 @@
     S('#s-gate', { autoAlpha: 0 }, O);
     S('#s-aerial', { autoAlpha: 1 }, O);
     const ae = addClip($('#s-aerial'), O, true);
+    // Phones: as the drone levels off over the cars, the frame eases out to the footage's
+    // full width (the tall screen would otherwise crop its sides), feathered top and bottom.
+    const glide0 = (MEDIA.clips.aerial.cuts || [{ t: 0 }, { t: ae.dur * 0.55 }])[1].t;
+    if (!WIDE) {
+      const r = $('.film').getBoundingClientRect();
+      const fit = Math.min(1, (r.width / 1080) / (r.height / 1920));
+      if (fit < 0.98) FT('#s-aerial .f', { scale: 1 }, { scale: fit, duration: Math.max(0.01, 1.8 * K), ease: 'power2.inOut' }, O + glide0 - 0.3);
+    }
     const F0 = ae.end - 0.9;                              // the interior reveal
     // one quiet caption across the whole descent and flyover
     FT('#c-scrim', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.7, ease: 'none' }, O + 0.7);
@@ -215,20 +223,18 @@
     FT('#s-flight .f', { yPercent: 10 * K }, { yPercent: 0, duration: 1.3, ease: 'power3.inOut' }, F0);
     const fl = addClip($('#s-flight'), F0, true);
     S('#s-aerial', { autoAlpha: 0 }, F0 + 1.35);
-    sayIn('#s-look', F0 + 0.3, 0.8);                      // arrives with the interior, not before
-    const lookGone = sayOut('#s-look', F0 + 2.45);
     const mk = {};
     MEDIA.clips.flight.marks.forEach((m) => { mk[m.label] = F0 + m.t; });
-    sayIn('#r-floor', Math.max(lookGone + GAP, mk['The Floor'] + 0.3), 0.6);
+    sayIn('#s-look', F0 + 0.3, 0.8);                      // arrives with the interior and holds over the entrance
+    const lookGone = sayOut('#s-look', mk['The Floor'] - 0.45);
+    sayIn('#r-floor', Math.max(lookGone + GAP, mk['The Floor'] + 0.2), 0.6);
     const floorGone = sayOut('#r-floor', mk['The Collection'] + 0.55, 0.4);   // the flight is continuous: the floor runs on into the cars
     sayIn('#r-collection', floorGone + GAP, 0.6);
-    const collGone = sayOut('#r-collection', mk['The Lounge'] - 0.5, 0.4);
-    // the Lounge: its name as the sofa comes into view, then the line settles above it
-    sayIn('#r-lounge', Math.max(collGone + GAP, mk['The Lounge'] + 0.15), 0.6);
-    sayIn('#s-talk', mk['The Lounge'] + 1.0, 0.8);
-    sayOut('#s-talk', fl.end - 0.3, 0.45);
-    sayOut('#r-lounge', fl.end - 0.3, 0.45);
-    const O1 = fl.end + 0.05;                             // a short stable hold on the room, then the page turns into People
+    const collGone = sayOut('#r-collection', mk['The Lounge'] - 0.75, 0.4);
+    // the Lounge: named as the sofa comes into view; the shot plays out to its own cut
+    sayIn('#r-lounge', Math.max(collGone + GAP, mk['The Lounge'] - 0.1), 0.5);
+    sayOut('#r-lounge', fl.end - 0.3, 0.4);
+    const O1 = fl.end;                                    // the page turns into People once the shot has ended
 
     /* ---------------- 03 · People: page turns */
     const turn = (el, at) => {

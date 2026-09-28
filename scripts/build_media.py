@@ -66,17 +66,15 @@ CLIPS = {
                          P(15.86, 19.07, 0.5, speed=0.75)],
                'kinds': ['portrait', 'wide'], 'cuts': True,
                'drift': {'zoom': 0.12, 'x': 0.34}, 'xfade': 0.5},
-    # the FPV flight, from the event floor at 0.9x (the lounge at its start is cut, so the first room
-    # named is the floor): the floor, the collection at 1.25x so it does not linger, then on
-    # through the source's own cut (74.367) into the room with the round white sofa, which is
-    # the Lounge. The Lounge gets more time from more source footage: the flight's last
-    # seconds there at 0.9x, then the seated group on the same sofa (51.72-53.85, the other
-    # angle of the room) at 0.9x. No freeze, no loop. 'talk' marks where the Lounge line
-    # can begin (the seated group).
-    'flight': {'parts': [P(62.25, 66.60, 0.52, speed=0.9), P(66.60, 74.35, 0.52, speed=1.25),
-                         P(74.37, 76.83, 0.62, speed=0.9), P(51.72, 53.85, 0.60, speed=0.9)],
+    # the FPV flight, whole from the doorway: the front desk and the white sectionals under
+    # the neon (the first beat, under "A look inside"), the event floor at 0.9x, the
+    # collection at 1.25x so it does not linger, then through the source's own cut (74.367)
+    # into the room with the round white sofa, the Lounge, played to its own cut (76.867)
+    # at 0.9x and never trimmed.
+    'flight': {'parts': [P(58.42, 62.25, 0.52), P(62.25, 66.60, 0.52, speed=0.9),
+                         P(66.60, 74.35, 0.52, speed=1.25), P(74.37, 76.85, 0.62, speed=0.9)],
                'kinds': ['portrait', 'wide'],
-               'marks': [('The Floor', 62.25), ('The Collection', 66.60), ('The Lounge', 75.30), ('talk', 51.72)]},
+               'marks': [('The Floor', 62.25), ('The Collection', 66.60), ('The Lounge', 74.95)]},
     # people. Learn: Jeremy Miner presenting (the whole shot, at 0.45x so his name can be
     # read), then the audience. Connect: the table, the dinner, a supplied clip of Kyler
     # Murray, the room, a candid conversation.
@@ -98,6 +96,7 @@ CLIPS = {
             P(57.04, 58.30, 0.38, label='connect'),                 # DJ at the neon
             P(89.04, 89.42, 0.62, speed=0.5, label='connect'),      # card room
             P(88.54, 88.87, 0.62, speed=0.5, label='connect'),      # chesterfield lounge
+            P(51.72, 53.85, 0.60, label='connect'),                 # the seated group on the white sofa
             P(11.62, 13.70, 0.62, label='create'),                  # podcast recording (the whole shot)
             P(84.37, 84.79, 0.58, speed=0.5, label='create'),       # podcast studio
             P(55.72, 56.95, 0.52, label='unwind'),                  # sim racing
