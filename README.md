@@ -22,15 +22,15 @@ clock and the clip carrying it; `window.ClubScottsdale` in the console has helpe
 
 ## The film
 
-About 61 s on phones, 53 s on desktop (the people run as three columns at once there).
+About 60 s on phones, 54 s on desktop (the people run as two columns at once there).
 
 | | Chapter | Footage | What happens |
 |---|---|---|---|
 | — | Cover | Aerial sunset still | An editorial cover: the still fills the screen (phones get a composed portrait of it), barely drifting. *Club Scottsdale / Enter the ecosystem / Scroll.* The first scroll, swipe, tap or key starts the film. |
-| 01 | Arrival | Drone | The type fades, the photograph darkens and settles, a 250 ms black beat, then a hard cut to the real footage: the drone starts high over the lot and descends onto the cars (its rise off the tent, reversed and slowed to 0.4×), then glides down the row of cars at speed. *Club Scottsdale · Scottsdale, Arizona.* |
-| 02 | Step inside | FPV flight, 18.4 s | The flight wipes up over the drone, full screen and already moving: the same page turn as the other chapters. *Step inside.* over the doorway, then the room names follow the camera at normal speed: the lounge, the floor, the collection, and the inner room with the round white sofa. |
-| 03 | Who's inside | 911 overhead still | The still wipes up over the end of the flight, full screen. *The value isn't what's parked outside.* It fades as *It's who's inside.* rises. |
-| 04 | In the room | 4 clips | *Proximity is the curriculum.* Phone: one frame, each clip wiping up over the last just before it ends. Desktop: three columns. |
+| 01 | Arrival | Drone | The type fades, the photograph darkens and settles, a 250 ms black beat, then a hard cut to the real footage: the drone starts high over the lot and descends (its rise off the tent, reversed, quickening from 0.4× to 0.75× near the cars so it never settles), drifting toward the McLaren's left side, then sweeps right into the flyover down the row of cars in one blended move. *Club Scottsdale · Scottsdale, Arizona.* |
+| 02 | Step inside | FPV flight, 18.4 s | Over the last of the glide the exterior dims and *Step inside.* arrives; the interior then wipes up slowly, already moving, and the title leaves once we are through the door. Room names follow the camera at normal speed: the lounge, the floor, the collection, the inner room. |
+| 03 | The value | A session under the hex lights (still) | The still wipes up over the end of the flight. *The value is who you're around.* The first people clip then turns the page over it. |
+| 04 | In the room | 4 clips | *Proximity is the curriculum.* The first clip (the session) is slowed to 0.6× to establish the room; the rest build pace. Phone: one frame, each clip wiping up over the last just before it ends. Desktop: two columns. |
 | 05 | Around the table | 4 clips | *The right room changes the conversation.* Same run, continuing. |
 | 06 | Access | Helicopter still, 17 amenity cuts | The helicopter crossfades in over the last people clip. *Access changes perspective.* Hard cut into the amenities, cutting faster and faster, with *More than one room.* and a counter synced to the cuts. |
 | 07 | The point | — | Hard cut to black: *This isn't the destination.* / *It's part of the environment.* Then *Sell · Build · Own / Your Pursuit starts here. / Apply to Pursuit.* The header returns and the page scrolls again. |
@@ -48,7 +48,7 @@ About 61 s on phones, 53 s on desktop (the people run as three columns at once t
   locks it again.
 - **Controls.** A discreet bar along the bottom: pause/resume, a timeline with a tick
   for each chapter (tap or drag to seek, arrow keys ±5 s, Page keys by chapter, Home/End),
-  the chapter name, and Skip. Tapping the picture or pressing Space also pauses. While
+  the chapter name, and Skip, which moves one chapter on (through a brief dip to black) and from the last chapter finishes the film. Tapping the picture or pressing Space also pauses. While
   paused, a scroll resumes. The film pauses itself when the tab is hidden and resumes
   when it returns.
 - **Preloading.** Each clip loads about 11 s before it plays (the first three during the
@@ -60,6 +60,7 @@ About 61 s on phones, 53 s on desktop (the people run as three columns at once t
   starts the film is enough for the whole film. If a phone still refuses, the film holds
   on the current frame with a *Tap to play* button; one tap unlocks everything and it runs
   to the end.
+- **Text.** A line rises a few pixels as it fades in and a few more as it fades out; nothing is masked, and a new line only arrives once the previous one has fully gone (a room name, too). Checked by stepping the whole film every 50 ms: no two titles are ever visible at once.
 - **Fits the screen.** The page is one screen tall: `html`, `body` and the film fill the
   viewport inside the safe-area padding the artifact viewer puts on `:root` in the phone
   app, so the controls and the bottom lines are never below the fold.

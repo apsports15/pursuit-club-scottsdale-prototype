@@ -50,10 +50,17 @@ def P(t_in, t_out, y=0.5, speed=1.0, label=None, reverse=False):
 
 CLIPS = {
     # aerial, the first moving shot after the cover: the drone's rise off the tent,
-    # reversed and slowed to 0.4x, so it starts high over the lot and descends onto the
-    # cars; then the glide down the row of cars at speed.
-    'aerial': {'parts': [P(9.25, 11.44, 0.40, speed=0.4, reverse=True), P(15.92, 19.07, 0.5)],
-               'kinds': ['portrait', 'wide'], 'cuts': True},
+    # reversed, so it starts high over the lot and descends. The descent quickens as it
+    # nears the cars (0.4x, 0.55x, 0.75x) and stops short of the near-still frames at the
+    # start of the rise, so it never settles on the McLaren. While it descends the frame
+    # drifts toward the car's left side ('drift'), then a half-second blend moving the
+    # same way as the flyover ('xfade', smoothleft) carries it into the glide down the row.
+    'aerial': {'parts': [P(10.10, 11.44, 0.40, speed=0.4, reverse=True),
+                         P(9.70, 10.10, 0.40, speed=0.55, reverse=True),
+                         P(9.35, 9.70, 0.40, speed=0.75, reverse=True),
+                         P(15.92, 19.07, 0.5)],
+               'kinds': ['portrait', 'wide'], 'cuts': True,
+               'drift': {'zoom': 0.12, 'x': 0.34}, 'xfade': 0.5},
     # the FPV flight, uncut and at speed: doorway, the lounge, the event floor, the
     # collection, and on (the source's own cut at 74.367) into the room with the round
     # white sofa, up to the cut to the applause at 76.867. The last room gets its own
@@ -62,7 +69,8 @@ CLIPS = {
                'kinds': ['portrait', 'wide'],
                'marks': [('The lounge', 59.40), ('The floor', 62.25), ('The collection', 66.60), ('The inner room', 74.37)]},
     # people: in the room
-    'p-session': {'parts': [P(27.03, 28.85)], 'kinds': ['portrait']},
+    # the establishing shot of the people chapter: given room to breathe (0.6x)
+    'p-session': {'parts': [P(27.03, 28.90, speed=0.6)], 'kinds': ['portrait']},
     'p-lounge': {'parts': [P(32.47, 35.27)], 'kinds': ['portrait']},
     'p-room': {'parts': [P(78.70, 80.22)], 'kinds': ['portrait']},
     'p-applause': {'parts': [P(76.95, 78.62)], 'kinds': ['portrait']},
@@ -101,7 +109,9 @@ CLIPS = {
 # final frame of a clip.
 STILLS = [
     {'name': 'helicopter', 'at': 0.60},
-    {'name': 'overhead', 'at': 19.90},
+    # the value moment: a supplied photograph of a session under the hex lights, when it
+    # is in source-media/value/; until then the same room from the master
+    {'name': 'room', 'at': 28.40, 'file': ROOT / 'source-media' / 'value' / 'club-scottsdale-room.jpg'},
 ]
 
 # The editorial cover: a supplied aerial sunset still of the building (not from the
@@ -202,8 +212,30 @@ def encode(name, spec, kind, suffix, size, codec):
             args += ['-ss', f"{p['in']:.3f}", '-t', f"{p['out'] - p['in'] + 0.2:.3f}", '-i', str(MASTER)]
         chains.append(f"[{i}:v]{grade},{geometry(kind, p['y'])},scale={size[0]}:{size[1]}:flags=lanczos,setsar=1,"
                       f'trim=end_frame={frames(p)},setpts=PTS-STARTPTS[v{i}]')
-    concat = ''.join(f'[v{i}]' for i in range(len(parts)))
-    graph = ';'.join(chains) + f';{concat}concat=n={len(parts)}:v=1:a=0[out]'
+    if spec.get('xfade'):
+        # every part but the last is one move (with an optional drift), blended into the last
+        lead = parts[:-1]
+        d = sum(frames(q) for q in lead) / FPS
+        chains = []
+        for i, q in enumerate(lead):
+            chains.append(f'[{i}:v]{grade},setsar=1,trim=end_frame={frames(q)},setpts=PTS-STARTPTS[s{i}]')
+        move = f"{''.join(f'[s{i}]' for i in range(len(lead)))}concat=n={len(lead)}:v=1:a=0"
+        dr = spec.get('drift')
+        if dr:
+            z, x = dr['zoom'], dr['x']
+            move += (f",scale=w='trunc(iw*(1+{z}*t/{d:.3f})/2)*2':h='trunc(ih*(1+{z}*t/{d:.3f})/2)*2':eval=frame:flags=lanczos"
+                     f",crop={SRC_W}:{SRC_H}:x='(iw-{SRC_W})*(0.5+({x}-0.5)*t/{d:.3f})':y='(ih-{SRC_H})/2'")
+        y0 = lead[-1]['y']
+        chains.append(f"{move},{geometry(kind, y0)},scale={size[0]}:{size[1]}:flags=lanczos,setsar=1,fps={FPS}[a]")
+        last = parts[-1]
+        k = len(parts) - 1
+        chains.append(f"[{k}:v]{grade},{geometry(kind, last['y'])},scale={size[0]}:{size[1]}:flags=lanczos,setsar=1,"
+                      f"trim=end_frame={frames(last)},setpts=PTS-STARTPTS,fps={FPS}[b]")
+        xf = spec['xfade']
+        graph = ';'.join(chains) + f';[a][b]xfade=transition=smoothleft:duration={xf}:offset={d - xf:.3f}[out]'
+    else:
+        concat = ''.join(f'[v{i}]' for i in range(len(parts)))
+        graph = ';'.join(chains) + f';{concat}concat=n={len(parts)}:v=1:a=0[out]'
     run(args + ['-filter_complex', graph, '-map', '[out]'] + codec + TAGS + [str(out)])
     return out
 
@@ -244,7 +276,7 @@ def to_output_time(parts, t):
 def build_clips():
     manifest = {}
     for name, spec in CLIPS.items():
-        n = sum(frames(p) for p in spec['parts'])
+        n = sum(frames(p) for p in spec['parts']) - round(spec.get('xfade', 0) * FPS)
         entry = {'frames': n, 'duration': round(n / FPS, 3), 'variants': {}, 'posters': {}}
         for kind in spec['kinds']:
             for suffix, size, codec in VARIANTS[kind]:
@@ -257,7 +289,10 @@ def build_clips():
         encoded = duration(OUT / f'{name}.p1080.mp4')
         if abs(encoded - entry['duration']) > 1.5 / FPS:
             sys.exit(f'{name}: encoded {encoded}s, expected {entry["duration"]}s')
-        if spec.get('cuts'):
+        if spec.get('cuts') and spec.get('xfade'):
+            lead = sum(frames(p) for p in spec['parts'][:-1]) / FPS
+            entry['cuts'] = [{'t': 0.0, 'label': None}, {'t': round(lead - spec['xfade'], 3), 'label': None}]
+        elif spec.get('cuts'):
             k, cuts = 0, []
             for p in spec['parts']:
                 cuts.append({'t': round(k / FPS, 3), 'label': p['label']})
@@ -287,7 +322,11 @@ def build_stills():
         name = spec['name']
         src = STILLS_SRC / f'{name}.png'
         t, n = still_source(spec)
-        if fresh(src):
+        supplied = spec.get('file')
+        if supplied and supplied.exists():
+            written.add(src.resolve())
+            Image.open(supplied).convert('RGB').save(src)
+        elif fresh(src):
             vf = f"select=eq(n\\,{n}),{spec.get('grade', 'null')},{YUV_TO_RGB}"
             run(['-ss', f'{t:.3f}', '-i', str(MASTER), '-vf', vf, '-frames:v', '1', '-fps_mode', 'passthrough', str(src)])
         img = Image.open(src).convert('RGB')

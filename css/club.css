@@ -65,7 +65,8 @@ html.is-locked body { touch-action: none; }
   color: var(--pearl);
 }
 .display em { font-style: italic; letter-spacing: -0.02em; }
-.line { display: block; overflow: hidden; padding: 0.06em 0.1em 0.12em; margin: -0.06em -0.1em -0.12em; }
+/* Lines move as whole units (a short rise and fade), never masked, so no glyph is ever clipped. */
+.line { display: block; }
 .li { display: inline-block; }
 
 .cap {
@@ -212,6 +213,8 @@ html.wide .cover__sub { font-size: 10px; }
 
 /* ---------------------------------------------------------------- step inside */
 .scrim--soft { opacity: 0.7; }
+.dim { position: absolute; inset: 0; background: #000; opacity: 0; pointer-events: none; }
+.s-step { z-index: 1; }
 .s-step { position: absolute; left: var(--g); right: var(--g); bottom: var(--lift); font-size: clamp(44px, 13.5cqw, 150px); text-shadow: 0 2px 30px rgba(0, 0, 0, 0.35); }
 html.wide .s-step { font-size: clamp(56px, 6.4cqw, 150px); }
 .rooms { position: absolute; left: var(--g); right: var(--g); bottom: var(--lift); pointer-events: none; }
@@ -230,11 +233,6 @@ html.wide .rooms__list li:not(.is-on):not(.is-near) { display: list-item; }
 
 /* ---------------------------------------------------------------- outside / inside */
 .s-over-line { position: absolute; left: var(--g); right: var(--g); bottom: var(--lift); font-size: clamp(44px, 13.5cqw, 150px); }
-.pivot {
-  position: absolute; inset: 0;
-  display: flex; flex-direction: column; justify-content: center; align-items: center;
-  text-align: center; font-size: clamp(52px, 17cqw, 190px); padding: 0 var(--g);
-}
 html.wide #s-over .still { inset: 7% auto 7% 11%; aspect-ratio: 9 / 16; width: auto; height: 86%; }
 html.wide #s-over .scrim { display: none; }
 html.wide .s-over-line { left: auto; right: 11%; bottom: 13%; max-width: 44%; text-align: right; font-size: clamp(56px, 6.4cqw, 150px); }
@@ -337,6 +335,9 @@ html.wide .ctl { left: 50%; right: auto; width: min(760px, 62vw); transform: tra
 body.is-blocked .tap { display: inline-flex; }
 .tap:focus-visible { outline: 1px solid var(--pearl); outline-offset: 3px; }
 
+.jump { position: absolute; z-index: 43; inset: 0; background: #000; opacity: 0; pointer-events: none; transition: opacity 0.22s var(--ease); }
+.jump.is-on { opacity: 1; }
+
 /* review overlay (?debug) */
 .dbg { position: fixed; z-index: 99; left: 8px; top: 8px; padding: 6px 8px; background: rgba(0, 0, 0, 0.7); font: 11px/1.4 ui-monospace, Menlo, monospace; color: #E9D9A8; pointer-events: none; white-space: pre; }
 
@@ -354,14 +355,4 @@ body.is-blocked .tap { display: inline-flex; }
   .s-step { font-size: clamp(44px, 13.5vw, 150px); }
   html.wide .s-step { font-size: clamp(56px, 6.4vw, 150px); }
   .s-over-line { font-size: clamp(44px, 13.5vw, 150px); }
-  .pivot { font-size: clamp(52px, 17vw, 190px); }
-  .p-head .display, .heli__txt .display { font-size: clamp(42px, 13vw, 132px); }
-  .r-line { font-size: clamp(40px, 12vw, 150px); }
-  .point { font-size: clamp(40px, 12vw, 124px); }
-  .cta__title { font-size: clamp(50px, 15vw, 140px); }
-  html.wide .s-over-line, html.wide .heli__txt .display { font-size: clamp(56px, 6.4vw, 150px); }
-  html.wide .p-head .display { font-size: clamp(48px, 5.6vw, 120px); }
-  html.wide .r-line { font-size: clamp(48px, 6vw, 150px); }
-  html.wide .point { font-size: clamp(52px, 6.4vw, 124px); }
-  html.wide .cta__title { font-size: clamp(60px, 7.4vw, 140px); }
-}
+  

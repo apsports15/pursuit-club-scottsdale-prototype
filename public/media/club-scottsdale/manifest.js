@@ -3,38 +3,38 @@ window.CS_MEDIA = {
  "fps": 30,
  "clips": {
   "aerial": {
-   "frames": 259,
-   "duration": 8.633,
+   "frames": 216,
+   "duration": 7.2,
    "variants": {
     "p1080.hevc": {
      "src": "aerial.p1080.hevc.mp4",
      "w": 1080,
      "h": 1920,
-     "kb": 2057
+     "kb": 1867
     },
     "p1080": {
      "src": "aerial.p1080.mp4",
      "w": 1080,
      "h": 1920,
-     "kb": 4596
+     "kb": 4331
     },
     "p720": {
      "src": "aerial.p720.mp4",
      "w": 720,
      "h": 1280,
-     "kb": 1976
+     "kb": 1871
     },
     "w1080.hevc": {
      "src": "aerial.w1080.hevc.mp4",
      "w": 1080,
      "h": 810,
-     "kb": 983
+     "kb": 887
     },
     "w1080": {
      "src": "aerial.w1080.mp4",
      "w": 1080,
      "h": 810,
-     "kb": 2117
+     "kb": 1988
     }
    },
    "posters": {
@@ -52,7 +52,7 @@ window.CS_MEDIA = {
      "label": null
     },
     {
-     "t": 5.467,
+     "t": 4.033,
      "label": null
     }
    ]
@@ -121,26 +121,26 @@ window.CS_MEDIA = {
    ]
   },
   "p-session": {
-   "frames": 55,
-   "duration": 1.833,
+   "frames": 93,
+   "duration": 3.1,
    "variants": {
     "p1080.hevc": {
      "src": "p-session.p1080.hevc.mp4",
      "w": 1080,
      "h": 1920,
-     "kb": 188
+     "kb": 272
     },
     "p1080": {
      "src": "p-session.p1080.mp4",
      "w": 1080,
      "h": 1920,
-     "kb": 461
+     "kb": 680
     },
     "p720": {
      "src": "p-session.p720.mp4",
      "w": 720,
      "h": 1280,
-     "kb": 194
+     "kb": 279
     }
    },
    "posters": {
@@ -488,16 +488,16 @@ window.CS_MEDIA = {
    ],
    "master_time": 0.6
   },
-  "overhead": {
+  "room": {
    "w": 1080,
    "h": 1920,
    "files": [
-    "still-overhead.1080.avif",
-    "still-overhead.1080.webp",
-    "still-overhead.720.avif",
-    "still-overhead.720.webp"
+    "still-room.1080.avif",
+    "still-room.1080.webp",
+    "still-room.720.avif",
+    "still-room.720.webp"
    ],
-   "master_time": 19.9
+   "master_time": 28.4
   }
  },
  "cover": {

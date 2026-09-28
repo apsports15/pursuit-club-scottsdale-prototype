@@ -74,9 +74,9 @@ The chapter is a single guided film (see `README.md`). In running order:
 |---|---|---|---|---|
 | `neon` still | 51.583 (the clip's exact last frame, same grade) | still | The sign splits open on this frame, in two halves | — |
 | `cover` | supplied still, `source-media/cover/` | still | The editorial cover. Not from the master: a different day and car line-up, so the film cuts to black before the drone. | — |
-| `aerial` | **9.25–11.44 reversed, at 0.4×** + 15.92–19.07 | video | The first moving shot: the drone's rise off the tent played backwards, so it starts high over the lot and descends onto the cars (5.5 s), then the glide over the cars at speed. | 8.6 s |
+| `aerial` | **reversed: 10.10–11.44 at 0.4×, 9.70–10.10 at 0.55×, 9.35–9.70 at 0.75×** + 15.92–19.07 | video | The first moving shot: the drone's rise off the tent played backwards, so it starts high and descends, quickening near the cars and stopping short of the near-still frames at the start of the rise. The frame drifts toward the McLaren's left side (zoom to 1.12×), then a 0.5 s smoothleft blend carries it into the glide over the cars. | 7.2 s |
 | `flight` | 58.42–74.35 + 74.37–76.83 | video | Step inside: the flight at normal speed, doorway to the collection, then on through the source's own cut (74.367) into the room with the round white sofa, up to the cut to the applause (76.867). The last room's landscape crop sits lower (y .62) so the sofa and the people stay in frame. Room marks: The lounge 0.98, The floor 3.83, The collection 8.18, The inner room 15.93 s (output time). | 18.4 s |
-| `overhead` | 19.90 | still | Who's inside: the 911 from above, full screen | — |
+| `room` | supplied photo in `source-media/value/`, else 28.40 | still | The value: a session under the hex lights. | — |
 | `p-session` … `p-candid` | as before (27.03–28.85, 32.47–35.27, 78.70–80.22, 76.95–78.62, 30.92–32.40, 46.90–48.40, 51.72–53.85, 53.95–55.62) | video | In the room, around the table | 1.5–2.8 s each |
 | `helicopter` | 0.60 | still | Access | — |
 | `crescendo` | 17 parts, see `scripts/build_media.py` | video | The amenities, cutting 0.42 → 0.30 s, landing on the matte car | 8.5 s |

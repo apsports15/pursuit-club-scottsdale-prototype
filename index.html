@@ -32,46 +32,44 @@
 
     <!-- Arrival: after the cover, the drone descends onto the cars -->
     <div class="m" id="s-aerial" data-clip="aerial" data-wide data-op="50% 50%" data-op-wide="50% 50%"></div>
+    <i class="dim" id="s-dim" aria-hidden="true"></i>
     <p class="cap s-cap" id="s-cap"><span class="s-cap__in">Club Scottsdale<span>Scottsdale, Arizona</span></span></p>
 
     <!-- Step inside: the flight wipes up over the drone, already moving -->
     <div class="panel win" id="s-inside">
       <div class="m" id="s-flight" data-clip="flight" data-wide data-op="50% 50%" data-op-wide="50% 52%"></div>
       <div class="scrim scrim--foot scrim--soft"></div>
-      <h2 class="display s-step" id="s-step"><span class="line"><span class="li">Step</span></span><span class="line"><span class="li"><em>inside.</em></span></span></h2>
       <div class="rooms" id="s-rooms" aria-hidden="true">
         <ol class="rooms__list" id="s-room-list"></ol>
         <p class="display rooms__now" id="s-now"></p>
       </div>
     </div>
 
-    <!-- Outside, then who's inside -->
+    <!-- The title carries over the threshold: it arrives outside and leaves inside -->
+    <h2 class="display s-step" id="s-step"><span class="line"><span class="li">Step</span></span><span class="line"><span class="li"><em>inside.</em></span></span></h2>
+
+    <!-- The value: who is in the room -->
     <div class="panel win" id="s-over">
-      <div class="still" data-still="overhead" data-op="50% 58%" data-alt="A white sports car photographed from directly above, parked in a hatched bay"></div>
+      <div class="still" data-still="room" data-op="30% 50%" data-alt="A session under the hex lights: a speaker standing by the screen, the group listening from the sofa and chairs"></div>
       <div class="scrim scrim--foot"></div>
-      <h2 class="display s-over-line" id="s-over-line"><span class="line"><span class="li">The value</span></span><span class="line"><span class="li">isn't what's</span></span><span class="line"><span class="li">parked <em>outside.</em></span></span></h2>
-    </div>
-    <div class="panel panel--clear" id="s-pivot">
-      <h2 class="display pivot"><span class="line"><span class="li">It's who's</span></span><span class="line"><span class="li"><em>inside.</em></span></span></h2>
+      <h2 class="display s-over-line" id="s-over-line"><span class="line"><span class="li">The value is</span></span><span class="line"><span class="li">who you're</span></span><span class="line"><span class="li"><em>around.</em></span></span></h2>
     </div>
 
     <!-- In the room, around the table. Phones: one frame, the clips follow each other
-         as page wipes (data-seq order). Desktop: three columns, each wiping through its own clips. -->
+         as page wipes (data-seq order). Desktop: two columns, each wiping through its own clips. -->
     <div class="panel panel--clear" id="s-people">
       <div class="grp">
         <div class="col">
           <div class="m win" data-clip="p-session" data-seq="1" data-op="50% 45%"></div>
+          <div class="m win" data-clip="p-room" data-seq="3" data-op="50% 50%"></div>
+          <div class="m win" data-clip="p-applause" data-seq="4" data-op="45% 50%"></div>
           <div class="m win" data-clip="p-network" data-seq="5" data-op="60% 45%"></div>
-          <div class="m win" data-clip="p-candid" data-seq="8" data-op="62% 45%"></div>
         </div>
         <div class="col">
           <div class="m win" data-clip="p-lounge" data-seq="2" data-op="46% 40%"></div>
           <div class="m win" data-clip="p-dinner" data-seq="6" data-op="50% 55%"></div>
-        </div>
-        <div class="col">
-          <div class="m win" data-clip="p-room" data-seq="3" data-op="50% 50%"></div>
-          <div class="m win" data-clip="p-applause" data-seq="4" data-op="45% 50%"></div>
           <div class="m win" data-clip="p-panel" data-seq="7" data-op="50% 55%"></div>
+          <div class="m win" data-clip="p-candid" data-seq="8" data-op="62% 45%"></div>
         </div>
       </div>
       <div class="scrim scrim--people" id="p-scrim"></div>
@@ -138,6 +136,8 @@
       </div>
     </div>
 
+    <i class="jump" id="jump" aria-hidden="true"></i>
+
     <!-- Film controls -->
     <div class="ctl" id="ctl">
       <button type="button" class="ctl__btn ctl__play" id="ctl-play" aria-label="Pause"><i aria-hidden="true"></i></button>
@@ -147,7 +147,7 @@
         <span class="ctl__ticks" id="ctl-ticks" aria-hidden="true"></span>
         <i class="ctl__knob" id="ctl-knob" aria-hidden="true"></i>
       </div>
-      <button type="button" class="ctl__btn ctl__skip" id="ctl-skip" aria-label="Skip to the end"><span>Skip</span><i aria-hidden="true"></i></button>
+      <button type="button" class="ctl__btn ctl__skip" id="ctl-skip" aria-label="Skip to the next chapter"><span>Skip</span><i aria-hidden="true"></i></button>
     </div>
   </section>
 </main>
