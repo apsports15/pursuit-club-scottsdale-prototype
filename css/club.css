@@ -174,113 +174,128 @@ main { height: 100%; }
 }
 .cover__dark { position: absolute; inset: 0; background: #000; opacity: 0; pointer-events: none; }
 .gate__in {
-  position: absolute; left: 0; right: 0; bottom: max(30px, 5%);
+  position: absolute; left: 0; right: 0; bottom: max(34px, 5.5%);
   display: flex; flex-direction: column; align-items: center; text-align: center;
   padding: 0 var(--g);
 }
-/* The one serif moment at the start: the invitation. */
 .cover__title {
   margin: 0;
-  font: 400 clamp(38px, 11cqw, 64px)/1.02 var(--serif);
-  letter-spacing: -0.005em; color: var(--ivory);
-  text-wrap: balance;
+  font: 400 clamp(29px, 8.4cqw, 58px)/1 var(--serif);
+  letter-spacing: 0.1em; text-indent: 0.1em;          /* indent balances the trailing tracking */
+  text-transform: uppercase; color: var(--ivory);
+  white-space: nowrap;
 }
-.cover__id {
-  margin: 14px 0 0; white-space: nowrap;
-  font: 500 clamp(10.5px, 3.1cqw, 12px)/1.3 var(--sans); letter-spacing: 0.13em; text-transform: uppercase; color: var(--champ);
+.cover__sub {
+  margin: 16px 0 0;
+  font: 400 9.5px/1 var(--sans); letter-spacing: 0.46em; text-indent: 0.46em;
+  text-transform: uppercase; color: var(--champ);
 }
 .gate__cue {
-  margin-top: 24px; padding: 6px 16px;
-  display: grid; justify-items: center; gap: 6px;
-  font: 400 13px/1.35 var(--sans); color: rgba(236, 233, 227, 0.86);
+  margin-top: 26px; padding: 6px 16px;
+  display: grid; justify-items: center; gap: 12px;
+  font: 400 8.5px/1 var(--sans); letter-spacing: 0.42em; text-indent: 0.42em; text-transform: uppercase;
+  color: rgba(228, 218, 202, 0.58);
 }
-.gate__cue i { position: relative; width: 1px; height: 30px; margin-bottom: 8px; background: rgba(228, 218, 202, 0.24); overflow: hidden; }
+.gate__cue i { position: relative; width: 1px; height: 34px; background: rgba(228, 218, 202, 0.24); overflow: hidden; }
 .gate__cue i::after {
   content: ""; position: absolute; left: 0; top: 0; width: 1px; height: 12px; background: rgba(228, 218, 202, 0.8);
   animation: cue 3.2s var(--ease) 1.8s infinite both;
 }
-.gate__len { font-size: 12px; color: rgba(236, 233, 227, 0.56); }
-@keyframes cue { 0% { transform: translateY(-12px); } 60%, 100% { transform: translateY(30px); } }
+@keyframes cue { 0% { transform: translateY(-12px); } 60%, 100% { transform: translateY(34px); } }
 .gate__cue:focus-visible, .ctl__btn:focus-visible, .ctl__track:focus-visible, .cta__btn:focus-visible, .cta__replay:focus-visible { outline: 1px solid var(--pearl); outline-offset: 3px; }
-html.wide .cover__title { font-size: clamp(44px, 4cqw, 68px); }
+html.wide .cover__title { font-size: clamp(34px, 3.4cqw, 58px); }
+html.wide .cover__sub { font-size: 10px; }
 
-/* ---------------------------------------------------------------- the type system
-   say     narrative statement: medium sans, sentence case, two lines at most
-   label   supporting label: small caps-style, restrained tracking
-   name    a person: name large, role beneath, context smaller still
-   Everything enters and leaves as a whole phrase (see js/club.js). */
-.say {
-  position: absolute; z-index: 21; left: var(--g); right: var(--g); bottom: var(--lift); margin: 0;
-  max-width: 13em;
-  font: 500 clamp(32px, 9.6cqw, 42px)/1.12 var(--sans); letter-spacing: -0.018em;
-  color: var(--pearl); text-wrap: balance;
-  text-shadow: 0 1px 24px rgba(0, 0, 0, 0.35);
-  visibility: hidden;
-}
-.label {
-  margin: 0;
-  font: 500 12.5px/1.3 var(--sans); letter-spacing: 0.14em; text-transform: uppercase;
-  color: var(--pearl); text-shadow: 0 1px 14px rgba(0, 0, 0, 0.5);
-}
-.name { position: absolute; z-index: 21; left: var(--g); right: var(--g); bottom: var(--lift); display: grid; gap: 6px; visibility: hidden; }
-.name__who { margin: 0; font: 500 clamp(24px, 7cqw, 30px)/1.15 var(--sans); letter-spacing: -0.01em; color: var(--pearl); text-shadow: 0 1px 20px rgba(0, 0, 0, 0.4); }
-.nw { white-space: nowrap; }
-/* Under a photo that sits across the top of a phone, the caption follows the photo. */
-#n-lanctot { bottom: auto; top: calc(min(100cqw * 1.228, 76%) - 18px); }
-html.wide #n-lanctot { top: auto; bottom: 16%; }
-.name__role { margin: 0; font: 400 15px/1.35 var(--sans); color: rgba(236, 233, 227, 0.86); }
-.name__ctx { margin: 2px 0 0; font: 500 11.5px/1.3 var(--sans); letter-spacing: 0.14em; text-transform: uppercase; color: var(--champ); }
-html.wide .say { left: 9%; right: auto; bottom: 16%; max-width: 11em; font-size: clamp(38px, 3.4cqw, 60px); }
-html.wide .name { left: 9%; right: auto; bottom: 16%; max-width: 38%; }
-html.wide .name__who { font-size: clamp(30px, 2.4cqw, 42px); }
-html.wide .name__role { font-size: 17px; }
+/* ---------------------------------------------------------------- arrival */
+.s-cap { left: var(--g); bottom: var(--lift); visibility: hidden; }
+.s-cap__in { display: grid; gap: 8px; }
+.s-cap__in span { color: var(--pearl-2); }
 
-/* ---------------------------------------------------------------- 1 · enter / 2 · step inside */
+/* ---------------------------------------------------------------- step inside */
 .scrim--soft { opacity: 0.7; }
 .dim { position: absolute; inset: 0; background: #000; opacity: 0; pointer-events: none; }
-.rooms { position: absolute; left: var(--g); right: var(--g); bottom: var(--lift); height: 20px; pointer-events: none; }
-.rooms .label { position: absolute; left: 0; bottom: 0; visibility: hidden; }
-html.wide .rooms { left: 9%; bottom: 16%; }
+.s-step { z-index: 1; }
+.s-step { position: absolute; left: var(--g); right: var(--g); bottom: var(--lift); font-size: clamp(44px, 13.5cqw, 150px); text-shadow: 0 2px 30px rgba(0, 0, 0, 0.35); }
+html.wide .s-step { font-size: clamp(56px, 6.4cqw, 150px); }
+.rooms { position: absolute; left: var(--g); right: var(--g); bottom: var(--lift); pointer-events: none; }
+.rooms__list {
+  display: flex; gap: 18px; margin: 0 0 14px; padding: 0; list-style: none;
+  font: 500 9.5px/1 var(--sans); letter-spacing: 0.26em; text-transform: uppercase; color: var(--pearl-3);
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.5);
+}
+.rooms__list li { transition: color 0.6s var(--ease); white-space: nowrap; }
+.rooms__list li span { margin-right: 8px; }
+.rooms__list li.is-on { color: var(--pearl); }
+.rooms__list li:not(.is-on):not(.is-near) { display: none; }
+.rooms__now { font-size: clamp(34px, 11.5cqw, 110px); min-height: 1em; text-shadow: 0 2px 30px rgba(0, 0, 0, 0.45); }
+.rooms__now .c { display: inline-block; }
+html.wide .rooms__list li:not(.is-on):not(.is-near) { display: list-item; }
 
-/* ---------------------------------------------------------------- 3 · learn / 4 · connect */
-.seq .item { position: absolute; inset: 0; overflow: hidden; background: var(--black); }
-/* Phones: a photograph sits across the top at a set width (--k = height / width, chosen so
-   everyone in it stays in frame) and feathers into black; the words sit beneath it. */
-.item--photo .still { bottom: auto; height: min(calc(100cqw * var(--k)), 76%); -webkit-mask-image: linear-gradient(#000 78%, transparent); mask-image: linear-gradient(#000 78%, transparent); }
-.scrim--people { z-index: 20; background: linear-gradient(0deg, rgba(0, 0, 0, 0.88) 0%, rgba(0, 0, 0, 0.45) 30%, transparent 55%); }
-/* Desktop: each clip or photo in a portrait panel on the right, the words on the left. */
-html.wide .seq .item { inset: 7% 9% 7% auto; aspect-ratio: 9 / 16; width: auto; height: 86%; }
-html.wide .seq .item--photo { aspect-ratio: var(--ar); }
-html.wide .item--photo .still { inset: 0; height: auto; -webkit-mask-image: none; mask-image: none; }
-html.wide #q-scrim { display: none; }
+/* ---------------------------------------------------------------- outside / inside */
+.s-over-line { position: absolute; left: var(--g); right: var(--g); bottom: var(--lift); font-size: clamp(44px, 13.5cqw, 150px); }
+/* Phones: the photograph is nearly square, so it sits at the top at a width that keeps
+   most of the room (the speaker, the ceiling and the seated group) and feathers into
+   black under the line, rather than being cropped to the screen's tall shape. */
+#s-over .still { bottom: auto; height: min(calc(100cqw * 1.36), 74%); -webkit-mask-image: linear-gradient(#000 76%, transparent); mask-image: linear-gradient(#000 76%, transparent); }
+#s-over .still img { object-position: 34% 0%; }
+html.wide #s-over .still { -webkit-mask-image: none; mask-image: none; }
+html.wide #s-over .still img { object-position: 50% 50%; }
+html.wide #s-over .still { inset: 7% auto 7% 9%; aspect-ratio: 1320 / 1526; width: auto; height: 86%; max-width: 50%; }
+html.wide #s-over .scrim { display: none; }
+html.wide .s-over-line { left: auto; right: 11%; bottom: 13%; max-width: 44%; text-align: right; font-size: clamp(56px, 6.4cqw, 150px); }
 
-/* ---------------------------------------------------------------- 5 · beyond the workday */
+/* ---------------------------------------------------------------- people */
+.grp { position: absolute; inset: 0; }
+.col { display: contents; }
+html.wide .grp { display: flex; gap: 2px; }
+html.wide .col { display: block; position: relative; flex: 1 1 0; height: 100%; overflow: hidden; }
+#s-people .scrim, #s-people .p-head { z-index: 20; }   /* above the clips, which stack by run order */
+.scrim--people { background: linear-gradient(0deg, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.5) 32%, transparent 58%); }
+.p-head { position: absolute; left: var(--g); right: var(--g); bottom: var(--lift); display: grid; gap: 16px; visibility: hidden; }
+.p-head .micro { color: var(--pearl-2); }
+.p-head .display { font-size: clamp(42px, 13cqw, 132px); }
+html.wide .p-head .display { font-size: clamp(48px, 5.6cqw, 120px); }
+
+/* ---------------------------------------------------------------- access + amenities */
 .heli__img { position: absolute; inset: 0; margin: 0; overflow: hidden; }
-html.wide .heli__img { inset: 7% auto; left: 50%; aspect-ratio: 9 / 16; width: auto; height: 86%; transform: translateX(-50%); }
-.groups { position: absolute; left: var(--g); top: calc(5% + env(safe-area-inset-top, 0px)); height: 20px; }
-.group { position: absolute; left: 0; top: 0; visibility: hidden; }
-html.wide .groups { left: 9%; top: 9%; }
+.heli__txt { position: absolute; left: var(--g); right: var(--g); bottom: var(--lift); display: grid; gap: 16px; }
+.heli__txt .micro { color: var(--pearl-2); }
+.heli__txt .display { font-size: clamp(42px, 13cqw, 150px); }
+html.wide .heli__img { inset: 7% 11% 7% auto; aspect-ratio: 9 / 16; width: auto; height: 86%; }
+html.wide #h-scrim { display: none; }
+html.wide .heli__txt { right: auto; bottom: 13%; left: 11%; max-width: 46%; }
+html.wide .heli__txt .display { font-size: clamp(56px, 6.4cqw, 150px); }
 
-/* ---------------------------------------------------------------- 6 · pursuit */
-.point { top: 50%; bottom: auto; transform: translateY(-50%); margin: 0 auto; text-align: center; left: var(--g); right: var(--g); max-width: none; }
-.point, html.wide .point { position: absolute; }
-html.wide .point { left: 50%; right: auto; bottom: auto; top: 50%; width: min(16em, 70%); max-width: none; transform: translate(-50%, -50%); }
+.r-line { position: absolute; left: var(--g); right: var(--g); bottom: var(--lift); font-size: clamp(40px, 12cqw, 150px); }
+html.wide .r-line { font-size: clamp(48px, 6cqw, 150px); }
+.r-count {
+  position: absolute; right: var(--g); top: calc(5% + env(safe-area-inset-top, 0px)); margin: 0;
+  display: flex; align-items: baseline; gap: 8px;
+  font: 500 10px/1 var(--sans); letter-spacing: 0.26em; color: var(--pearl-2);
+  font-variant-numeric: tabular-nums;
+}
+.r-count b { font: 400 30px/1 var(--serif); letter-spacing: 0; color: var(--pearl); }
+
+/* ---------------------------------------------------------------- the point + CTA */
+.point { position: absolute; left: var(--g); right: var(--g); top: 50%; margin-top: -0.9em; text-align: center; font-size: clamp(40px, 12cqw, 124px); }
+html.wide .point { font-size: clamp(52px, 6.4cqw, 124px); }
 .cta {
-  position: absolute; inset: 0; padding: 0 var(--g);
-  display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 22px;
+  position: absolute; inset: 0; padding: 0 var(--g) calc(var(--lift) - 30px);
+  display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 24px;
   text-align: center; visibility: hidden; outline: none;
 }
-/* The one serif moment at the end. */
-.cta__title { margin: 0; max-width: 11em; font: 400 clamp(38px, 11cqw, 64px)/1.04 var(--serif); color: var(--pearl); text-wrap: balance; }
-html.wide .cta__title { font-size: clamp(48px, 4.6cqw, 76px); }
+.cta__path { display: flex; align-items: center; gap: 14px; color: var(--pearl-2); }
+.cta__path i { width: 18px; height: 1px; background: var(--champagne); }
+.cta__title { font-size: clamp(50px, 15cqw, 140px); }
+html.wide .cta__title { font-size: clamp(60px, 7.4cqw, 140px); }
 .cta__btn {
-  display: inline-flex; align-items: center; justify-content: center; min-height: 56px; min-width: 220px; margin-top: 10px;
-  padding: 0 36px; border-radius: 2px; background: var(--pearl); color: var(--black);
-  font: 500 16px/1 var(--sans); letter-spacing: 0.01em; text-decoration: none;
-  transition: background 0.3s var(--ease);
+  display: inline-flex; align-items: center; gap: 14px; margin-top: 6px;
+  padding: 17px 26px; border: 1px solid rgba(236, 233, 227, 0.55);
+  font: 500 11.5px/1 var(--sans); letter-spacing: 0.26em; text-transform: uppercase; color: var(--pearl); text-decoration: none;
+  transition: background 0.4s var(--ease), color 0.4s var(--ease);
 }
-.cta__btn:hover { background: #fff; }
-.cta__replay { padding: 10px 14px; font: 400 13px/1 var(--sans); color: rgba(236, 233, 227, 0.62); }
+.cta__btn:hover { background: var(--pearl); color: var(--black); }
+.cta__replay { padding: 10px 12px; font: 500 9.5px/1 var(--sans); letter-spacing: 0.28em; text-transform: uppercase; color: var(--silver); }
 .cta__replay:hover { color: var(--pearl); }
 
 /* ---------------------------------------------------------------- film controls */
@@ -301,18 +316,18 @@ body.is-started .ctl:hover, body.is-started .ctl:focus-within, body.is-paused .c
 .ctl__play i::after { right: 1px; }
 body.is-paused .ctl__play i::before { left: 1px; width: 0; height: 0; background: none; border-style: solid; border-width: 6px 0 6px 10px; border-color: transparent transparent transparent currentColor; }
 body.is-paused .ctl__play i::after { display: none; }
-.ctl__skip { gap: 10px; padding: 0 10px; font: 500 11px/1 var(--sans); letter-spacing: 0.14em; text-transform: uppercase; }
+.ctl__skip { gap: 10px; padding: 0 10px; font: 500 9.5px/1 var(--sans); letter-spacing: 0.28em; text-transform: uppercase; }
 .ctl__skip i { position: relative; width: 10px; height: 9px; flex: none; }
 .ctl__skip i::before { content: ""; position: absolute; left: 0; top: 0; border-style: solid; border-width: 4.5px 0 4.5px 7px; border-color: transparent transparent transparent currentColor; }
 .ctl__skip i::after { content: ""; position: absolute; right: 0; top: 0; width: 1.5px; height: 9px; background: currentColor; }
-body.is-ended .ctl { opacity: 0; visibility: hidden; }
+body.is-ended .ctl__skip { visibility: hidden; }
 .ctl__track { position: relative; height: 44px; cursor: pointer; touch-action: none; }
 .ctl__rail { position: absolute; left: 0; right: 0; top: 62%; height: 1px; background: rgba(236, 233, 227, 0.24); }
 .ctl__fill { position: absolute; inset: 0; background: var(--pearl); transform-origin: 0 50%; transform: scaleX(0); }
 .ctl__ticks i { position: absolute; top: calc(62% - 3px); width: 1px; height: 7px; background: rgba(236, 233, 227, 0.45); }
 .ctl__knob { position: absolute; top: calc(62% - 4.5px); left: 0; width: 9px; height: 9px; margin-left: -4.5px; border-radius: 50%; background: var(--pearl); transform: scale(0); transition: transform 0.25s var(--ease); }
 body.is-paused .ctl__knob, body.is-scrubbing .ctl__knob, .ctl__track:hover .ctl__knob, .ctl__track:focus-visible .ctl__knob { transform: scale(1); }
-.ctl__chap { position: absolute; left: 0; top: calc(62% - 22px); font-size: 10.5px; letter-spacing: 0.14em; color: var(--pearl-2); white-space: nowrap; pointer-events: none; }
+.ctl__chap { position: absolute; left: 0; top: calc(62% - 21px); font-size: 9px; letter-spacing: 0.26em; color: var(--pearl-2); white-space: nowrap; pointer-events: none; }
 html.wide .ctl { left: 50%; right: auto; width: min(760px, 62vw); transform: translateX(-50%); padding-bottom: 18px; }
 
 /* "Tap to play": only when the phone refused to start video by itself */
@@ -341,13 +356,58 @@ body.is-blocked .tap { display: inline-flex; }
 /* Browsers without container query units (iOS < 16): the stage is the viewport, so vw stands in. */
 @supports not (width: 1cqw) {
   .film { --g: max(20px, 6vw); }
-  .cover__title, .cta__title { font-size: clamp(38px, 11vw, 64px); }
-  .say { font-size: clamp(32px, 9.6vw, 42px); }
-  .name__who { font-size: clamp(24px, 7vw, 30px); }
+  .cover__title { font-size: clamp(29px, 8.4vw, 58px); }
+  #s-over .still { height: min(calc(100vw * 1.36), 74%); }
+  html.wide .cover__title { font-size: clamp(34px, 3.4vw, 58px); }
+  .rooms__now { font-size: clamp(34px, 11.5vw, 110px); }
+  .s-step { font-size: clamp(44px, 13.5vw, 150px); }
+  html.wide .s-step { font-size: clamp(56px, 6.4vw, 150px); }
+  .s-over-line { font-size: clamp(44px, 13.5vw, 150px); }
+}
+
+/* ================================================================ revision: new words, the original type
+   The type system above is unchanged; these rules only place the new structure. */
+
+/* the cover: the new title, set like the old one (uppercase serif, open tracking, one line) */
+.cover__title { font-size: clamp(22px, 6.6cqw, 52px); }
+html.wide .cover__title { font-size: clamp(30px, 2.9cqw, 52px); }
+.cover__sub { white-space: nowrap; letter-spacing: 0.3em; text-indent: 0.3em; }
+html.wide .cover__sub { letter-spacing: 0.4em; text-indent: 0.4em; }
+.gate__cue { gap: 10px; }
+.gate__len { color: rgba(228, 218, 202, 0.42); }
+
+/* Learn and Connect: one run of page turns. Phones: clips full screen; a photograph across
+   the top at a width that keeps everyone in frame (--k = height / width), feathered into
+   black, with its words beneath. Desktop: a portrait panel on the right, words on the left. */
+.seq .item { position: absolute; inset: 0; overflow: hidden; background: var(--black); }
+.item--photo .still { bottom: auto; height: min(calc(100cqw * var(--k)), 76%); -webkit-mask-image: linear-gradient(#000 78%, transparent); mask-image: linear-gradient(#000 78%, transparent); }
+#q-scrim { z-index: 20; }
+.film > .p-head { z-index: 21; }
+.p-head .micro + .micro { margin-top: -8px; }
+.nw { white-space: nowrap; }
+#n-lanctot { bottom: auto; top: calc(min(100cqw * 1.228, 76%) - 24px); }
+html.wide .seq .item { inset: 7% 9% 7% auto; aspect-ratio: 9 / 16; width: auto; height: 86%; }
+html.wide .seq .item--photo { aspect-ratio: var(--ar); }
+html.wide .item--photo .still { inset: 0; height: auto; -webkit-mask-image: none; mask-image: none; }
+html.wide #q-scrim { display: none; }
+html.wide .film > .p-head { left: 9%; right: auto; bottom: 14%; max-width: 44%; }
+html.wide #n-lanctot { top: auto; bottom: 14%; }
+
+/* Beyond the workday: the helicopter stands alone; the amenity groups are named where the
+   counter used to sit */
+html.wide .heli__img { inset: 7% auto; left: 50%; right: auto; transform: translateX(-50%); }
+.groups { position: absolute; right: var(--g); top: calc(5% + env(safe-area-inset-top, 0px)); width: 60%; height: 20px; }
+.group { position: absolute; right: 0; top: 0; margin: 0; white-space: nowrap; color: var(--pearl); visibility: hidden; }
+
+/* Pursuit: the statement is centred however many lines it takes */
+.point { top: 50%; margin-top: 0; transform: translateY(-50%); }
+.cta__title { text-wrap: balance; }
+
+/* the film controls retire when the film is over; Watch again brings them back */
+body.is-ended .ctl { opacity: 0; visibility: hidden; }
+
+@supports not (width: 1cqw) {
+  .cover__title { font-size: clamp(22px, 6.6vw, 52px); }
   .item--photo .still { height: min(calc(100vw * var(--k)), 76%); }
-  #n-lanctot { top: calc(min(100vw * 1.228, 76%) - 18px); }
-  html.wide .say { font-size: clamp(38px, 3.4vw, 60px); }
-  html.wide .name__who { font-size: clamp(30px, 2.4vw, 42px); }
-  html.wide .cover__title { font-size: clamp(44px, 4vw, 68px); }
-  html.wide .cta__title { font-size: clamp(48px, 4.6vw, 76px); }
+  #n-lanctot { top: calc(min(100vw * 1.228, 76%) - 24px); }
 }

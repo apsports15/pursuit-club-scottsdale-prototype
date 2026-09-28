@@ -22,33 +22,33 @@ clock and the clip carrying it; `window.ClubScottsdale` in the console has helpe
 
 ## The film
 
-About 67 s on every screen. The story: enter the place, explore it, learn from
+About 68 s on every screen. The story: enter the place, explore it, learn from
 experience, see the relationships and perspectives, discover the amenities, understand
 the connection to Pursuit, apply. People are named from the client's identification.
 
 | | Chapter | Media | On screen |
 |---|---|---|---|
 | 1 | Enter | Cover still, drone | *Enter the ecosystem.* / CLUB SCOTTSDALE · SCOTTSDALE, ARIZONA / *Scroll once to begin.* / *A one-minute look inside.* The first scroll, tap or key starts the film; the cover cuts to black and the drone descends and flies over the cars. |
-| 2 | Step inside | FPV flight | *Step inside.* over the threshold, then one room label at a time: THE LOUNGE, THE FLOOR, THE COLLECTION, THE MEETING SPACE. |
-| 3 | Learn | Session photo, Jeremy Miner clip, audience | *Who you learn from matters.* (over the photo) · **Jeremy Miner** / Sales trainer · Founder, 7th Level (over his clip, ~3.3 s) · the audience. |
-| 4 | Connect | Table, dinner, room, Lanctot & Menery photo, Kyler Murray clip, conversation | *Build relationships beyond the workday.* · **Michael Lanctot & Bob Menery** / AT CLUB SCOTTSDALE (photo, ~3.6 s) · **Kyler Murray** / NFL quarterback / AT CLUB SCOTTSDALE (clip, ~3.4 s). |
+| 2 | Step inside | FPV flight (the pass over the cars at 1.25×) | *STEP INSIDE.* over the threshold, then the room names in large serif, one at a time, with the numbered list of rooms beside them previewing what comes next: 01 THE LOUNGE, 02 THE FLOOR, 03 THE COLLECTION, 04 THE MEETING SPACE. |
+| 3 | Learn | Session photo, Jeremy Miner clip, a presenter teaching in the lounge room, a speaker on the mic, applause | *Who you learn from matters.* (over the photo) · **Jeremy Miner** / Sales trainer · Founder, 7th Level (over his clip, ~3.3 s) · two more teaching moments, wordless · the audience. |
+| 4 | Connect | Table, dinner, room, Kyler Murray clip, Lanctot & Menery photo, conversation | *Build relationships beyond the workday.* · **Kyler Murray** / NFL quarterback / AT CLUB SCOTTSDALE (clip, ~3.4 s) · **Michael Lanctot & Bob Menery** / AT CLUB SCOTTSDALE (photo, 3 s). |
 | 5 | Beyond the workday | Helicopter still, 9 amenity shots | The helicopter, wordless. Then *Space to connect, create, and unwind.* with a small label naming each group as it plays: CONNECT (DJ, card room, lounge), CREATE (podcast), UNWIND (sim racing, pickleball, barber, terrace). |
 | 6 | Pursuit | — | *Club Scottsdale is one part of the Pursuit ecosystem.* Then *Build your next chapter with Pursuit.* / **Apply to Pursuit** / Watch again. The film controls retire. |
 
 ## Typography
 
+The prototype's original type, carrying the new words.
+
 | Role | Face | Phone | Desktop |
 |---|---|---|---|
-| Opening and closing line | Instrument Serif 400, sentence case | 38–64 px | 44–76 px |
-| Narrative statement | Outfit 500, sentence case, two lines at most | 32–42 px, line height 1.12 | 38–60 px |
-| Name | Outfit 500 | 24–30 px | 30–42 px |
-| Role | Outfit 400 | 15 px | 17 px |
-| Label (room, group, context, identity) | Outfit 500, uppercase, 0.13–0.14 em tracking | 11.5–12.5 px | same |
-| Controls | Outfit 500, 0.14 em tracking | 10.5–11 px | same |
+| Titles, statements, names, room names | Instrument Serif 400, uppercase, line height 0.9, the key word in italic | 34–64 px (room names and *Step inside.* larger, up to 13.5 % of the width) | up to 150 px |
+| Cover title | Instrument Serif 400, uppercase, open tracking, one line | 22–29 px | 30–52 px |
+| Labels (role, context, room list, group, chapter) | Outfit, uppercase, 0.3 em tracking | 9.5–10.5 px | same |
+| Apply | Outfit, uppercase, in an outlined button | 10.5 px | same |
 
-Every phrase enters and leaves whole: a fade with a few pixels of settle. A new phrase
-arrives only after the previous one has fully gone (audited every 50 ms: no two ever
-overlap). Phones show clips full screen and photographs across the top at a width that
+Every phrase enters and leaves whole, and a new phrase arrives only after the previous
+one has fully gone (audited every 50 ms: no two ever overlap). Room names change letter
+by letter. Phones show clips full screen and photographs across the top at a width that
 keeps everyone in frame, with the words beneath; desktop shows each person moment in a
 portrait panel with the words beside it.
 

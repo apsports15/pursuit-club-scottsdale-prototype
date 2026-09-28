@@ -182,10 +182,8 @@
     clips = [];
     marks = {};
 
-    $('#s-rooms').innerHTML = MEDIA.clips.flight.marks.map((mk) => `<p class="label">${mk.label}</p>`).join('');
-
     // Everything starts hidden except the cover.
-    const TEXT = ['#s-step', '.rooms .label', '#q-learn', '#q-connect', '.name', '.group', '#r-say', '#pt-line', '.cta__title', '.cta__btn', '.cta__replay'];
+    const TEXT = ['#s-step', '#s-rooms', '.film > .p-head', '.group', '#r-say', '#pt-line', '.cta__title', '.cta__btn', '.cta__replay'];
     gsap.set(['#s-aerial', '#s-inside', '#s-seq', '#q-scrim', '#s-heli', '#s-reel', '#s-point', '.cta'].concat(TEXT), { autoAlpha: 0 });
     gsap.set('#s-gate', { autoAlpha: 1 });
     gsap.set('.gate__in', { autoAlpha: 1, y: 0 });
@@ -217,22 +215,12 @@
     const fl = addClip($('#s-flight'), F0, true);
     S('#s-aerial', { autoAlpha: 0 }, F0 + 1.35);
     const stepGone = sayOut('#s-step', F0 + 1.6);
-    // One room label at a time, in sequence: each arrives at its room (or once the one
-    // before has fully gone), holds at least 1.8 s, and leaves before the next arrives.
+    // The rooms: the big name and the numbered list of what's coming, as before. They take
+    // over once the title has fully gone.
     const O1 = fl.end - 0.95;                            // the page turns into Learn here
-    const labels = $$('.rooms .label');
-    const marksF = MEDIA.clips.flight.marks;
-    let free = stepGone + GAP;
-    marksF.forEach((mk, k) => {
-      const inAt = Math.max(F0 + mk.t, free);
-      const last = k + 1 === marksF.length;
-      const nextMark = last ? O1 + 0.5 : F0 + marksF[k + 1].t;
-      // the last room's label may ride the page turn out (it sits under the turning page)
-      const outAt = Math.min(Math.max(nextMark - 0.3, inAt + 1.8), last ? O1 + 0.2 : O1 - 0.6);
-      if (outAt - inAt < 1.2) return;                     // too brief to read: leave it out
-      sayIn(labels[k], inAt, 0.6);
-      free = sayOut(labels[k], outAt, 0.45) + GAP;
-    });
+    FT('#s-rooms', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.4, ease: 'none' }, stepGone + GAP);
+    tl.to('#s-rooms', { autoAlpha: 0, duration: 0.35, ease: 'none' }, O1 - 0.35);
+    marks.roomsFrom = stepGone + GAP - F0;
     marks.flight = fl;
 
     /* ---------------- 3 · Learn, 4 · Connect: page turns through people */
@@ -266,6 +254,8 @@
     const jer = place('i-jeremy');
     sayIn('#n-jeremy', Math.max(jer.start + 0.15, learnGone + GAP), 0.6);
     sayOut('#n-jeremy', jer.end - 0.6);
+    place('i-lounge');                                   // teaching a small group
+    place('i-mic');                                      // on a microphone, a full room
     place('i-applause');
 
     chapter('Connect', at);
@@ -275,13 +265,14 @@
     sayIn('#q-connect', panel.start + 0.6);
     const connGone = sayOut('#q-connect', net.end - 0.6);
     at = Math.max(at, connGone + 0.05);
-    const lm = place('i-lanctot', 4.6);
-    sayIn('#n-lanctot', Math.max(lm.start + 0.6, connGone + GAP));
-    const lmGone = sayOut('#n-lanctot', lm.start + 4.5);
-    at = Math.max(at, lmGone - 0.3);
     const ky = place('i-kyler');
-    sayIn('#n-kyler', Math.max(ky.start + 0.5, lmGone + GAP));
+    sayIn('#n-kyler', Math.max(ky.start + 0.5, connGone + GAP));
     const kyGone = sayOut('#n-kyler', ky.end - 0.7);
+    at = Math.max(at, kyGone + 0.05);
+    const lm = place('i-lanctot', 3.0);
+    sayIn('#n-lanctot', Math.max(lm.start + 0.5, kyGone + GAP));
+    const lmGone = sayOut('#n-lanctot', lm.start + 3.0);
+    at = Math.max(at, lmGone - 0.3);
     const cand = place('i-candid');
 
     /* ---------------- 5 · Beyond the workday: the helicopter, no words, then the amenities */
@@ -331,11 +322,36 @@
   /* ------------------------------------------------------------------ UI bound to film time */
 
 
+  const roomList = $('#s-room-list');
+  const roomNow = $('#s-now');
+  let ROOMS = [];
+  let roomIdx = -2;
+
+  function splitChars(el, txt) {
+    el.setAttribute('aria-label', txt);
+    el.innerHTML = Array.from(txt).map((c) => `<span class="c" aria-hidden="true">${c === ' ' ? '&nbsp;' : c}</span>`).join('');
+    return $$('.c', el);
+  }
+
   function buildUI() {
+    ROOMS = MEDIA.clips.flight.marks.map((mk, i) => ({ at: mk.t, name: mk.label, n: String(i + 1).padStart(2, '0') }));
+    roomList.innerHTML = ROOMS.map((r) => `<li><span>${r.n}</span>${r.name}</li>`).join('');
+    ROOMS.forEach((r, i) => { r.li = roomList.children[i]; });
+    roomIdx = -2;
     $('#ctl-ticks').innerHTML = CH.slice(1).map((c) => `<i style="left:${((c.t / TOTAL) * 100).toFixed(3)}%"></i>`).join('');
   }
 
   function updateUI(animate) {
+    // rooms, keyed to the flight's own time
+    const fl = marks.flight;
+    const ft = T - fl.start;
+    let i = -1;
+    if (T >= fl.start - 0.01 && T < fl.end) for (let k = 0; k < ROOMS.length; k++) if (ft >= Math.max(ROOMS[k].at, marks.roomsFrom)) i = k;
+    if (i !== roomIdx) {
+      roomIdx = i;
+      ROOMS.forEach((r, k) => { r.li.classList.toggle('is-on', k === i); r.li.classList.toggle('is-near', k === i + 1); });
+      showRoom(i, animate && K);
+    }
     // controls
     const p = clamp(T / TOTAL, 0, 1);
     $('#ctl-fill').style.transform = `scaleX(${p.toFixed(4)})`;
@@ -352,6 +368,21 @@
     }
     body.classList.toggle('is-playing', !(state === 'ended' || T >= marks.header));
     updateSkipLabel();
+  }
+  // A room name changes in two clean steps: the old name rises and fades out completely,
+  // then the new one rises in. When seeking, it changes at once.
+  let roomTween = null;
+  function showRoom(i, animate) {
+    if (roomTween) { roomTween.kill(); roomTween = null; }
+    const put = () => {
+      if (i < 0) { roomNow.textContent = ''; return; }
+      const cs = splitChars(roomNow, ROOMS[i].name);
+      if (animate) roomTween = gsap.fromTo(cs, { y: 14, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.6, stagger: 0.02, ease: 'power3.out' });
+    };
+    const old = $$('.c', roomNow);
+    if (animate && old.length) {
+      roomTween = gsap.to(old, { y: -8, autoAlpha: 0, duration: 0.28, stagger: 0.008, ease: 'power2.in', onComplete: put });
+    } else put();
   }
   const fmt = (s) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
   function chapterAt(t) {

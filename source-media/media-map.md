@@ -75,7 +75,7 @@ The chapter is a single guided film (see `README.md`). In running order:
 | `neon` still | 51.583 (the clip's exact last frame, same grade) | still | The sign splits open on this frame, in two halves | — |
 | `cover` | supplied still, `source-media/cover/` | still | The editorial cover. Not from the master: a different day and car line-up, so the film cuts to black before the drone. | — |
 | `aerial` | **reversed: 10.10–11.44 at 0.4×, 9.70–10.10 at 0.55×, 9.35–9.70 at 0.75×** + 15.86–19.07 at 0.75× | video | The first moving shot: the drone's rise off the tent played backwards, so it starts high and descends, quickening near the cars and stopping short of the near-still frames at the start of the rise. The frame drifts toward the McLaren's left side (zoom to 1.12×), then a 0.5 s smoothleft blend carries it into the glide over the cars, slowed so each car holds. | 8.3 s |
-| `flight` | 58.42–74.35 + 74.37–76.83 | video | Step inside: the flight at normal speed, doorway to the collection, then on through the source's own cut (74.367) into the room with the round white sofa, up to the cut to the applause (76.867). The last room's landscape crop sits lower (y .62) so the sofa and the people stay in frame. Room marks: The lounge 0.98, The floor 3.83, The collection 8.18, The inner room 15.93 s (output time). | 18.4 s |
+| `flight` | 58.42–66.60 + 66.60–74.35 at 1.25× + 74.37–76.83 | video | Step inside: the flight at normal speed from the doorway through the lounge and the floor; the pass over the cars (the collection) runs at 1.25× so it does not linger; then on through the source's own cut (74.367) into the room with the round white sofa, up to the cut to the applause (76.867). The last room's landscape crop sits lower (y .62). Room marks: The lounge 0.98, The floor 3.83, The collection 8.17, The meeting space 14.37 s (output time). | 16.8 s |
 | `room` | supplied photo, `source-media/value/club-scottsdale-room.webp` (1320×1526) | still | The value: a session under the hex lights, the speaker in a white shirt and hat by the screen, the group on the sofa and chairs. Phones crop to its left side, keeping the speaker; desktop shows it whole. | — |
 | `p-session` … `p-candid` | as before (27.03–28.85, 32.47–35.27, 78.70–80.22, 76.95–78.62, 30.92–32.40, 46.90–48.40, 51.72–53.85, 53.95–55.62) | video | In the room, around the table | 1.5–2.8 s each |
 | `helicopter` | 0.60 | still | Access | — |
@@ -121,7 +121,8 @@ HEVC set is about 13 MB (H.264 1080: about 20 MB).
 | `p-session` | master 27.03–28.97 at 0.45× | Jeremy Miner (sales trainer, founder of 7th Level) presenting; "5 Stages NEPQ" on his screen. Learn chapter. |
 | `p-kyler` | `source-media/people/kyler-murray.mov` (720×1280, 4 s, ~24 fps; from main as `ea52999be3e640139aaafb4414a5f859.mov`), 0.02–4.00 at 0.8× | Kyler Murray (NFL quarterback) at Club Scottsdale: one slow pan along a group under the hex ceiling, the whole clip. Upscaled to 1080, so softer than the master. |
 | `lanctot` still | `source-media/people/lanctot-menery.jpg` (1320×1621; from main as `IMG_2399.jpg`) | Michael Lanctot and Bob Menery in conversation on the lounge sofas. Shown whole across a phone's width so both stay in frame. |
+| `p-lounge` | master 32.47–35.27 | A session in the LOUNGE room: a presenter teaching a seated group. Learn chapter, after Jeremy Miner. |
+| `p-room` | master 78.70–80.22 | A speaker on the microphone in front of a full room. Learn chapter. |
 | `room` still | `source-media/value/club-scottsdale-room.webp` | The session under the hex lights; carries "Who you learn from matters." |
 
-Retired with this revision: `p-lounge`, `p-room` (other presenters; the Learn chapter
-centres on Jeremy Miner), the 17-shot amenity edit (now nine shots in three groups).
+Retired with the previous revision: the 17-shot amenity edit (now nine shots in three groups).

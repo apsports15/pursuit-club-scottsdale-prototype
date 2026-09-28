@@ -66,17 +66,19 @@ CLIPS = {
                          P(15.86, 19.07, 0.5, speed=0.75)],
                'kinds': ['portrait', 'wide'], 'cuts': True,
                'drift': {'zoom': 0.12, 'x': 0.34}, 'xfade': 0.5},
-    # the FPV flight, uncut and at speed: doorway, the lounge, the event floor, the
+    # the FPV flight, uncut: the collection (66.6-74.35) runs a touch faster, 1.25x: doorway, the lounge, the event floor, the
     # collection, and on (the source's own cut at 74.367) into the room with the round
     # white sofa, up to the cut to the applause at 76.867. The last room gets its own
     # landscape crop, lower, so the sofa and the people in it stay in frame.
-    'flight': {'parts': [P(58.42, 74.35, 0.52), P(74.37, 76.83, 0.62)],
+    'flight': {'parts': [P(58.42, 66.60, 0.52), P(66.60, 74.35, 0.52, speed=1.25), P(74.37, 76.83, 0.62)],
                'kinds': ['portrait', 'wide'],
                'marks': [('The lounge', 59.40), ('The floor', 62.25), ('The collection', 66.60), ('The meeting space', 74.37)]},
     # people. Learn: Jeremy Miner presenting (the whole shot, at 0.45x so his name can be
     # read), then the audience. Connect: the table, the dinner, a supplied clip of Kyler
     # Murray, the room, a candid conversation.
     'p-session': {'parts': [P(27.03, 28.97, speed=0.45)], 'kinds': ['portrait']},
+    'p-lounge': {'parts': [P(32.47, 35.27)], 'kinds': ['portrait']},    # teaching a small group (LOUNGE)
+    'p-room': {'parts': [P(78.70, 80.22)], 'kinds': ['portrait']},      # on a microphone, a room of ~100
     'p-applause': {'parts': [P(76.95, 78.62)], 'kinds': ['portrait']},
     'p-panel': {'parts': [P(51.72, 53.85)], 'kinds': ['portrait']},
     'p-dinner': {'parts': [P(46.90, 48.40)], 'kinds': ['portrait']},
@@ -194,7 +196,9 @@ def slow_source(p):
             vf = f"trim=duration={p['out'] - p['in']:.3f},setpts=PTS-STARTPTS,scale=in_range=pc:out_range=tv,format=yuv420p"
         if p['reverse']:
             vf += ',reverse'
-        if p['speed'] != 1.0:
+        if p['speed'] > 1.0:     # faster: drop frames evenly, no interpolation needed
+            vf += f",setpts=PTS/{p['speed']},fps={FPS}"
+        elif p['speed'] != 1.0:
             vf += (f',minterpolate=fps={rate.numerator}/{rate.denominator}:mi_mode=mci:mc_mode=aobmc:'
                    f"me_mode=bidir:vsbmc=1,setpts=PTS/{p['speed']},fps={FPS}")
         print(f'  intermediate {p["in"]}-{p["out"]} at {p["speed"]}x{" reversed" if rev else ""} (slow)')

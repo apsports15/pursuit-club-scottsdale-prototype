@@ -58,38 +58,38 @@ window.CS_MEDIA = {
    ]
   },
   "flight": {
-   "frames": 552,
-   "duration": 18.4,
+   "frames": 505,
+   "duration": 16.833,
    "variants": {
     "p1080.hevc": {
      "src": "flight.p1080.hevc.mp4",
      "w": 1080,
      "h": 1920,
-     "kb": 4133
+     "kb": 3904
     },
     "p1080": {
      "src": "flight.p1080.mp4",
      "w": 1080,
      "h": 1920,
-     "kb": 8886
+     "kb": 8267
     },
     "p720": {
      "src": "flight.p720.mp4",
      "w": 720,
      "h": 1280,
-     "kb": 3815
+     "kb": 3571
     },
     "w1080.hevc": {
      "src": "flight.w1080.hevc.mp4",
      "w": 1080,
      "h": 810,
-     "kb": 2317
+     "kb": 2191
     },
     "w1080": {
      "src": "flight.w1080.mp4",
      "w": 1080,
      "h": 810,
-     "kb": 4411
+     "kb": 4104
     }
    },
    "posters": {
@@ -111,11 +111,11 @@ window.CS_MEDIA = {
      "label": "The floor"
     },
     {
-     "t": 8.18,
+     "t": 8.167,
      "label": "The collection"
     },
     {
-     "t": 15.933,
+     "t": 14.367,
      "label": "The meeting space"
     }
    ]
@@ -147,6 +147,66 @@ window.CS_MEDIA = {
     "portrait": [
      "p-session.portrait.1080.webp",
      "p-session.portrait.720.webp"
+    ]
+   }
+  },
+  "p-lounge": {
+   "frames": 84,
+   "duration": 2.8,
+   "variants": {
+    "p1080.hevc": {
+     "src": "p-lounge.p1080.hevc.mp4",
+     "w": 1080,
+     "h": 1920,
+     "kb": 213
+    },
+    "p1080": {
+     "src": "p-lounge.p1080.mp4",
+     "w": 1080,
+     "h": 1920,
+     "kb": 610
+    },
+    "p720": {
+     "src": "p-lounge.p720.mp4",
+     "w": 720,
+     "h": 1280,
+     "kb": 236
+    }
+   },
+   "posters": {
+    "portrait": [
+     "p-lounge.portrait.1080.webp",
+     "p-lounge.portrait.720.webp"
+    ]
+   }
+  },
+  "p-room": {
+   "frames": 46,
+   "duration": 1.533,
+   "variants": {
+    "p1080.hevc": {
+     "src": "p-room.p1080.hevc.mp4",
+     "w": 1080,
+     "h": 1920,
+     "kb": 373
+    },
+    "p1080": {
+     "src": "p-room.p1080.mp4",
+     "w": 1080,
+     "h": 1920,
+     "kb": 786
+    },
+    "p720": {
+     "src": "p-room.p720.mp4",
+     "w": 720,
+     "h": 1280,
+     "kb": 338
+    }
+   },
+   "posters": {
+    "portrait": [
+     "p-room.portrait.1080.webp",
+     "p-room.portrait.720.webp"
     ]
    }
   },
