@@ -15,6 +15,10 @@ import * as React from "react"
 import { addPropertyControls, ControlType, RenderTarget } from "framer"
 
 const APPLY_URL = "https://apply.thepursuitpath.com/"
+// Where the film's videos and images are hosted (README, section 4). It is the default of the
+// "Media URL" property, so the film works as soon as it is placed; change it in the properties
+// panel to move the media (for example to Cloudflare Pages).
+const MEDIA_URL = "https://apsports15.github.io/pursuit-club-scottsdale-prototype/public/media/club-scottsdale/"
 
 /* The approved stylesheet, namespaced under .pursuit-club-chapter. */
 const STYLE = __STYLE__
@@ -93,13 +97,13 @@ function previewLayout(host) {
  * The Club Scottsdale chapter: a guided film that runs as one section of the page.
  * Width: Fill. Height: Fit (the component is always one viewport tall).
  *
- * @framerSupportedLayoutWidth fixed
- * @framerSupportedLayoutHeight auto
+ * @framerSupportedLayoutWidth any
+ * @framerSupportedLayoutHeight any
  * @framerIntrinsicWidth 1200
  * @framerIntrinsicHeight 800
  */
 export default function ClubScottsdaleChapter(props) {
-    const { assetBase = "", applyUrl = APPLY_URL, hideSiteHeader = true, headerSelector = "" } = props
+    const { assetBase = MEDIA_URL, applyUrl = APPLY_URL, hideSiteHeader = true, headerSelector = "" } = props
     const base = normalizeBase(assetBase)
     // The canvas preview is decided after mount, so the server-rendered HTML of the live page
     // never depends on where it was rendered (hydration always matches).
@@ -149,7 +153,7 @@ addPropertyControls(ClubScottsdaleChapter, {
     assetBase: {
         type: ControlType.String,
         title: "Media URL",
-        defaultValue: "",
+        defaultValue: MEDIA_URL,
         placeholder: "https://…/club-scottsdale/",
         description: "The folder where the film's videos and images are hosted.",
     },

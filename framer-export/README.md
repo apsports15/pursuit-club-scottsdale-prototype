@@ -115,11 +115,13 @@ if you want the prototype to match.
 
 ### Framer sizing annotations
 ```
-@framerSupportedLayoutWidth fixed    → Width: Fill (or a fixed width); no "Fit"
-@framerSupportedLayoutHeight auto    → Height: Fit; the component sets its own height
+@framerSupportedLayoutWidth any      → Width can be Fill, Fixed or Fit (use Fill)
+@framerSupportedLayoutHeight any     → Height can be Fill, Fixed or Fit (use Fit)
 @framerIntrinsicWidth 1200           → size when first dropped on the canvas
 @framerIntrinsicHeight 800
 ```
+(An earlier version said `fixed` for the width. Framer then greys out Fill, so always use
+`any`.)
 The component's root is `width: 100%` and `height: 100vh`, then `100dvh` (one screen,
 following mobile browser bars), with a minimum of 420 px. Framer's container (the
 `framer-…-container` wrapper) takes that height.

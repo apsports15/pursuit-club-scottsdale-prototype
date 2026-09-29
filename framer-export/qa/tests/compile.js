@@ -18,7 +18,7 @@ check('transpiles with no diagnostics', out.diagnostics.length === 0, out.diagno
 const exportsFound = sf.statements.filter((s) => (ts.getCombinedModifierFlags(s) & ts.ModifierFlags.Export) || ts.isExportAssignment(s) || ts.isExportDeclaration(s));
 check('one export: the default component', exportsFound.length === 1 && /export default function ClubScottsdaleChapter/.test(exportsFound[0].getText()), exportsFound.map((s) => s.getText().slice(0, 60)));
 const doc = /\/\*\*[\s\S]*?\*\/\s*export default function ClubScottsdaleChapter/.exec(src);
-check('sizing annotations directly above it', doc && ['@framerSupportedLayoutWidth fixed', '@framerSupportedLayoutHeight auto', '@framerIntrinsicWidth 1200', '@framerIntrinsicHeight 800'].every((a) => doc[0].includes(a)));
+check('sizing annotations directly above it', doc && ['@framerSupportedLayoutWidth any', '@framerSupportedLayoutHeight any', '@framerIntrinsicWidth 1200', '@framerIntrinsicHeight 800'].every((a) => doc[0].includes(a)));
 check('imports only react and framer', [...src.matchAll(/^import .* from "([^"]+)"/gm)].map((m) => m[1]).join() === 'react,framer');
 // Import it in Node with no DOM, as a server render would (react and framer stubbed).
 const Module = require('module');
