@@ -71,7 +71,7 @@ export function mountFilm(host, opts) {                                 // [fram
   const conn = navigator.connection || {};
   const LOW = !!(conn.saveData || /(^|-)(2g|3g)$/.test(conn.effectiveType || '')) ||
     Math.min(screen.width, screen.height) * (window.devicePixelRatio || 1) < 800;
-  const HEVC = (() => {
+  const HEVC = !opts.h264Only && (() => {                               // [framer] + h264Only: the component's "Video format" property
     try { return document.createElement('video').canPlayType('video/mp4; codecs="hvc1"') !== ''; } catch (e) { return false; }
   })();
 
@@ -533,6 +533,7 @@ export function mountFilm(host, opts) {                                 // [fram
 
   function syncClips() {
     const running = state === 'playing' && !scrubbing;
+    const lead0 = running ? leadClip() : null;                          // [framer] see "outgoing clip" below
     for (const c of clips) {
       const v = c.v;
       const near = T > c.start - PRELOAD && T < c.end + 1;
@@ -544,6 +545,14 @@ export function mountFilm(host, opts) {                                 // [fram
       // Never call play() on a clip that has run out: the browser would restart it.
       const spent = v.ended && local > (v.duration || c.dur) - 0.25;
       if (active && running) {
+        // [framer] The outgoing clip of an overlap never rewinds. When the next clip is late,
+        // the film waits for it while this clip would play on; the approved code then seeks it
+        // back to the film's time again and again, replaying its last moments over and over
+        // (a stutter that is not a loop). It now stops on its frame and lets the next clip in.
+        if (lead0 && c !== lead0) {
+          if (lead0.wait > 0.25 || v.ended) { if (!v.paused) v.pause(); continue; }
+          if (v.currentTime > local + 0.15) { if (v.paused && !spent && !v.seeking) playV(v); continue; }
+        }
         if (v.paused && !spent) {
           if (Math.abs(v.currentTime - local) > 0.15) seekV(v, local);
           if (!v.seeking) playV(v);

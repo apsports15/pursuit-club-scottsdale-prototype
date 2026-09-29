@@ -82,11 +82,11 @@ CLIPS = {
     'p-session': {'parts': [P(27.03, 28.97, speed=0.45)], 'kinds': ['portrait']},
     'p-lounge': {'parts': [P(32.47, 35.27)], 'kinds': ['portrait']},    # teaching a small group (LOUNGE)
     'p-room': {'parts': [P(78.70, 80.22)], 'kinds': ['portrait']},      # on a microphone, a room of ~100
-    'p-applause': {'parts': [P(76.95, 78.62)], 'kinds': ['portrait']},
-    'p-dinner': {'parts': [P(46.90, 48.40)], 'kinds': ['portrait']},
+    'p-applause': {'parts': [P(76.95, 78.62)], 'kinds': ['portrait'], 'fps': 30, 'trim_frames': 51},
+    'p-dinner': {'parts': [P(46.90, 48.40)], 'kinds': ['portrait'], 'fps': 30, 'trim_frames': 45},
     'p-kyler': {'parts': [P(0.02, 4.00, speed=0.8, src=KYLER)], 'kinds': ['portrait']},
-    'p-network': {'parts': [P(30.92, 32.40)], 'kinds': ['portrait']},
-    'p-candid': {'parts': [P(53.95, 55.62)], 'kinds': ['portrait']},
+    'p-network': {'parts': [P(30.92, 32.40)], 'kinds': ['portrait'], 'fps': 30, 'trim_frames': 45},
+    'p-candid': {'parts': [P(53.95, 55.62)], 'kinds': ['portrait'], 'fps': 30, 'trim_frames': 51},
     # amenities, in three groups the page names as they play: connect (social spaces),
     # create (the podcast studio), unwind (the real amenities). Fewer, longer shots than
     # the old edit; the shortest are slowed so each one can be recognised.
@@ -129,7 +129,7 @@ COVER_TALL = {'center_x': 960, 'crop_w': 660, 'aspect': 9 / 19.5, 'top': 0.15}
 H264 = ['-c:v', 'libx264', '-preset', 'slow', '-profile:v', 'high', '-pix_fmt', 'yuv420p',
         '-g', '30', '-keyint_min', '30', '-sc_threshold', '0']
 HEVC = ['-c:v', 'libx265', '-preset', 'medium', '-pix_fmt', 'yuv420p', '-tag:v', 'hvc1',
-        '-x265-params', 'keyint=30:min-keyint=30:scenecut=0:log-level=error']
+        '-x265-params', 'keyint=30:min-keyint=30:scenecut=0:open-gop=0:log-level=error']
 TAGS = ['-colorspace', 'bt709', '-color_primaries', 'bt709', '-color_trc', 'bt709',
         '-color_range', 'tv', '-movflags', '+faststart', '-an']
 
@@ -225,7 +225,7 @@ def encode(name, spec, kind, suffix, size, codec):
         # slowed parts can come out a frame or two short: pad with the last frame (at most
         # four, invisible) so the frame-exact trim always has enough
         chains.append(f"[{i}:v]{grade},{geometry(kind, p['y'])},scale={size[0]}:{size[1]}:flags=lanczos,setsar=1,"
-                      f'tpad=stop_mode=clone:stop=4,trim=end_frame={frames(p)},setpts=PTS-STARTPTS[v{i}]')
+                      f"tpad=stop_mode=clone:stop=4,trim=end_frame={spec.get('trim_frames', frames(p))},setpts=PTS-STARTPTS[v{i}]")
     if spec.get('xfade'):
         # every part but the last is one move (with an optional drift), blended into the last
         lead = parts[:-1]
@@ -249,7 +249,10 @@ def encode(name, spec, kind, suffix, size, codec):
         graph = ';'.join(chains) + f';[a][b]xfade=transition=smoothleft:duration={xf}:offset={d - xf:.3f}[out]'
     else:
         concat = ''.join(f'[v{i}]' for i in range(len(parts)))
-        graph = ';'.join(chains) + f';{concat}concat=n={len(parts)}:v=1:a=0[out]'
+        # (no frame rate leaves the graph unless asked for: ffmpeg then falls back to 25 fps.
+        # These short clips were first built at the master's 30 fps, 'fps' keeps them there.)
+        fps = f",fps={spec['fps']}" if spec.get('fps') else ''
+        graph = ';'.join(chains) + f';{concat}concat=n={len(parts)}:v=1:a=0{fps}[out]'
     run(args + ['-filter_complex', graph, '-map', '[out]'] + codec + TAGS + [str(out)])
     return out
 

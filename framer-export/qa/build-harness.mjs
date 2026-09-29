@@ -16,6 +16,7 @@
 //   ?lenis=1       a wheel-driven smooth-scroll script on the page (like Framer's smooth scroll)
 //   ?canvas=1      Framer canvas render target (no film, opening screen only)
 //   ?hide=0        leave the site header alone     ?sel=nav      header selector
+//   ?video=h264    the component's Video format property (default auto)
 //   ?defer=1       do not mount until window.__mount()
 //   ?strict=1      React.StrictMode (use index.dev.html: effects run, clean up, run again)
 //   ?assetBase=…   media folder (default: this repo's public/media/club-scottsdale/ on :8765)

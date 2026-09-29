@@ -97,8 +97,16 @@ screen tall.
 | Cover animation starts at page load | It would finish before anyone scrolls down | It starts when the film comes on screen, as it did in the prototype (the prototype was always on screen). |
 | Stand-in `.site-head` | The site has its own header | The site's fixed or sticky header gets the same fade and lift through two classes that are removed again. If the site re-renders its header mid-film, it is hidden again. |
 | GSAP measures `#s-close`'s own height to center it (`yPercent` detection) | At some sizes the detection misfires (see below) | `yPercent: -50` is set explicitly, which is the value the design uses everywhere else. |
+| A late clip makes the clip before it repeat | Clips overlap by 0.35 s. If the next clip is not ready, the film waits for it, but the current clip plays on, and the approved code then seeks it back to the film's time, over and over: the last fraction of a second replays in a stutter that is not a loop. It shows when a connection is slow or busy, for example on a reload. Reproduced by holding one clip back: the approved build did it at 4 of 5 clip changes tried | The outgoing clip stops on its frame while the film waits, and plays on when the next clip arrives. Same test on the component: 0 of 5. |
 
-**One visible difference, and it is a fix.** At certain sizes, GSAP misreads the element's
+**Video files.** The HEVC copies (used by Safari and by Chrome on Macs with HEVC support) were
+first built with an "open GOP", which makes a browser drop a few frames whenever it jumps to a
+position in the clip. They are rebuilt as closed GOP, from the master at the same quality
+settings, so every jump lands cleanly (`scripts/build_media.py`, `open-gop=0`). The H.264 copies
+already were closed GOP. The **Video format** property can force H.264 only.
+
+**Visible differences from the approved build, all fixes.** The first is the late-clip stutter
+above. The second: At certain sizes, GSAP misreads the element's
 existing −50% centring when it starts animating "Ready to make it yours?". Seen at 810 × 1080
 tablet, and at some desktop sizes when the page has a scrollbar. In the approved build the line
 then sits about 17 px below centre. The component always centres it as designed. At every
@@ -213,7 +221,9 @@ Safari on an iPhone. It should play.
      place to look.
    - Nothing may come after the component: no bottom padding in the page stack, and no footer.
 6. **Properties** (right-hand panel, with the component selected):
-   - **Media URL**: the hosted folder from [4](#4-assets-and-fonts), ending in `/club-scottsdale/`.
+   - **Media URL**: already set to the GitHub Pages copy of the media. Change it only if you host
+     the media somewhere else (ending in `/club-scottsdale/`).
+   - **Video format**: leave on **Automatic**; see "If a clip ever stutters" below.
    - **Apply URL**: `https://apply.thepursuitpath.com/` (already filled in).
    - **Site header**: **Hide in film** (the default). The header fades out for the film and
      comes back for the ending.
@@ -257,6 +267,7 @@ client-side and server-rendered then hydrated. The tests are in `qa/tests/`.
 | **Computed styles** (`run_parity.sh`). Every CSS property and the box of each of the 188 film elements and their pseudo-elements, at 12 film times from the opening screen to the end | 390 × 844, 375 × 667, 810 × 1080, 1180 × 820, 1280 × 720, 1440 × 900; server-rendered and hydrated; a transformed container; aggressive site CSS | **0 differences**, with two exceptions. At 810 × 1080, `#s-close` differs: that is the fix above, 17 px higher, back on centre. Under aggressive site CSS, the opening-screen snapshot measures the boxes of hidden (`display: none`) elements from a page scrolled past the film; everything drawn is identical. |
 | **In-page behaviour** (`inpage.js`). Docking, the opening screen, arming, the lock, the header (including when the site re-renders it), tap/pause, the end, coming back, Watch again, unmount mid-film and remount, `scroll-behavior: smooth`, a Lenis-style smooth scroll, content below, both header settings, a transformed container, the Framer canvas, server render and hydration (React dev build: no mismatch), StrictMode, prop changes, nothing leaking out, media deferral, fonts | 390 × 844 touch; 1440 × 900 wheel and keys, with a classic scrollbar | **69 / 69** |
 | **Viewer behaviour, both builds** (`run_behaviour.sh`). Transport: pause, resume, seek by tap and drag, keys, seek while paused, Skip through every chapter, End, Watch again, the skip link. A real-time playthrough (71.5 s). Low Power Mode, emulated | 390 × 844 touch; 1440 × 900 | **Identical on both builds.** Transport 17 / 17 on phone and desktop. Playthrough 8 / 8: the film clock stayed within 0.6 s of the wall clock over the 71.5 s, with no stalls and no loops, and the page never moved. Low Power Mode 4 / 4: a swipe start never blocks, and an untrusted start shows "Tap to play" once, after which one tap carries it to the end. |
+| **A clip that arrives late** (`glitch.js`, `slow_server.js`). The film played with one clip held back, so its neighbour had to wait for it, and every clip on screen was sampled every 40 ms for a rewind. Also on a slow, freezing connection | five clip changes, both builds | Approved build: the outgoing clip rewound and replayed at **4 of 5**. Component: **0 of 5**. |
 | **The Framer file** (`compile.js`). Parses and transpiles as TSX, one export, annotations in place, imports only `react` and `framer`, safe to import on a server | — | **6 / 6** |
 
 What this could not cover:
@@ -297,6 +308,14 @@ The manual checks below cover all three.
 - [ ] Resizing the window during the film keeps it filling the window.
 - [ ] After the end, scrolling up returns to the rest of the page.
 
+**If a clip ever stutters or repeats**
+- Reload with the browser's network throttled (Chrome DevTools → Network → Slow 4G) and play the
+  film through. This is the case that used to make a clip repeat.
+- Set **Video format** to **H.264 only** and try again. If the stutter goes away, the device's
+  HEVC decoder is the cause; leave it on H.264 only.
+- Add `?debug` to the page address: the readout shows the film time and, for the clip on screen,
+  its own time, its state and whether it is stalled. Send me a screenshot of it at the moment.
+
 **If something is off**
 - The header doesn't hide: set **Header selector** (see [5](#5-inserting-it-into-the-framer-page), step 6).
 - Videos don't play on iPhone: run `cdn/check.mjs` against the Media URL. The host must
@@ -313,6 +332,10 @@ PROXY_DIR=<webm folder> node tests/inpage.js
 PROXY_DIR=<webm folder> sh tests/run_behaviour.sh
 PROXY_DIR=<webm folder> OUT=/tmp/vr sh tests/run_vr.sh          # then read /tmp/vr/*.summary.json
 PROXY_DIR=<webm folder> OUT=/tmp/parity sh tests/run_parity.sh  # then read /tmp/parity/*.json
+# a clip that arrives late (prints one JSON line; "glitches" should be 0):
+PROXY_DIR=<webm folder> DELAY_CLIP=p-room:14500 node tests/glitch.js harness 5 0
+# media on a slow, freezing connection: node tests/slow_server.js <webm folder> 8801 70 1, then
+PROXY_DIR=<webm folder> SLOW=http://localhost:8801/ node tests/glitch.js harness 1 0
 ```
 Playwright's own Chromium can't play H.264 or HEVC. `PROXY_DIR` is a folder of WebM copies of
 the clips, made with `sh make-proxies.sh <webm folder>` (needs ffmpeg). Both builds play the

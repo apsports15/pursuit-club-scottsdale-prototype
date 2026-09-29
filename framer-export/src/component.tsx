@@ -103,7 +103,7 @@ function previewLayout(host) {
  * @framerIntrinsicHeight 800
  */
 export default function ClubScottsdaleChapter(props) {
-    const { assetBase = MEDIA_URL, applyUrl = APPLY_URL, hideSiteHeader = true, headerSelector = "" } = props
+    const { assetBase = MEDIA_URL, applyUrl = APPLY_URL, hideSiteHeader = true, headerSelector = "", videoFormat = "auto" } = props
     const base = normalizeBase(assetBase)
     // The canvas preview is decided after mount, so the server-rendered HTML of the live page
     // never depends on where it was rendered (hydration always matches).
@@ -134,11 +134,12 @@ export default function ClubScottsdaleChapter(props) {
             media: MEDIA,
             base,
             fonts,
+            h264Only: videoFormat === "h264",
             hideHeader: hideSiteHeader,
             headerSelector: String(headerSelector || "").trim(),
         })
         return () => { done(); film.destroy() }
-    }, [html, still, hideSiteHeader, headerSelector])
+    }, [html, still, hideSiteHeader, headerSelector, videoFormat])
     return (
         <div
             ref={ref}
@@ -168,6 +169,14 @@ addPropertyControls(ClubScottsdaleChapter, {
         defaultValue: true,
         enabledTitle: "Hide in film",
         disabledTitle: "Always show",
+    },
+    videoFormat: {
+        type: ControlType.Enum,
+        title: "Video format",
+        options: ["auto", "h264"],
+        optionTitles: ["Automatic (smaller files on Apple devices)", "H.264 only (most compatible)"],
+        defaultValue: "auto",
+        description: "If a clip ever stutters on one device, try H.264 only.",
     },
     headerSelector: {
         type: ControlType.String,

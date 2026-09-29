@@ -5,5 +5,6 @@ export function harnessProps(q) {
     applyUrl: q.get('apply') || 'https://apply.thepursuitpath.com/',
     hideSiteHeader: q.get('hide') !== '0',
     headerSelector: q.get('sel') || '',
+    videoFormat: q.get('video') || 'auto',
   };
 }

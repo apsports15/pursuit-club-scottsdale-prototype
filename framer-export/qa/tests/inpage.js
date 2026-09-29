@@ -2,7 +2,7 @@
 // the scroll lock, the site header, the end, replay, glide-to-dock, resize, unmount and
 // remount, other page setups (smooth scroll, content below, no header hiding, a named
 // header), the Framer canvas, server render + hydration, style leaks and media deferral.
-//   node inpage.js [group …]    groups: mobile desktop setups canvas ssr strict leaks media
+//   node inpage.js [group …]    groups: mobile desktop setups canvas ssr strict codec leaks media
 const { open, S, wait, gotoHarness, toBottom, swipe, geo, headerState } = require('./lib');
 
 const results = [];
@@ -401,8 +401,27 @@ async function media() {
   await t.browser.close();
 }
 
+async function codec() {
+  const G = 'video format (HEVC only where the browser reports it, and only if allowed)';
+  const stub = () => { const orig = HTMLMediaElement.prototype.canPlayType; HTMLMediaElement.prototype.canPlayType = function (t) { return /hvc1|hev1/.test(t) ? 'probably' : orig.call(this, t); }; };
+  const seen = async (query) => {
+    const t = await open({ w: 390, h: 844, mobile: true, dpr: 3, init: stub });   // 3x like an iPhone: 2x counts as a small screen and gets the 720 H.264 files
+    const names = [];
+    t.page.on('request', (r) => { if (/\.mp4$/.test(r.url())) names.push(r.url().split('/').pop()); });
+    await gotoHarness(t.page, query);
+    await t.page.evaluate(() => window.ClubScottsdale.start());
+    await wait(t.page, 2500);
+    await t.browser.close();
+    return names;
+  };
+  const auto = await seen('');
+  check(G, 'Automatic, on a browser that plays HEVC: the HEVC files are requested', auto.length > 0 && auto.every((n) => /\.hevc\.mp4$/.test(n)), auto.slice(0, 4));
+  const h264 = await seen('video=h264');
+  check(G, 'H.264 only, on the same browser: no HEVC file is requested', h264.length > 0 && h264.every((n) => !/hevc/.test(n)), h264.slice(0, 4));
+}
+
 (async () => {
-  const groups = { mobile, desktop, setups, canvas, ssr, strict, leaks, media };
+  const groups = { mobile, desktop, setups, canvas, ssr, strict, codec, leaks, media };
   const want = process.argv.slice(2).length ? process.argv.slice(2) : Object.keys(groups);
   for (const k of want) {
     try { await groups[k](); } catch (e) { check(k, 'group crashed', false, String(e && e.stack || e).slice(0, 600)); }

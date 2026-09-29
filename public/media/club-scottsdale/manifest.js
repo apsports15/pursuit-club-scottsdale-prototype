@@ -10,7 +10,7 @@ window.CS_MEDIA = {
      "src": "aerial.p1080.hevc.mp4",
      "w": 1080,
      "h": 1920,
-     "kb": 2173
+     "kb": 2199
     },
     "p1080": {
      "src": "aerial.p1080.mp4",
@@ -28,7 +28,7 @@ window.CS_MEDIA = {
      "src": "aerial.w1080.hevc.mp4",
      "w": 1080,
      "h": 810,
-     "kb": 1038
+     "kb": 1043
     },
     "w1080": {
      "src": "aerial.w1080.mp4",
@@ -65,7 +65,7 @@ window.CS_MEDIA = {
      "src": "flight.p1080.hevc.mp4",
      "w": 1080,
      "h": 1920,
-     "kb": 3778
+     "kb": 3828
     },
     "p1080": {
      "src": "flight.p1080.mp4",
@@ -83,7 +83,7 @@ window.CS_MEDIA = {
      "src": "flight.w1080.hevc.mp4",
      "w": 1080,
      "h": 810,
-     "kb": 2117
+     "kb": 2134
     },
     "w1080": {
      "src": "flight.w1080.mp4",
@@ -124,7 +124,7 @@ window.CS_MEDIA = {
      "src": "p-session.p1080.hevc.mp4",
      "w": 1080,
      "h": 1920,
-     "kb": 349
+     "kb": 351
     },
     "p1080": {
      "src": "p-session.p1080.mp4",
@@ -154,7 +154,7 @@ window.CS_MEDIA = {
      "src": "p-lounge.p1080.hevc.mp4",
      "w": 1080,
      "h": 1920,
-     "kb": 213
+     "kb": 215
     },
     "p1080": {
      "src": "p-lounge.p1080.mp4",
@@ -184,7 +184,7 @@ window.CS_MEDIA = {
      "src": "p-room.p1080.hevc.mp4",
      "w": 1080,
      "h": 1920,
-     "kb": 373
+     "kb": 375
     },
     "p1080": {
      "src": "p-room.p1080.mp4",
@@ -214,7 +214,7 @@ window.CS_MEDIA = {
      "src": "p-applause.p1080.hevc.mp4",
      "w": 1080,
      "h": 1920,
-     "kb": 379
+     "kb": 377
     },
     "p1080": {
      "src": "p-applause.p1080.mp4",
@@ -244,7 +244,7 @@ window.CS_MEDIA = {
      "src": "p-dinner.p1080.hevc.mp4",
      "w": 1080,
      "h": 1920,
-     "kb": 211
+     "kb": 214
     },
     "p1080": {
      "src": "p-dinner.p1080.mp4",
@@ -274,7 +274,7 @@ window.CS_MEDIA = {
      "src": "p-kyler.p1080.hevc.mp4",
      "w": 1080,
      "h": 1920,
-     "kb": 448
+     "kb": 446
     },
     "p1080": {
      "src": "p-kyler.p1080.mp4",
@@ -334,7 +334,7 @@ window.CS_MEDIA = {
      "src": "p-candid.p1080.hevc.mp4",
      "w": 1080,
      "h": 1920,
-     "kb": 149
+     "kb": 151
     },
     "p1080": {
      "src": "p-candid.p1080.mp4",
@@ -364,7 +364,7 @@ window.CS_MEDIA = {
      "src": "crescendo.p1080.hevc.mp4",
      "w": 1080,
      "h": 1920,
-     "kb": 1793
+     "kb": 1807
     },
     "p1080": {
      "src": "crescendo.p1080.mp4",
@@ -382,7 +382,7 @@ window.CS_MEDIA = {
      "src": "crescendo.w1080.hevc.mp4",
      "w": 1080,
      "h": 810,
-     "kb": 995
+     "kb": 1005
     },
     "w1080": {
      "src": "crescendo.w1080.mp4",
