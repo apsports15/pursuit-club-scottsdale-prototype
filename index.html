@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Club Scottsdale · Pursuit</title>
+<meta name="description" content="Club Scottsdale, one of the environments around Pursuit: a short film.">
+<meta name="theme-color" content="#000000">
+<link rel="preload" href="assets/fonts/bodoni-moda-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/club.css">
+</head>
+<body>
+
+<a class="skip" href="#cta" id="skip-link">Skip the Club Scottsdale film</a>
+
+<!-- Replica of the live Pursuit header, for context. Not linked. -->
+<header class="site-head">
+  <div class="site-head__in">
+    <div class="brand" aria-label="Pursuit"><span class="brand__word">PURSUIT</span><span class="brand__sub">SALES &amp; MARKETING</span></div>
+    <div class="site-head__right"><span class="head-apply">APPLY <span aria-hidden="true">↗</span></span><span class="burger" aria-hidden="true"><i></i><i></i><i></i></span></div>
+  </div>
+</header>
+
+<main>
+  <!-- ==================================================================
+       CLUB SCOTTSDALE, a guided film
+       One stage. The first scroll starts it; from there one clock plays
+       every clip, still, title and transition in order. The timeline at
+       the bottom seeks, pauses and skips. At the end the page scrolls again.
+       ================================================================== -->
+  <section class="film" id="club-scottsdale" aria-label="Club Scottsdale, a short film">
+
+    <!-- 01 · Enter: after the cover, the drone descends and flies over the cars -->
+    <div class="m" id="s-aerial" data-clip="aerial" data-op="50% 50%"></div>
+    <i class="dim" id="s-dim" aria-hidden="true"></i>
+    <i class="scrim scrim--foot scrim--soft" id="c-scrim" aria-hidden="true"></i>
+    <p class="caption" id="c-above"><span class="caption__k">The club from above</span></p>
+
+    <!-- 02 · Inside: the whole flight, from the doorway and front desk to the Lounge. "A look
+         inside" holds over the entrance; each room is named once it is on screen. -->
+    <div class="panel win" id="s-inside">
+      <div class="m" id="s-flight" data-clip="flight" data-op="50% 50%"></div>
+      <div class="scrim scrim--foot scrim--soft"></div>
+    </div>
+    <div class="room room--stack" id="s-look"><h2 class="room__row"><span class="room__n">01</span><i class="room__rule" aria-hidden="true"></i><span class="room__name">A Look Inside</span></h2><p class="room__sub">Through the front door</p></div>
+    <p class="room" id="r-floor"><span class="room__n">02</span><i class="room__rule" aria-hidden="true"></i><span class="room__name">The Floor</span></p>
+    <p class="room" id="r-collection"><span class="room__n">03</span><i class="room__rule" aria-hidden="true"></i><span class="room__name">The Collection</span></p>
+    <p class="room" id="r-lounge"><span class="room__n">04</span><i class="room__rule" aria-hidden="true"></i><span class="room__name">The Lounge</span></p>
+
+    <!-- 03 · People: one run of page turns. Phones: full screen (photos sit across the top
+         at full width). Desktop: a portrait panel, the words beside it. -->
+    <div class="panel panel--clear seq" id="s-seq">
+      <div class="item item--photo win" id="i-room" style="--ar: 1320 / 1526; --k: 1.36"><div class="still" data-still="room" data-op="34% 0%" data-op-wide="50% 50%" data-alt="A session under the hex lights: a speaker by the screen, the group listening from the sofa and chairs"></div></div>
+      <div class="item m win" id="i-jeremy" data-clip="p-session" data-op="50% 45%"></div>
+      <div class="item m win" id="i-lounge" data-clip="p-lounge" data-op="46% 40%"></div>
+      <div class="item m win" id="i-mic" data-clip="p-room" data-op="50% 50%"></div>
+      <div class="item m win" id="i-applause" data-clip="p-applause" data-op="45% 50%"></div>
+      <div class="item m win" id="i-dinner" data-clip="p-dinner" data-op="50% 55%"></div>
+      <div class="item m win" id="i-network" data-clip="p-network" data-op="60% 45%"></div>
+      <div class="item m win" id="i-kyler" data-clip="p-kyler" data-op="50% 40%"></div>
+      <div class="item item--photo win" id="i-lanctot" style="--ar: 1320 / 1621; --k: 1.228"><div class="still" data-still="lanctot" data-op="50% 0%" data-op-wide="50% 50%" data-alt="Bob Menery, left, and Michael Lanctot, right, in conversation on the lounge sofas at Club Scottsdale"></div></div>
+      <div class="item m win" id="i-candid" data-clip="p-candid" data-op="62% 45%"></div>
+    </div>
+    <div class="scrim scrim--people" id="q-scrim"></div>
+    <div class="say" id="q-share"><p class="say__eyebrow"><span class="room__n">03</span><i class="room__rule" aria-hidden="true"></i><span class="say__k">The Network</span></p><h2 class="say__title">Learn from people who have already <em>done it.</em></h2><p class="room__sub">Sales trainers · Entrepreneurs · Mentors</p></div>
+    <div class="p-head person" id="n-jeremy"><p class="micro">Sales trainer · Founder, 7th Level</p><h3 class="person__name">Jeremy Miner</h3></div>
+    <div class="p-head" id="n-kyler"><p class="micro">NFL quarterback</p><h3 class="display">Kyler Murray</h3><p class="micro">At Club Scottsdale</p></div>
+    <div class="p-head duo" id="n-lanctot">
+      <div class="duo__cols">
+        <div class="duo__p duo__p--l"><i class="duo__line" aria-hidden="true"></i><h3 class="person__name">Bob Menery</h3><p class="duo__d">Media personality</p><i class="duo__line" aria-hidden="true"></i></div>
+        <div class="duo__p duo__p--r"><i class="duo__line" aria-hidden="true"></i><h3 class="person__name">Michael Lanctot</h3><p class="duo__d">Mentor / YNR</p><i class="duo__line" aria-hidden="true"></i></div>
+      </div>
+      <p class="micro duo__at">At Club Scottsdale</p>
+    </div>
+
+    <!-- 04 · Amenities: the helicopter (no words), then three captioned groups -->
+    <div class="panel" id="s-heli">
+      <figure class="heli__img"><div class="still" data-still="helicopter" data-op="50% 58%" data-alt="A helicopter parked beneath the illuminated Club Scottsdale sign at dusk"></div></figure>
+    </div>
+    <div class="panel" id="s-reel">
+      <div class="m" id="r-reel" data-clip="crescendo" data-op="50% 55%"></div>
+      <div class="scrim scrim--foot"></div>
+    </div>
+    <div class="caption group" id="g-connect"><p class="caption__k">Connect</p><p class="caption__s">Conversations that continue beyond the presentation.</p></div>
+    <div class="caption group" id="g-create"><p class="caption__k">Create</p><p class="caption__s">Media, ideas, and content in motion.</p></div>
+    <div class="caption group" id="g-unwind"><p class="caption__k">Unwind</p><p class="caption__s">A place to stay after the work is done.</p></div>
+
+    <!-- 05 · Pursuit: one closing line on black, then the application -->
+    <div class="panel" id="s-point">
+      <p class="closing" id="s-close">Ready to make it yours?</p>
+      <div class="cta" id="cta" tabindex="-1">
+        <div class="cta__eyebrow"><p class="cta__mark" aria-hidden="true"><i></i><span>05</span><i></i></p><p class="micro cta__label">The next move</p></div>
+        <h2 class="cta__title"><span class="ln">Your Pursuit</span> <span class="ln">starts now</span></h2>
+        <i class="cta__vr" aria-hidden="true"></i>
+        <a class="cta__btn" href="#apply">Apply to Pursuit <span aria-hidden="true">→</span></a>
+        <button type="button" class="cta__replay" id="replay">Watch again</button>
+      </div>
+    </div>
+
+    <!-- Shown only if the phone refuses to start video by itself (e.g. iOS Low Power Mode) -->
+    <button type="button" class="tap" id="tap-play"><i aria-hidden="true"></i><span>Tap to play</span></button>
+
+    <!-- Opening screen: the editorial cover -->
+    <div class="gate" id="s-gate">
+      <div class="cover" id="s-cover">
+        <div class="cover__drift">
+          <picture>
+            <source media="(max-aspect-ratio: 3/5)" type="image/avif" srcset="public/media/club-scottsdale/cover-tall.1080.avif 1080w, public/media/club-scottsdale/cover-tall.720.avif 720w" sizes="100vw">
+            <source media="(max-aspect-ratio: 3/5)" type="image/webp" srcset="public/media/club-scottsdale/cover-tall.1080.webp 1080w, public/media/club-scottsdale/cover-tall.720.webp 720w" sizes="100vw">
+            <source type="image/avif" srcset="public/media/club-scottsdale/cover-wide.1774.avif 1774w, public/media/club-scottsdale/cover-wide.1200.avif 1200w" sizes="100vw">
+            <source type="image/webp" srcset="public/media/club-scottsdale/cover-wide.1774.webp 1774w, public/media/club-scottsdale/cover-wide.1200.webp 1200w" sizes="100vw">
+            <img src="public/media/club-scottsdale/cover-wide.1200.webp" alt="Club Scottsdale from the air at sunset: the lit facade and sign, a row of exotic cars out front, mountains on the horizon" fetchpriority="high" decoding="async">
+          </picture>
+        </div>
+      </div>
+      <i class="cover__shade" aria-hidden="true"></i>
+      <i class="cover__dark" id="s-cover-dark" aria-hidden="true"></i>
+      <div class="gate__in">
+        <h1 class="cover__title">Enter the ecosystem</h1>
+        <p class="cover__sub">Club Scottsdale · Scottsdale, Arizona</p>
+        <button type="button" class="gate__cue" id="gate-cue"><i aria-hidden="true"></i><span class="gate__do">Scroll once to begin</span><span class="gate__len" id="gate-len">A one-minute look inside</span></button>
+      </div>
+    </div>
+
+    <i class="jump" id="jump" aria-hidden="true"></i>
+
+    <!-- Film controls -->
+    <div class="ctl" id="ctl">
+      <button type="button" class="ctl__btn ctl__play" id="ctl-play" aria-label="Pause"><i aria-hidden="true"></i></button>
+      <div class="ctl__track" id="ctl-track" role="slider" tabindex="0" aria-label="Film position" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <span class="micro ctl__chap" id="ctl-chap"></span>
+        <i class="ctl__rail"><b class="ctl__fill" id="ctl-fill"></b></i>
+        <span class="ctl__ticks" id="ctl-ticks" aria-hidden="true"></span>
+        <i class="ctl__knob" id="ctl-knob" aria-hidden="true"></i>
+      </div>
+      <button type="button" class="ctl__btn ctl__skip" id="ctl-skip" aria-label="Skip to the next chapter"><span>Skip</span><i aria-hidden="true"></i></button>
+    </div>
+  </section>
+</main>
+
+
+<script src="public/media/club-scottsdale/manifest.js"></script>
+<script src="vendor/gsap.min.js"></script>
+<script src="js/club.js"></script>
+</body>
+</html>

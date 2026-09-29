@@ -1,0 +1,14 @@
+{
+  "name": "club-scottsdale-framer-qa",
+  "private": true,
+  "description": "QA harness for framer-export/ClubScottsdaleChapter.tsx: a Framer-like page, React 18, SSR + hydration.",
+  "scripts": {
+    "build": "node build-harness.mjs"
+  },
+  "devDependencies": {
+    "esbuild": "0.24.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "typescript": "5.6.3"
+  }
+}

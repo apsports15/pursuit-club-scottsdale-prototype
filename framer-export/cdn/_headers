@@ -1,0 +1,7 @@
+# Response headers for the film's media folder (Cloudflare Pages and Netlify both read this
+# file). The component's <video> and <img> elements need no CORS; the header is there so the
+# files also work if they are ever fetched by script. One day of browser caching: the file
+# names do not change between builds, so a re-upload reaches everyone within a day.
+/*
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=86400

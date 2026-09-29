@@ -1,0 +1,623 @@
+/* ==========================================================================
+   Club Scottsdale · Pursuit 05 / The ecosystem
+   A guided film on one stage. Mobile first (designed at 390 × 844).
+   html.wide = landscape screens ≥ 900px (set by js/club.js).
+   ========================================================================== */
+
+/* Bodoni Moda (OFL), the serif of the live Pursuit site */
+@font-face { font-family: "Pursuit Serif"; src: url("../assets/fonts/bodoni-moda-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Pursuit Serif"; src: url("../assets/fonts/bodoni-moda-latin-400-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: "Pursuit Sans"; src: url("../assets/fonts/outfit-latin-300-normal.woff2") format("woff2"); font-weight: 300; font-display: swap; }
+@font-face { font-family: "Pursuit Sans"; src: url("../assets/fonts/outfit-latin-400-normal.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Pursuit Sans"; src: url("../assets/fonts/outfit-latin-500-normal.woff2") format("woff2"); font-weight: 500; font-display: swap; }
+
+:root {
+  color-scheme: dark;
+  --black: #000;            /* the film */
+  --ob: #070707;            /* obsidian: the site around it */
+  --pearl: #ECE9E3;
+  --pearl-2: rgba(236, 233, 227, 0.72);
+  --pearl-3: rgba(236, 233, 227, 0.42);
+  --silver: #A5A39E;
+  --hair: rgba(236, 233, 227, 0.14);
+  --champagne: rgba(185, 170, 140, 0.7);
+  --serif: "Pursuit Serif", "Bodoni Moda", "Didot", "Times New Roman", serif;
+  --sans: "Pursuit Sans", "Outfit", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --ease: cubic-bezier(0.2, 0.7, 0.1, 1);
+  --t: 0%; --r: 0%; --b: 0%; --l: 0%;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+/* The page is one screen tall: html, body and the film fill the viewport inside the
+   safe-area padding the artifact viewer puts on :root, so nothing sits below the fold. */
+html { height: 100%; background: var(--black); -webkit-text-size-adjust: 100%; overflow-x: clip; }
+body {
+  height: 100%;
+  margin: 0;
+  background: var(--black);
+  color: var(--pearl);
+  font: 300 16px/1.55 var(--sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+img, video { display: block; }
+
+/* While the film plays the page does not scroll (js/club.js also stops wheel, touch and keys). */
+html.is-locked, html.is-locked body { overflow: hidden; overscroll-behavior: none; }
+html.is-locked body { touch-action: none; }
+
+/* ---------------------------------------------------------------- type */
+.micro {
+  margin: 0;
+  font: 500 10.5px/1.4 var(--sans);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--silver);
+}
+.display {
+  margin: 0;
+  font-family: var(--serif);
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: 0.9;
+  letter-spacing: -0.012em;
+  color: var(--pearl);
+}
+.display em { font-style: italic; letter-spacing: -0.02em; }
+/* Lines move as whole units (a short rise and fade), never masked, so no glyph is ever clipped. */
+.line { display: block; }
+.li { display: inline-block; }
+
+.cap {
+  position: absolute; margin: 0;
+  display: flex; align-items: flex-start; gap: 14px;
+  font: 500 10px/1.2 var(--sans); letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--pearl);
+  text-shadow: 0 1px 14px rgba(0, 0, 0, 0.55);
+  pointer-events: none;
+}
+.cap::before { content: ""; width: 26px; height: 1px; margin-top: 5px; background: currentColor; opacity: 0.6; flex: none; }
+
+.skip {
+  position: fixed; z-index: 100; left: 16px; top: 16px;
+  padding: 10px 14px; background: var(--pearl); color: var(--black);
+  font: 500 12px/1 var(--sans); letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none;
+  transform: translateY(-200%);
+}
+.skip:focus { transform: none; }
+
+/* ---------------------------------------------------------------- site chrome (replica) */
+.site-head {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+  padding: calc(16px + env(safe-area-inset-top, 0px)) 20px 16px;
+  transition: opacity 0.9s var(--ease), transform 0.9s var(--ease);
+  pointer-events: none;
+}
+.site-head__in { display: flex; justify-content: space-between; align-items: center; max-width: 1400px; margin: 0 auto; }
+body.is-playing .site-head { opacity: 0; transform: translateY(-12px); }
+.brand { display: grid; gap: 5px; }
+.brand__word { font: 400 20px/1 var(--serif); letter-spacing: 0.3em; }
+.brand__sub { font: 500 6px/1 var(--sans); letter-spacing: 0.3em; color: var(--silver); }
+.site-head__right { display: flex; align-items: center; gap: 20px; }
+.head-apply { font: 500 10.5px/1 var(--sans); letter-spacing: 0.24em; }
+.burger { display: grid; gap: 6px; width: 28px; }
+.burger i { display: block; height: 1px; background: var(--pearl); }
+
+.foot {
+  display: flex; flex-wrap: wrap; gap: 12px 28px; justify-content: space-between; align-items: center;
+  padding: 28px max(22px, 7vw);
+  border-top: 1px solid var(--hair);
+  background: var(--ob);
+}
+.foot .brand__word { font-size: 17px; }
+
+/* ---------------------------------------------------------------- the stage */
+main { height: 100%; }
+.film {
+  position: relative;
+  height: 100%;
+  min-height: 420px;
+  overflow: hidden;
+  background: var(--black);
+  container-type: size;
+  --g: max(20px, 6cqw);
+  --lift: 96px;   /* bottom type sits above the controls */
+  -webkit-user-select: none; user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.panel { position: absolute; inset: 0; overflow: hidden; background: var(--black); visibility: hidden; }
+.panel--clear { background: transparent; }
+
+/* media */
+.m { position: absolute; inset: 0; overflow: hidden; background: var(--black); }
+.win { clip-path: inset(var(--t) var(--r) var(--b) var(--l)); }
+.m .f, .still .f { position: absolute; inset: 0; transform-origin: 50% 50%; }
+.m video, .still img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; object-position: var(--op, 50% 50%);
+}
+.still { position: absolute; inset: 0; overflow: hidden; }
+.still picture { position: absolute; inset: 0; }
+
+.scrim { position: absolute; inset: 0; pointer-events: none; }
+.scrim--foot { background: linear-gradient(0deg, rgba(0, 0, 0, 0.84) 0%, rgba(0, 0, 0, 0.42) 30%, transparent 55%); }
+
+/* ---------------------------------------------------------------- opening: the editorial cover */
+.gate {
+  position: absolute; inset: 0; z-index: 40;
+  background: var(--black);
+  cursor: pointer;
+  overflow: hidden;
+  --ivory: #E4DACA;                          /* muted warm pearl for the title */
+  --champ: rgba(206, 186, 150, 0.86);        /* restrained champagne for the microcopy */
+}
+/* Phones: the composed portrait fills the screen. */
+.cover { position: absolute; inset: 0; }
+.cover__drift { position: absolute; inset: 0; animation: cover-in 1.8s var(--ease) both, cover-drift 16s cubic-bezier(0.25, 0.1, 0.25, 1) both; }
+.cover picture { position: absolute; inset: 0; }
+.cover img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
+@keyframes cover-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes cover-drift { from { transform: scale(1); } to { transform: scale(1.03) translateY(-0.4%); } }
+/* Shorter phones (e.g. 375 × 667): frame lower in the composition so the cars clear the title. */
+@media (max-aspect-ratio: 3/5) and (min-aspect-ratio: 1/2) { .cover img { object-position: 50% 62%; } }
+/* Wider screens: the panorama fills the top of the screen and feathers into black under the type. */
+@media (min-aspect-ratio: 3/5) {
+  .cover { bottom: 21%; -webkit-mask-image: linear-gradient(#000 80%, transparent); mask-image: linear-gradient(#000 80%, transparent); }
+  .cover img { object-position: 54% 62%; }
+}
+.cover__shade {
+  position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 120% 90% at 50% 40%, transparent 55%, rgba(0, 0, 0, 0.42) 100%),
+    linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, transparent 16%, transparent 56%, rgba(0, 0, 0, 0.5) 70%, rgba(0, 0, 0, 0.9) 84%, #000 100%);
+}
+.cover__dark { position: absolute; inset: 0; background: #000; opacity: 0; pointer-events: none; }
+.gate__in {
+  position: absolute; left: 0; right: 0; bottom: max(34px, 5.5%);
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  padding: 0 var(--g);
+}
+.cover__title {
+  margin: 0;
+  font: 400 clamp(29px, 8.4cqw, 58px)/1 var(--serif);
+  letter-spacing: 0.1em; text-indent: 0.1em;          /* indent balances the trailing tracking */
+  text-transform: uppercase; color: var(--ivory);
+  white-space: nowrap;
+}
+.cover__sub {
+  margin: 16px 0 0;
+  font: 400 9.5px/1 var(--sans); letter-spacing: 0.46em; text-indent: 0.46em;
+  text-transform: uppercase; color: var(--champ);
+}
+.gate__cue {
+  margin-top: 26px; padding: 6px 16px;
+  display: grid; justify-items: center; gap: 12px;
+  font: 400 8.5px/1 var(--sans); letter-spacing: 0.42em; text-indent: 0.42em; text-transform: uppercase;
+  color: rgba(228, 218, 202, 0.58);
+}
+.gate__cue i { position: relative; width: 1px; height: 34px; background: rgba(228, 218, 202, 0.24); overflow: hidden; }
+.gate__cue i::after {
+  content: ""; position: absolute; left: 0; top: 0; width: 1px; height: 12px; background: rgba(228, 218, 202, 0.8);
+  animation: cue 3.2s var(--ease) 1.8s infinite both;
+}
+@keyframes cue { 0% { transform: translateY(-12px); } 60%, 100% { transform: translateY(34px); } }
+.gate__cue:focus-visible, .ctl__btn:focus-visible, .ctl__track:focus-visible, .cta__btn:focus-visible, .cta__replay:focus-visible { outline: 1px solid var(--pearl); outline-offset: 3px; }
+html.wide .cover__title { font-size: clamp(34px, 3.4cqw, 58px); }
+html.wide .cover__sub { font-size: 10px; }
+
+/* ---------------------------------------------------------------- arrival */
+.s-cap { left: var(--g); bottom: var(--lift); visibility: hidden; }
+.s-cap__in { display: grid; gap: 8px; }
+.s-cap__in span { color: var(--pearl-2); }
+
+/* ---------------------------------------------------------------- step inside */
+.scrim--soft { opacity: 0.7; }
+.dim { position: absolute; inset: 0; background: #000; opacity: 0; pointer-events: none; }
+.s-step { z-index: 1; }
+.s-step { position: absolute; left: var(--g); right: var(--g); bottom: var(--lift); font-size: clamp(44px, 13.5cqw, 150px); text-shadow: 0 2px 30px rgba(0, 0, 0, 0.35); }
+html.wide .s-step { font-size: clamp(56px, 6.4cqw, 150px); }
+.rooms { position: absolute; left: var(--g); right: var(--g); bottom: var(--lift); pointer-events: none; }
+.rooms__list {
+  display: flex; gap: 18px; margin: 0 0 14px; padding: 0; list-style: none;
+  font: 500 9.5px/1 var(--sans); letter-spacing: 0.26em; text-transform: uppercase; color: var(--pearl-3);
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.5);
+}
+.rooms__list li { transition: color 0.6s var(--ease); white-space: nowrap; }
+.rooms__list li span { margin-right: 8px; }
+.rooms__list li.is-on { color: var(--pearl); }
+.rooms__list li:not(.is-on):not(.is-near) { display: none; }
+.rooms__now { font-size: clamp(34px, 11.5cqw, 110px); min-height: 1em; text-shadow: 0 2px 30px rgba(0, 0, 0, 0.45); }
+.rooms__now .c { display: inline-block; }
+html.wide .rooms__list li:not(.is-on):not(.is-near) { display: list-item; }
+
+/* ---------------------------------------------------------------- outside / inside */
+.s-over-line { position: absolute; left: var(--g); right: var(--g); bottom: var(--lift); font-size: clamp(44px, 13.5cqw, 150px); }
+/* Phones: the photograph is nearly square, so it sits at the top at a width that keeps
+   most of the room (the speaker, the ceiling and the seated group) and feathers into
+   black under the line, rather than being cropped to the screen's tall shape. */
+#s-over .still { bottom: auto; height: min(calc(100cqw * 1.36), 74%); -webkit-mask-image: linear-gradient(#000 76%, transparent); mask-image: linear-gradient(#000 76%, transparent); }
+#s-over .still img { object-position: 34% 0%; }
+html.wide #s-over .still { -webkit-mask-image: none; mask-image: none; }
+html.wide #s-over .still img { object-position: 50% 50%; }
+html.wide #s-over .still { inset: 7% auto 7% 9%; aspect-ratio: 1320 / 1526; width: auto; height: 86%; max-width: 50%; }
+html.wide #s-over .scrim { display: none; }
+html.wide .s-over-line { left: auto; right: 11%; bottom: 13%; max-width: 44%; text-align: right; font-size: clamp(56px, 6.4cqw, 150px); }
+
+/* ---------------------------------------------------------------- people */
+.grp { position: absolute; inset: 0; }
+.col { display: contents; }
+html.wide .grp { display: flex; gap: 2px; }
+html.wide .col { display: block; position: relative; flex: 1 1 0; height: 100%; overflow: hidden; }
+#s-people .scrim, #s-people .p-head { z-index: 20; }   /* above the clips, which stack by run order */
+.scrim--people { background: linear-gradient(0deg, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.5) 32%, transparent 58%); }
+.p-head { position: absolute; left: var(--g); right: var(--g); bottom: var(--lift); display: grid; gap: 16px; visibility: hidden; }
+.p-head .micro { color: var(--pearl-2); }
+.p-head .display { font-size: clamp(42px, 13cqw, 132px); }
+html.wide .p-head .display { font-size: clamp(48px, 5.6cqw, 120px); }
+
+/* ---------------------------------------------------------------- access + amenities */
+.heli__img { position: absolute; inset: 0; margin: 0; overflow: hidden; }
+.heli__txt { position: absolute; left: var(--g); right: var(--g); bottom: var(--lift); display: grid; gap: 16px; }
+.heli__txt .micro { color: var(--pearl-2); }
+.heli__txt .display { font-size: clamp(42px, 13cqw, 150px); }
+html.wide .heli__img { inset: 7% 11% 7% auto; aspect-ratio: 9 / 16; width: auto; height: 86%; }
+html.wide #h-scrim { display: none; }
+html.wide .heli__txt { right: auto; bottom: 13%; left: 11%; max-width: 46%; }
+html.wide .heli__txt .display { font-size: clamp(56px, 6.4cqw, 150px); }
+
+.r-line { position: absolute; left: var(--g); right: var(--g); bottom: var(--lift); font-size: clamp(40px, 12cqw, 150px); }
+html.wide .r-line { font-size: clamp(48px, 6cqw, 150px); }
+.r-count {
+  position: absolute; right: var(--g); top: calc(5% + env(safe-area-inset-top, 0px)); margin: 0;
+  display: flex; align-items: baseline; gap: 8px;
+  font: 500 10px/1 var(--sans); letter-spacing: 0.26em; color: var(--pearl-2);
+  font-variant-numeric: tabular-nums;
+}
+.r-count b { font: 400 30px/1 var(--serif); letter-spacing: 0; color: var(--pearl); }
+
+/* ---------------------------------------------------------------- the point + CTA */
+.point { position: absolute; left: var(--g); right: var(--g); top: 50%; margin-top: -0.9em; text-align: center; font-size: clamp(40px, 12cqw, 124px); }
+html.wide .point { font-size: clamp(52px, 6.4cqw, 124px); }
+.cta {
+  position: absolute; inset: 0; padding: 0 var(--g) calc(var(--lift) - 30px);
+  display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 24px;
+  text-align: center; visibility: hidden; outline: none;
+}
+.cta__path { display: flex; align-items: center; gap: 14px; color: var(--pearl-2); }
+.cta__path i { width: 18px; height: 1px; background: var(--champagne); }
+.cta__title { font-size: clamp(50px, 15cqw, 140px); }
+html.wide .cta__title { font-size: clamp(60px, 7.4cqw, 140px); }
+.cta__btn {
+  display: inline-flex; align-items: center; gap: 14px; margin-top: 6px;
+  padding: 17px 26px; border: 1px solid rgba(236, 233, 227, 0.55);
+  font: 500 11.5px/1 var(--sans); letter-spacing: 0.26em; text-transform: uppercase; color: var(--pearl); text-decoration: none;
+  transition: background 0.4s var(--ease), color 0.4s var(--ease);
+}
+.cta__btn:hover { background: var(--pearl); color: var(--black); }
+.cta__replay { padding: 10px 12px; font: 500 9.5px/1 var(--sans); letter-spacing: 0.28em; text-transform: uppercase; color: var(--silver); }
+.cta__replay:hover { color: var(--pearl); }
+
+/* ---------------------------------------------------------------- film controls */
+.ctl {
+  position: absolute; z-index: 45; left: 0; right: 0; bottom: 0;
+  display: grid; grid-template-columns: 44px 1fr auto; align-items: center; gap: 4px;
+  padding: 0 8px 10px;
+  opacity: 0; visibility: hidden;
+  transition: opacity 0.6s var(--ease), visibility 0.6s;
+}
+.ctl::before { content: ""; position: absolute; z-index: -1; left: 0; right: 0; top: -28px; bottom: 0; background: linear-gradient(transparent, rgba(0, 0, 0, 0.5)); pointer-events: none; }
+body.is-started .ctl { opacity: 0.8; visibility: visible; }
+body.is-started .ctl:hover, body.is-started .ctl:focus-within, body.is-paused .ctl, body.is-scrubbing .ctl { opacity: 1; }
+.ctl__btn { height: 44px; display: flex; align-items: center; justify-content: center; color: var(--pearl); }
+.ctl__play i { position: relative; width: 10px; height: 12px; }
+.ctl__play i::before, .ctl__play i::after { content: ""; position: absolute; top: 0; bottom: 0; width: 2px; background: currentColor; }
+.ctl__play i::before { left: 1px; }
+.ctl__play i::after { right: 1px; }
+body.is-paused .ctl__play i::before { left: 1px; width: 0; height: 0; background: none; border-style: solid; border-width: 6px 0 6px 10px; border-color: transparent transparent transparent currentColor; }
+body.is-paused .ctl__play i::after { display: none; }
+.ctl__skip { gap: 10px; padding: 0 10px; font: 500 9.5px/1 var(--sans); letter-spacing: 0.28em; text-transform: uppercase; }
+.ctl__skip i { position: relative; width: 10px; height: 9px; flex: none; }
+.ctl__skip i::before { content: ""; position: absolute; left: 0; top: 0; border-style: solid; border-width: 4.5px 0 4.5px 7px; border-color: transparent transparent transparent currentColor; }
+.ctl__skip i::after { content: ""; position: absolute; right: 0; top: 0; width: 1.5px; height: 9px; background: currentColor; }
+body.is-ended .ctl__skip { visibility: hidden; }
+.ctl__track { position: relative; height: 44px; cursor: pointer; touch-action: none; }
+.ctl__rail { position: absolute; left: 0; right: 0; top: 62%; height: 1px; background: rgba(236, 233, 227, 0.24); }
+.ctl__fill { position: absolute; inset: 0; background: var(--pearl); transform-origin: 0 50%; transform: scaleX(0); }
+.ctl__ticks i { position: absolute; top: calc(62% - 3px); width: 1px; height: 7px; background: rgba(236, 233, 227, 0.45); }
+.ctl__knob { position: absolute; top: calc(62% - 4.5px); left: 0; width: 9px; height: 9px; margin-left: -4.5px; border-radius: 50%; background: var(--pearl); transform: scale(0); transition: transform 0.25s var(--ease); }
+body.is-paused .ctl__knob, body.is-scrubbing .ctl__knob, .ctl__track:hover .ctl__knob, .ctl__track:focus-visible .ctl__knob { transform: scale(1); }
+.ctl__chap { position: absolute; left: 0; top: calc(62% - 21px); font-size: 9px; letter-spacing: 0.26em; color: var(--pearl-2); white-space: nowrap; pointer-events: none; }
+html.wide .ctl { left: 50%; right: auto; width: min(760px, 62vw); transform: translateX(-50%); padding-bottom: 18px; }
+
+/* "Tap to play": only when the phone refused to start video by itself */
+.tap {
+  position: absolute; z-index: 44; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  display: none; align-items: center; gap: 14px; padding: 16px 24px;
+  border: 1px solid rgba(236, 233, 227, 0.55); background: rgba(0, 0, 0, 0.55);
+  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  font: 500 11px/1 var(--sans); letter-spacing: 0.28em; text-transform: uppercase; color: var(--pearl);
+}
+.tap i { width: 0; height: 0; border-style: solid; border-width: 6px 0 6px 10px; border-color: transparent transparent transparent currentColor; }
+body.is-blocked .tap { display: inline-flex; }
+.tap:focus-visible { outline: 1px solid var(--pearl); outline-offset: 3px; }
+
+.jump { position: absolute; z-index: 43; inset: 0; background: #000; opacity: 0; pointer-events: none; transition: opacity 0.22s var(--ease); }
+.jump.is-on { opacity: 1; }
+
+/* review overlay (?debug) */
+.dbg { position: fixed; z-index: 99; left: 8px; top: 8px; padding: 6px 8px; background: rgba(0, 0, 0, 0.7); font: 11px/1.4 ui-monospace, Menlo, monospace; color: #E9D9A8; pointer-events: none; white-space: pre; }
+
+@media (prefers-reduced-motion: reduce) {
+  .gate__cue i::after { animation: none; transform: translateY(11px); }
+  .cover__drift { animation: cover-in 0.6s linear both; }
+}
+
+/* Browsers without container query units (iOS < 16): the stage is the viewport, so vw stands in. */
+@supports not (width: 1cqw) {
+  .film { --g: max(20px, 6vw); }
+  .cover__title { font-size: clamp(29px, 8.4vw, 58px); }
+  #s-over .still { height: min(calc(100vw * 1.36), 74%); }
+  html.wide .cover__title { font-size: clamp(34px, 3.4vw, 58px); }
+  .rooms__now { font-size: clamp(34px, 11.5vw, 110px); }
+  .s-step { font-size: clamp(44px, 13.5vw, 150px); }
+  html.wide .s-step { font-size: clamp(56px, 6.4vw, 150px); }
+  .s-over-line { font-size: clamp(44px, 13.5vw, 150px); }
+}
+
+/* ================================================================ the film's type system
+   Modelled on the Pursuit site: an editorial serif for the few statements and for names,
+   restrained sans microtext for labels and roles, thin rules, italic only where a word
+   carries the line. Six roles, each used for one job:
+     statement   the major cinematic line (3 in the film, plus the CTA)
+     chapter     the quiet label in the controls: number, rule, name
+     room        a room's number and name, once the room is on screen
+     person      eyebrow role, serif name, short descriptor (Kyler keeps his larger scale)
+     caption     one small caption across a group of shots
+     closing     the one line before the application                               */
+
+.film { --lift: calc(96px + env(safe-area-inset-bottom, 0px)); }
+.ctl { padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px)); }
+
+/* the cover: the title on one line, the place beneath it */
+.cover__title { font-size: clamp(22px, 6.6cqw, 52px); }
+html.wide .cover__title { font-size: clamp(30px, 2.9cqw, 52px); }
+.cover__sub { white-space: nowrap; letter-spacing: 0.3em; text-indent: 0.3em; }
+html.wide .cover__sub { letter-spacing: 0.4em; text-indent: 0.4em; }
+.gate__cue { gap: 10px; }
+.gate__len { color: rgba(228, 218, 202, 0.42); }
+
+/* 1 · statement */
+.statement {
+  position: absolute; left: var(--g); right: var(--g); bottom: var(--lift); z-index: 22; margin: 0;
+  max-width: 10.5em;
+  font: 400 clamp(30px, 9.6cqw, 44px)/0.98 var(--serif); letter-spacing: 0.015em;
+  text-transform: uppercase; text-wrap: balance; color: var(--pearl);
+  text-shadow: 0 2px 26px rgba(0, 0, 0, 0.45);
+  visibility: hidden; pointer-events: none;
+}
+.statement em { font-style: italic; letter-spacing: 0; }
+.statement--sc { text-transform: none; letter-spacing: -0.005em; line-height: 1.04; font-size: clamp(30px, 8.6cqw, 40px); max-width: 11em; }
+html.wide .statement { left: 9%; right: auto; bottom: 14%; font-size: clamp(40px, 3.6cqw, 60px); }
+
+/* 2 · chapter label (in the controls, bottom left) */
+.ctl__chap { display: flex; align-items: center; gap: 9px; font: 500 9px/1 var(--sans); letter-spacing: 0.28em; text-transform: uppercase; color: var(--pearl-2); }
+.ctl__chap b { font-weight: 500; color: var(--pearl); }
+.ctl__chap i { width: 14px; height: 1px; background: currentColor; opacity: 0.6; }
+
+/* 3 · room */
+.room {
+  position: absolute; left: var(--g); bottom: var(--lift); z-index: 22; margin: 0;
+  display: flex; align-items: baseline; gap: 10px;
+  text-shadow: 0 1px 18px rgba(0, 0, 0, 0.55);
+  visibility: hidden; pointer-events: none;
+}
+.room__n { font: 500 9.5px/1 var(--sans); letter-spacing: 0.26em; color: var(--pearl-2); }
+.room__name { font: 400 clamp(22px, 6.8cqw, 28px)/1 var(--serif); letter-spacing: 0.005em; color: var(--pearl); }
+
+html.wide .room { left: 9%; bottom: 14%; }
+html.wide .room__name { font-size: clamp(26px, 2vw, 34px); }
+
+/* the people run: phones show clips full screen and photographs across the top at a width
+   that keeps everyone in frame (--k = height / width); desktop, a portrait panel */
+.seq .item { position: absolute; inset: 0; overflow: hidden; background: var(--black); }
+.item--photo .still { bottom: auto; height: min(calc(100cqw * var(--k)), 76%); -webkit-mask-image: linear-gradient(#000 80%, transparent); mask-image: linear-gradient(#000 80%, transparent); }
+#q-scrim { z-index: 20; }
+.film > .p-head { z-index: 21; }
+.p-head .micro + .micro { margin-top: -8px; }
+html.wide .seq .item { inset: 7% 9% 7% auto; aspect-ratio: 9 / 16; width: auto; height: 86%; }
+html.wide .seq .item--photo { aspect-ratio: var(--ar); }
+html.wide .item--photo .still { inset: 0; height: auto; -webkit-mask-image: none; mask-image: none; }
+html.wide #q-scrim { display: none; }
+html.wide .film > .p-head { left: 9%; right: auto; bottom: 14%; max-width: 40%; }
+html.wide .p-say { max-width: 40%; }
+
+/* 4 · person: eyebrow, serif name, descriptor */
+.person { gap: 12px; }
+.person .micro { font-size: 9.5px; letter-spacing: 0.26em; }
+.person__name { margin: 0; font: 400 clamp(30px, 8.8cqw, 38px)/1 var(--serif); letter-spacing: -0.005em; color: var(--pearl); }
+html.wide .person__name { font-size: clamp(36px, 3cqw, 50px); }
+
+/* Bob Menery and Michael Lanctot: two columns under the photograph, each name beneath its
+   own face (Bob left, Michael right), a hairline between, where they are underneath */
+.duo { gap: 16px; bottom: auto; top: calc(min(100cqw * 1.228, 76%) - 6px); }
+.duo__cols { display: grid; grid-template-columns: 1fr 1px 1fr; column-gap: 16px; }
+.duo__p { display: grid; gap: 9px; align-content: start; }
+.duo .person__name { font-size: clamp(21px, 5.9cqw, 26px); white-space: nowrap; }
+.duo__d { margin: 0; font: 500 9px/1.3 var(--sans); letter-spacing: 0.24em; text-transform: uppercase; color: var(--pearl-2); }
+.duo__rule { background: var(--hair); }
+.duo__at { padding-top: 14px; border-top: 1px solid var(--hair); font-size: 9px; letter-spacing: 0.28em; }
+html.wide #i-lanctot { bottom: auto; height: 68%; }
+html.wide .film > .duo { left: auto; right: 9%; top: calc(7% + 68% + 22px); bottom: auto; width: calc(68cqh * 1320 / 1621); max-width: none; }
+html.wide .duo .person__name { font-size: clamp(22px, 1.9cqw, 30px); }
+
+/* 5 · caption */
+.caption { position: absolute; left: var(--g); right: var(--g); bottom: var(--lift); z-index: 22; margin: 0; max-width: 20em; visibility: hidden; pointer-events: none; text-shadow: 0 1px 14px rgba(0, 0, 0, 0.6); }
+.caption__k { margin: 0; display: flex; align-items: center; gap: 12px; font: 500 10px/1 var(--sans); letter-spacing: 0.28em; text-transform: uppercase; color: var(--pearl); }
+.caption__k::before { content: ""; width: 22px; height: 1px; background: currentColor; opacity: 0.6; flex: none; }
+.caption__s { margin: 10px 0 0 34px; font: 300 11px/1.5 var(--sans); letter-spacing: 0.02em; color: var(--pearl-2); }
+html.wide .caption { left: 9%; bottom: 14%; }
+html.wide .caption__s { font-size: 12px; }
+
+/* 6 · closing, on black */
+.closing {
+  position: absolute; left: var(--g); right: var(--g); top: 50%; transform: translateY(-50%); margin: 0;
+  font: 400 clamp(25px, 7.6cqw, 32px)/1.08 var(--serif); letter-spacing: 0.04em; text-indent: 0.04em;
+  text-transform: uppercase; text-align: center; text-wrap: balance; color: var(--pearl);
+  visibility: hidden;
+}
+html.wide .closing { font-size: clamp(30px, 2.4cqw, 40px); }
+
+/* the application */
+.cta { gap: 22px; }
+.cta__eyebrow { display: flex; align-items: center; gap: 14px; font-size: 9.5px; letter-spacing: 0.3em; color: var(--pearl-2); }
+.cta__eyebrow i { width: 22px; height: 1px; background: var(--champagne); }
+.cta__title { margin: 0; font: 400 clamp(32px, 9.6cqw, 44px)/1.02 var(--serif); letter-spacing: -0.005em; text-wrap: balance; color: var(--pearl); }
+.cta__title em { font-style: italic; }
+html.wide .cta__title { font-size: clamp(44px, 3.8cqw, 64px); }
+.cta__btn { margin-top: 10px; }
+
+/* Desktop: the footage is vertical 1080 px video, so it is never stretched into a soft
+   landscape background. Every clip plays whole, in the same portrait panel the people run
+   uses, on the right; the words sit in the column on the left. Only the cover (a true wide
+   photograph) fills the screen. */
+html.wide #s-aerial, html.wide #s-flight, html.wide #r-reel { inset: 7% 9% 7% auto; aspect-ratio: 9 / 16; width: auto; height: 86%; }
+html.wide #c-scrim, html.wide #s-inside .scrim, html.wide #s-reel .scrim { display: none; }
+html.wide .statement, html.wide .caption { max-width: 38%; }
+
+/* the helicopter stands alone (desktop: a portrait panel) */
+html.wide .heli__img { inset: 7% auto; left: 50%; right: auto; transform: translateX(-50%); }
+
+/* ================================================================ the live site's details
+   Taken from thepursuitpath.com at phone size: Bodoni Moda for every serif line, tight
+   uppercase headlines centred, section numbers in the serif between thin rules, path cards
+   set as number + rule + label over a sentence-case serif title, people named in the
+   corners with short rules above and below, and an ivory pill for the one real action. */
+
+/* headlines: tight, centred on phones (the words sit in a left column on desktop) */
+.statement { left: var(--g); right: var(--g); max-width: none; margin: 0 auto; text-align: center; font-size: clamp(30px, 8.8cqw, 44px); line-height: 0.96; letter-spacing: -0.01em; }
+.statement em { letter-spacing: -0.01em; }
+html.wide .statement { text-align: left; margin: 0; }
+.statement .ln { display: block; }
+.cover__title { font-size: clamp(20px, 5.5cqw, 44px); letter-spacing: 0.08em; text-indent: 0.08em; }
+html.wide .cover__title { font-size: clamp(28px, 2.6cqw, 48px); }
+.display { letter-spacing: -0.01em; }
+
+/* Kyler keeps the largest person scale: one line, as before */
+#n-kyler .display { font-size: clamp(34px, 10cqw, 60px); line-height: 0.95; }
+html.wide #n-kyler .display { font-size: clamp(48px, 4.6cqw, 88px); }
+
+/* the chapter label: serif number, a rule, the tracked name (the site's "01 —— SELL") */
+.ctl__chap { gap: 10px; }
+.ctl__chap b { font: 400 13px/1 var(--serif); letter-spacing: 0; color: var(--pearl); }
+.ctl__chap i { width: 18px; }
+
+/* rooms, like the site's path cards: number, rule, name */
+.room { align-items: center; gap: 12px; }
+.room__n { font: 400 clamp(22px, 6.4cqw, 28px)/1 var(--serif); letter-spacing: 0; color: var(--pearl-2); }
+.room__rule { width: 26px; height: 1px; background: var(--pearl); opacity: 0.5; flex: none; }
+.room__name { font-size: clamp(22px, 6.4cqw, 28px); }
+
+/* people */
+.person__name { letter-spacing: -0.01em; font-size: clamp(28px, 8cqw, 36px); }
+/* Bob Menery and Michael Lanctot, as the site sets Ayden Parks and Michael Lanctot:
+   each name in its own corner under its own face, a short rule above and below,
+   Bob left-aligned on the left, Michael right-aligned on the right */
+.duo { gap: 18px; }
+.duo__cols { grid-template-columns: 1fr 1fr; column-gap: 20px; }
+.duo__p { gap: 10px; }
+.duo__p--r { justify-items: end; text-align: right; }
+.duo__line { width: 22px; height: 1px; background: var(--pearl); opacity: 0.55; }
+.duo .person__name { font-size: clamp(18px, 5.2cqw, 24px); white-space: nowrap; }
+.duo__d { font-size: 8.5px; letter-spacing: 0.24em; }
+.duo__at { justify-self: center; display: grid; justify-items: center; gap: 10px; padding-top: 0; border-top: 0; font-size: 8.5px; }
+.duo__at::before { content: ""; width: 1px; height: 22px; background: var(--pearl); opacity: 0.4; }
+html.wide .duo .person__name { font-size: clamp(20px, 1.6cqw, 28px); }
+
+/* the application: section mark, headline, a vertical hairline, the ivory pill */
+.cta { gap: 20px; }
+.cta__eyebrow { display: grid; justify-items: center; gap: 12px; }
+.cta__mark { margin: 0; display: flex; align-items: center; gap: 14px; }
+.cta__mark i { width: 46px; height: 1px; background: var(--pearl); opacity: 0.4; }
+.cta__mark span { font: 400 22px/1 var(--serif); color: var(--pearl); }
+.cta__label { font-size: 9.5px; letter-spacing: 0.34em; color: var(--pearl); }
+/* the title is set like the site's hero ("THE PURSUIT STARTS HERE."): uppercase, tight */
+.cta__title { text-transform: uppercase; letter-spacing: -0.03em; line-height: 1.02; font-size: clamp(34px, 10.2cqw, 48px); }
+.cta__title .ln { display: block; }
+html.wide .cta__title { font-size: clamp(48px, 4.4cqw, 76px); }
+.cta__vr { width: 1px; height: 30px; background: var(--pearl); opacity: 0.45; }
+.cta__btn {
+  margin-top: 0; padding: 20px 40px; gap: 18px;
+  border: 0; border-radius: 999px; background: #EFEDE8; color: #0A0A0A;
+  font: 600 11px/1 var(--sans); letter-spacing: 0.3em;
+}
+.cta__btn:hover { background: #fff; color: #000; }
+.closing { letter-spacing: 0.02em; text-indent: 0.02em; }
+
+@supports not (width: 1cqw) {
+  .statement { font-size: clamp(30px, 8.8vw, 44px); }
+  .cover__title { font-size: clamp(20px, 5.5vw, 44px); }
+  #n-kyler .display { font-size: clamp(34px, 10vw, 60px); }
+  .room__n, .room__name { font-size: clamp(22px, 6.4vw, 28px); }
+  .person__name { font-size: clamp(28px, 8vw, 36px); }
+  .duo .person__name { font-size: clamp(18px, 5.2vw, 24px); }
+  .cta__title { font-size: clamp(34px, 10.2vw, 48px); }
+}
+
+/* the film controls retire when the film is over; Watch again brings them back */
+body.is-ended .ctl { opacity: 0; visibility: hidden; }
+
+@supports not (width: 1cqw) {
+  .cover__title { font-size: clamp(22px, 6.6vw, 52px); }
+  .item--photo .still { height: min(calc(100vw * var(--k)), 76%); }
+  .statement { font-size: clamp(30px, 9.6vw, 44px); }
+  .statement--sc { font-size: clamp(30px, 8.6vw, 40px); }
+  .room__name { font-size: clamp(22px, 6.8vw, 28px); }
+  .person__name { font-size: clamp(30px, 8.8vw, 38px); }
+  .duo { top: calc(min(100vw * 1.228, 76%) - 6px); }
+  .duo .person__name { font-size: clamp(21px, 5.9vw, 26px); }
+  .closing { font-size: clamp(25px, 7.6vw, 32px); }
+  .cta__title { font-size: clamp(32px, 9.6vw, 44px); }
+  html.wide .film > .duo { width: calc(68vh * 1320 / 1621); }
+}
+
+/* Short phones: the paired photograph gives up a little height so both names, their
+   roles and "At Club Scottsdale" always sit above the controls. */
+#i-lanctot .still { height: min(calc(100cqw * var(--k)), 76%, calc(100% - var(--lift) - 150px)); }
+.duo { top: calc(min(100cqw * 1.228, 76%, 100% - var(--lift) - 150px) - 6px); }
+html.wide #i-lanctot .still { height: auto; }
+@supports not (width: 1cqw) {
+  #i-lanctot .still { height: min(calc(100vw * var(--k)), 76%, calc(100% - var(--lift) - 150px)); }
+  .duo { top: calc(min(100vw * 1.228, 76%, 100% - var(--lift) - 150px) - 6px); }
+}
+
+/* the drone on phones: feathered top and bottom for when it eases out to full width */
+/* the drone layer is as wide as the whole 9:16 frame (wider than a tall phone), so easing
+   the scale out reveals the sides of the footage instead of shrinking a crop */
+html:not(.wide) #s-aerial .f { right: auto; width: max(100%, 100cqh * 9 / 16); left: calc(50% - max(100%, 100cqh * 9 / 16) / 2); }
+@supports not (width: 1cqw) { html:not(.wide) #s-aerial .f { width: max(100%, 100vh * 9 / 16); left: calc(50% - max(100%, 100vh * 9 / 16) / 2); } }
+html:not(.wide) #s-aerial .f {
+  -webkit-mask-image: linear-gradient(transparent, #000 5%, #000 95%, transparent), linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(transparent, #000 5%, #000 95%, transparent), linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  mask-composite: intersect;
+}
+
+/* "A look inside" sits where the room names sit, numbered 01, with a line of microtext;
+   "Learn from people…" is set the same way: eyebrow, sentence-case serif title, microtext */
+.room--stack { display: grid; gap: 10px; }
+.room__row { margin: 0; display: flex; align-items: center; gap: 12px; font-weight: 400; }
+.room__sub { margin: 0; font: 500 9px/1.3 var(--sans); letter-spacing: 0.28em; text-transform: uppercase; color: var(--pearl-2); }
+.say { position: absolute; left: var(--g); right: var(--g); bottom: var(--lift); z-index: 22; display: grid; gap: 12px; visibility: hidden; pointer-events: none; }
+.say__eyebrow { margin: 0; display: flex; align-items: center; gap: 12px; }
+.say__eyebrow .room__n { font-size: 20px; }
+.say__k { font: 500 9.5px/1 var(--sans); letter-spacing: 0.3em; text-transform: uppercase; color: var(--pearl); }
+.say__title { margin: 0; max-width: 12em; font: 400 clamp(24px, 7cqw, 28px)/1.1 var(--serif); letter-spacing: -0.01em; text-wrap: balance; color: var(--pearl); }
+.say__title em { font-style: italic; }
+html.wide .say { left: 9%; right: auto; bottom: 14%; max-width: 38%; }
+html.wide .say__title { font-size: clamp(30px, 2.4cqw, 40px); }
+@supports not (width: 1cqw) { .say__title { font-size: clamp(24px, 7vw, 28px); } }
+/* the room titles share the line "A Look Inside" sits on (its microtext sits beneath) */
+.film > .room:not(.room--stack) { bottom: calc(var(--lift) + 22px); }
+html.wide .film > .room:not(.room--stack) { bottom: calc(14% + 22px); }
